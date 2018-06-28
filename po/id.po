@@ -1,0 +1,108 @@
+# Indonesian translation for tagger
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the tagger package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tagger\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2016-04-02 04:49+0200\n"
+"PO-Revision-Date: 2014-10-08 12:14+0000\n"
+"Last-Translator: Dirgita <Unknown>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-04-03 05:54+0000\n"
+"X-Generator: Launchpad (build 17972)\n"
+
+#: ../app/qml/tagger.qml:142
+msgid "Error"
+msgstr "Galat"
+
+#. TRANSLATORS: Displayed after a picture has been scanned and no code was found in it
+#: ../app/qml/tagger.qml:153
+msgid "No code found in image"
+msgstr "Tak ada kode pada gambar"
+
+#: ../app/qml/tagger.qml:170
+msgid "Scan code"
+msgstr "Pindai kode"
+
+#: ../app/qml/tagger.qml:174
+msgid "Generate code"
+msgstr "Buat kode"
+
+#. TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
+#: ../app/qml/tagger.qml:180
+msgid "Import image"
+msgstr "Impor gambar"
+
+#: ../app/qml/tagger.qml:194 ../app/qml/tagger.qml:200
+msgid "Previously scanned"
+msgstr ""
+
+#: ../app/qml/tagger.qml:379
+msgid "Decoding image"
+msgstr "Membaca kode gambar"
+
+#: ../app/qml/tagger.qml:400
+msgid "Results"
+msgstr "Hasil"
+
+#: ../app/qml/tagger.qml:452
+msgid "Code type"
+msgstr "Jenis kode"
+
+#: ../app/qml/tagger.qml:465
+msgid "Content length"
+msgstr "Panjang isi"
+
+#: ../app/qml/tagger.qml:479 ../app/qml/tagger.qml:681
+msgid "Code content"
+msgstr "Isi kode"
+
+#: ../app/qml/tagger.qml:500
+msgid "Open URL"
+msgstr "Buka URL"
+
+#: ../app/qml/tagger.qml:506
+msgid "Search online"
+msgstr "Cari secara daring"
+
+#: ../app/qml/tagger.qml:541
+msgid "Call number"
+msgstr ""
+
+#: ../app/qml/tagger.qml:550
+msgid "Save contact"
+msgstr ""
+
+#: ../app/qml/tagger.qml:561
+msgid "Copy to clipboard"
+msgstr "Salin ke papan klip"
+
+#: ../app/qml/tagger.qml:568 ../app/qml/tagger.qml:616
+msgid "Generate QR code"
+msgstr "Buat kode QR"
+
+#: ../app/qml/tagger.qml:580
+msgid "Contact"
+msgstr ""
+
+#: ../app/qml/tagger.qml:659
+msgid "QR-Code"
+msgstr "Kode QR"
+
+#: ../app/qml/tagger.qml:782
+msgid "Close"
+msgstr "Tutup"
+
+#: tagger.desktop.in.in.h:1
+msgid "Tagger"
+msgstr "Tagger"
+
+#: tagger.desktop.in.in.h:2
+msgid "Read and create QR code and barcode tags"
+msgstr "Membaca dan membuat kode batang maupun QR"

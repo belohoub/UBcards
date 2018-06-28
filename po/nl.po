@@ -1,0 +1,108 @@
+# Dutch translation for tagger
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the tagger package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tagger\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2016-04-02 04:49+0200\n"
+"PO-Revision-Date: 2014-10-09 15:06+0000\n"
+"Last-Translator: Hannie Dumoleyn <Unknown>\n"
+"Language-Team: Dutch <nl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2016-04-03 05:54+0000\n"
+"X-Generator: Launchpad (build 17972)\n"
+
+#: ../app/qml/tagger.qml:142
+msgid "Error"
+msgstr "Fout"
+
+#. TRANSLATORS: Displayed after a picture has been scanned and no code was found in it
+#: ../app/qml/tagger.qml:153
+msgid "No code found in image"
+msgstr "Geen code gevonden in afbeelding"
+
+#: ../app/qml/tagger.qml:170
+msgid "Scan code"
+msgstr "Code scannen"
+
+#: ../app/qml/tagger.qml:174
+msgid "Generate code"
+msgstr "Code genereren"
+
+#. TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
+#: ../app/qml/tagger.qml:180
+msgid "Import image"
+msgstr "Afbeelding importeren"
+
+#: ../app/qml/tagger.qml:194 ../app/qml/tagger.qml:200
+msgid "Previously scanned"
+msgstr ""
+
+#: ../app/qml/tagger.qml:379
+msgid "Decoding image"
+msgstr "Afbeelding wordt gedecodeerd"
+
+#: ../app/qml/tagger.qml:400
+msgid "Results"
+msgstr "Resultaten"
+
+#: ../app/qml/tagger.qml:452
+msgid "Code type"
+msgstr "Codetype"
+
+#: ../app/qml/tagger.qml:465
+msgid "Content length"
+msgstr "Lengte inhoud"
+
+#: ../app/qml/tagger.qml:479 ../app/qml/tagger.qml:681
+msgid "Code content"
+msgstr "Inhoud code"
+
+#: ../app/qml/tagger.qml:500
+msgid "Open URL"
+msgstr "URL openen"
+
+#: ../app/qml/tagger.qml:506
+msgid "Search online"
+msgstr "Online zoeken"
+
+#: ../app/qml/tagger.qml:541
+msgid "Call number"
+msgstr ""
+
+#: ../app/qml/tagger.qml:550
+msgid "Save contact"
+msgstr ""
+
+#: ../app/qml/tagger.qml:561
+msgid "Copy to clipboard"
+msgstr "Naar klembord kopiëren"
+
+#: ../app/qml/tagger.qml:568 ../app/qml/tagger.qml:616
+msgid "Generate QR code"
+msgstr "QR-code genereren"
+
+#: ../app/qml/tagger.qml:580
+msgid "Contact"
+msgstr ""
+
+#: ../app/qml/tagger.qml:659
+msgid "QR-Code"
+msgstr "QR-code"
+
+#: ../app/qml/tagger.qml:782
+msgid "Close"
+msgstr "Sluiten"
+
+#: tagger.desktop.in.in.h:1
+msgid "Tagger"
+msgstr "Tagger"
+
+#: tagger.desktop.in.in.h:2
+msgid "Read and create QR code and barcode tags"
+msgstr "QR-code- en barcodetags lezen en aanmaken"
