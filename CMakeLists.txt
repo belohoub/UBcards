@@ -35,7 +35,7 @@ set(APP_NAME          tagger)
 
 #set install paths
 set(CMAKE_INSTALL_PREFIX /)
-set(DATA_DIR /)
+set(DATA_DIR .)
 set(DESKTOP_DIR ${DATA_DIR})
 
 #This command figures out the target architecture and puts it into the manifest file
@@ -47,10 +47,11 @@ execute_process(
 
 execute_process(
   COMMAND cp
-  /usr/lib/libzbar.so.0
-  /usr/lib/arm-linux-gnueabihf/libqrencode.so
-  /usr/lib/arm-linux-gnueabihf/libqrencode.so.3
-  /usr/lib/arm-linux-gnueabihf/libqrencode.so.3.4.3
+  #/usr/lib/libzbar.so.0 # for 15.04
+  /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libzbar.so.0
+  /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so
+  /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so.3
+  #/usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so.3.4.3
   ${CMAKE_BINARY_DIR}
 )
 
@@ -80,7 +81,7 @@ install(FILES
   "${CMAKE_BINARY_DIR}/libzbar.so.0"
   "${CMAKE_BINARY_DIR}/libqrencode.so"
   "${CMAKE_BINARY_DIR}/libqrencode.so.3"
-  "${CMAKE_BINARY_DIR}/libqrencode.so.3.4.3"
+  #"${CMAKE_BINARY_DIR}/libqrencode.so.3.4.3"
 DESTINATION lib/${ARCH_TRIPLET})
 
 add_subdirectory(app)
