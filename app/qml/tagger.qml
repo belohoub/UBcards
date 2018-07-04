@@ -31,7 +31,7 @@ import Tagger 0.1
 MainView {
     id: mainView
 
-    applicationName: "com.ubuntu.developer.mzanetti.tagger"
+    applicationName: "openstore.tagger"
 
     Component.onCompleted: i18n.domain = "tagger"
 

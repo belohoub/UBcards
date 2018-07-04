@@ -9,8 +9,8 @@
             "content-hub": "tagger-contenthub.json"
         }
     },
-    "maintainer": "Michael Zanetti <michael.zanetti@canonical.com>",
-    "name": "com.ubuntu.developer.mzanetti.tagger",
+    "maintainer": "Chris Clime <chris.clime@gmx.net>",
+    "name": "openstore.tagger",
     "title": "Tagger",
     "version": "0.15.0.0"
 }
