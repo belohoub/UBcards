@@ -9,7 +9,7 @@
 HistoryModel::HistoryModel(QObject *parent):
     QAbstractListModel(parent),
     QQuickImageProvider(QQuickImageProvider::Image),
-    m_cacheLocation(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first() + "/.cache/com.ubuntu.developer.mzanetti.tagger/"),
+    m_cacheLocation(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first() + "/.cache/openstore.tagger/"),
     m_settings(m_cacheLocation + "history.ini", QSettings::IniFormat)
 {
     qDebug() << "History saved in" << m_settings.fileName();
