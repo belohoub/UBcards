@@ -1,4 +1,3 @@
 {
-  "dependencies": [ "libqrencode-dev", "libzbar-dev" ],
-  "ssh_": "bq.fritz.box"
+  "dependencies_target": [ "libmagick++-dev", "libqrencode-dev", "libzbar-dev" ]
 }
