@@ -1,4 +1,4 @@
 {
-  "dependencies": [ "libqrencode-dev", "libzbar-dev" ],
-  "ssh_": "bq.fritz.box"
+  "dependencies_target": [ "libqrencode-dev", "libzbar-dev" ],
+  "template" : "cmake"
 }
