@@ -1,4 +1,4 @@
 {
-  "dependencies_target": [ "libmagick++-dev", "libqrencode-dev", "libzbar-dev" ]
+  "dependencies_target": [ "libmagick++-dev", "libqrencode-dev", "libzbar-dev" ],
   "builder" : "cmake"
 }
