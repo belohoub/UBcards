@@ -1,4 +1,4 @@
 {
   "dependencies_target": [ "libqrencode-dev", "libzbar-dev" ],
-  "template" : "cmake"
+  "builder" : "cmake"
 }
