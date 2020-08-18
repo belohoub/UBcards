@@ -390,7 +390,7 @@ MainView {
             property string text
             property string imageSource
 
-            property bool isUrl: !isPhoneNumber && resultsPage.text.match(/^[a-z0-9]+:[^\s]+$/)
+            property bool isUrl: resultsPage.text.match(/^[a-z0-9]+:[^\s]+$/)
             property bool isPhoneNumber: resultsPage.text.indexOf("tel:") == 0
             property bool isVCard: resultsPage.text.indexOf("BEGIN:VCARD") == 0
 
@@ -498,7 +498,7 @@ MainView {
                         Button {
                             Layout.fillWidth: true
                             text: i18n.tr("Open URL")
-                            visible: resultsPage.isUrl
+                            visible: resultsPage.isUrl && !resultsPage.isPhoneNumber
                             color: UbuntuColors.green
                             onClicked: Qt.openUrlExternally(resultsPage.text)
                         }
