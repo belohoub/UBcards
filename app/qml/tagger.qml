@@ -390,7 +390,7 @@ MainView {
             property string text
             property string imageSource
 
-            property bool isUrl: resultsPage.text.match(/^[a-z]+:\//)
+            property bool isUrl: resultsPage.text.match(/^[a-z0-9]+:[^ ]+$/)
             property bool isPhoneNumber: resultsPage.text.indexOf("tel:") == 0
             property bool isVCard: resultsPage.text.indexOf("BEGIN:VCARD") == 0
 
