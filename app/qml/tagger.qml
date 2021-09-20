@@ -392,6 +392,7 @@ MainView {
 
             property bool isUrl: resultsPage.text.match(/^[a-z0-9]+:[^\s]+$/)
             property bool isPhoneNumber: resultsPage.text.indexOf("tel:") == 0
+            property bool isWifi: resultsPage.text.indexOf("WIFI") == 0
             property bool isVCard: resultsPage.text.indexOf("BEGIN:VCARD") == 0
 
             header: PageHeader {
@@ -498,7 +499,7 @@ MainView {
                         Button {
                             Layout.fillWidth: true
                             text: i18n.tr("Open URL")
-                            visible: resultsPage.isUrl && !resultsPage.isPhoneNumber
+                            visible: resultsPage.isUrl && !resultsPage.isPhoneNumber && !results.Page.isWifi
                             color: UbuntuColors.green
                             onClicked: Qt.openUrlExternally(resultsPage.text)
                         }
@@ -543,6 +544,15 @@ MainView {
                             color: UbuntuColors.green
                             onClicked: {
                                 Qt.openUrlExternally("tel:///" + resultsPage.text)
+                            }
+                        }
+                        Button {
+                            Layout.fillWidth: true
+                            text: i18n.tr("Connect to WIFI")
+                            visible: resultsPage.isWifi
+                            color: UbuntuColors.green
+                            onClicked: {
+                                Qt.openUrlExternally(resultsPage.text)
                             }
                         }
                         Button {
