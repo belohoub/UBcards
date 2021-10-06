@@ -392,7 +392,7 @@ MainView {
 
             property bool isUrl: resultsPage.text.match(/^[a-z0-9]+:[^\s]+$/)
             property bool isPhoneNumber: resultsPage.text.indexOf("tel:") == 0
-            property bool isWifi: resultsPage.text.indexOf("WIFI") == 0
+            property bool isWifi: resultsPage.text.indexOf("WIFI:") == 0
             property bool isVCard: resultsPage.text.indexOf("BEGIN:VCARD") == 0
 
             header: PageHeader {
