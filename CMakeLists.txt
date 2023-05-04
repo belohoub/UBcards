@@ -50,8 +50,9 @@ execute_process(
   #/usr/lib/libzbar.so.0 # for 15.04
   /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libzbar.so.0
   /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so
-  /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so.3
+  #/usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so.3
   #/usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so.3.4.3
+  /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/libqrencode.so.4
   ${CMAKE_BINARY_DIR}
 )
 
@@ -80,8 +81,9 @@ install(FILES "tagger-contenthub.json" DESTINATION ${DATA_DIR})
 install(FILES
   "${CMAKE_BINARY_DIR}/libzbar.so.0"
   "${CMAKE_BINARY_DIR}/libqrencode.so"
-  "${CMAKE_BINARY_DIR}/libqrencode.so.3"
+  #"${CMAKE_BINARY_DIR}/libqrencode.so.3"
   #"${CMAKE_BINARY_DIR}/libqrencode.so.3.4.3"
+  "${CMAKE_BINARY_DIR}/libqrencode.so.4"
 DESTINATION lib/${ARCH_TRIPLET})
 
 add_subdirectory(app)

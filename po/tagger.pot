@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-04 16:54+0000\n"
+"POT-Creation-Date: 2023-05-04 09:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,55 +47,59 @@ msgstr ""
 msgid "Decoding image"
 msgstr ""
 
-#: ../app/qml/tagger.qml:400
+#: ../app/qml/tagger.qml:401
 msgid "Results"
 msgstr ""
 
-#: ../app/qml/tagger.qml:452
+#: ../app/qml/tagger.qml:453
 msgid "Code type"
 msgstr ""
 
-#: ../app/qml/tagger.qml:465
+#: ../app/qml/tagger.qml:466
 msgid "Content length"
 msgstr ""
 
-#: ../app/qml/tagger.qml:479 ../app/qml/tagger.qml:681
+#: ../app/qml/tagger.qml:480 ../app/qml/tagger.qml:691
 msgid "Code content"
 msgstr ""
 
-#: ../app/qml/tagger.qml:500
+#: ../app/qml/tagger.qml:501
 msgid "Open URL"
 msgstr ""
 
-#: ../app/qml/tagger.qml:506
+#: ../app/qml/tagger.qml:507
 msgid "Search online"
 msgstr ""
 
-#: ../app/qml/tagger.qml:541
+#: ../app/qml/tagger.qml:542
 msgid "Call number"
 msgstr ""
 
-#: ../app/qml/tagger.qml:550
+#: ../app/qml/tagger.qml:551
+msgid "Connect to WIFI"
+msgstr ""
+
+#: ../app/qml/tagger.qml:560
 msgid "Save contact"
 msgstr ""
 
-#: ../app/qml/tagger.qml:561
+#: ../app/qml/tagger.qml:571
 msgid "Copy to clipboard"
 msgstr ""
 
-#: ../app/qml/tagger.qml:568 ../app/qml/tagger.qml:616
+#: ../app/qml/tagger.qml:578 ../app/qml/tagger.qml:626
 msgid "Generate QR code"
 msgstr ""
 
-#: ../app/qml/tagger.qml:580
+#: ../app/qml/tagger.qml:590
 msgid "Contact"
 msgstr ""
 
-#: ../app/qml/tagger.qml:659
+#: ../app/qml/tagger.qml:669
 msgid "QR-Code"
 msgstr ""
 
-#: ../app/qml/tagger.qml:782
+#: ../app/qml/tagger.qml:792
 msgid "Close"
 msgstr ""
 
