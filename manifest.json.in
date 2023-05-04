@@ -10,7 +10,7 @@
         }
     },
     "maintainer": "Jan Belohoubek <jan.belohoubek@fit.cvut.cz>",
-    "name": "openstore.tagger",
+    "name": "tagger.belohoub",
     "title": "Tagger",
-    "version": "0.17.0"
+    "version": "0.17.1"
 }
