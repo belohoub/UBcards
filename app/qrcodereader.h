@@ -63,6 +63,7 @@ public:
 public slots:
     void grab(const QString &name, const QString &issuer);
     void processImage(const QUrl &url, const QString &name, const QString &issuer);
+    void insertData(const QString &text, const QString &type, const QString &name, const QString &issuer);
 
 signals:
     void validChanged();
@@ -93,6 +94,7 @@ class Reader : public QObject
 
 public slots:
     void doWork(const QImage &image, const QString &name, const QString &issuer, bool invert);
+    void insertData(const QString &text, const QString &type, const QString &name, const QString &issuer);
 
 signals:
     void resultReady(const QString &type, const QString &text, const QString &name, const QString &issuer, const QImage &codeImage);

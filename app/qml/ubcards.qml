@@ -35,6 +35,9 @@ MainView {
     applicationName: "ubcards.belohoub"
 
     Component.onCompleted: i18n.domain = "ubcards"
+    
+    property var m_issuer: "undefined"
+    property var m_name: "undefined"
 
     width: units.gu(40)
     height: units.gu(68)
@@ -74,13 +77,13 @@ MainView {
         onImportRequested: {
             print("**** import Requested")
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath, "undefined", "unknown");
+            qrCodeReader.processImage(filePath, m_name, m_issuer);
         }
 
         onShareRequested: {
             print("***** share requested", transfer)
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath, "undefined", "unknown");
+            qrCodeReader.processImage(filePath, m_name, m_issuer);
         }
     }
 
@@ -106,7 +109,7 @@ MainView {
             case ContentTransfer.Charged:
                 print("should process", activeTransfer.items[0].url)
                 mainView.decodingImage = true;
-                qrCodeReader.processImage(activeTransfer.items[0].url, "undefined", "unknown");
+                qrCodeReader.processImage(activeTransfer.items[0].url, m_name, m_issuer);
                 mainView.activeTransfer = null;
                 break;
             case ContentTransfer.Aborted:
@@ -146,6 +149,7 @@ MainView {
         id: cardWalletComponent
         
         Page {
+            id: cardWalletPage            
             
             header: PageHeader {
                 id: cardWalletHeader
@@ -158,25 +162,222 @@ MainView {
                         onTriggered: {
                             pageStack.push(aboutComponent)
                         }
-                    },
-                    Action {
-                        // TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
-                        text: i18n.tr("Import image")
-                        iconName: "insert-image"
-                        onTriggered: {
-                            mainView.activeTransfer = picSourceSingle.request()
-                            print("transfer request", mainView.activeTransfer)
-                        }
-                    },
-                    Action {
-                        // TRANSLATORS: Name of an action in the toolbar to scan barcode
-                        text: i18n.tr("Scan Card")
-                        iconName: "camera-photo-symbolic"
-                        onTriggered: {
-                            onTriggered: pageStack.push(qrCodeReaderComponent)
-                        }
                     }
                 ]
+            }
+            
+            BottomEdge {
+                id: bottomEdge
+                height: parent.height
+                hint.text: i18n.tr("Add New Card")
+                contentComponent: Rectangle {
+                    width: cardWalletPage.width
+                    height: cardWalletPage.height
+                    
+                    PageHeader {
+                        title: "Add New Card"
+                        id: addNewCardPageHeader
+                        trailingActionBar.actions: [
+                            Action {
+                                // TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
+                                text: i18n.tr("Import image")
+                                iconName: "insert-image"
+                                onTriggered: {
+                                    m_name = newCardName.text
+                                    m_issuer = newCardIssuer.text
+                                    mainView.activeTransfer = picSourceSingle.request()
+                                    print("transfer request", mainView.activeTransfer)
+                                }
+                            },
+                            Action {
+                                // TRANSLATORS: Name of an action in the toolbar to scan barcode
+                                text: i18n.tr("Scan Card")
+                                iconName: "camera-photo-symbolic"
+                                onTriggered: {
+                                    onTriggered: pageStack.push(qrCodeReaderComponent)
+                                }
+                            }
+                        ]
+                    }
+                    
+                    Flickable {
+                        id: flickable
+                
+                        flickableDirection: Flickable.AutoFlickIfNeeded
+                        anchors.fill: parent
+                        anchors.topMargin: addNewCardPageHeader.height
+                         anchors.bottomMargin: units.gu(5)
+                        contentHeight: accountEditColumn.height
+                
+                        Column {
+                            id: accountEditColumn
+                
+                            spacing: units.gu(1.5)
+                            anchors {
+                                top: parent.top; left: parent.left; right: parent.right; margins: units.gu(2)
+                            }
+
+                            Item {
+                                 width: parent.width
+                                 height: newCardNameLabel.height
+                    
+                                Label {
+                                    id: newCardNameLabel
+                                    text: i18n.tr("Insert card name:")
+                                    font.pointSize: units.gu(1.5)
+                                }
+                            }
+                            
+                            Item {
+                                 width: parent.width
+                                 height: newCardName.height
+                    
+                                TextEdit {
+                                    id: newCardName
+                                    // TRANSLATORS: Default Card Name
+                                    text: i18n.tr("Card-Name")
+                                    font.pointSize: units.gu(2)
+                                    wrapMode: TextEdit.WrapAnywhere
+                                    inputMethodHints: Qt.ImhNoPredictiveText
+                                    width: parent.width
+                                    readOnly: false
+                                }
+                            }
+                            
+                            Item {
+                                 width: parent.width
+                                 height: newCardIssuerLabel.height
+                    
+                                Label {
+                                    id: newCardIssuerLabel
+                                    text: i18n.tr("Insert card issuer:")
+                                    font.pointSize: units.gu(1.5)
+                                }
+                            }
+                            
+                            Item {
+                                width: parent.width
+                                height: newCardIssuer.height
+                                 
+                                TextEdit {
+                                    id: newCardIssuer
+                                    // TRANSLATORS: Default Card Issuer name
+                                    text: i18n.tr("Card-Issuer")
+                                    font.pointSize: units.gu(2)
+                                    wrapMode: TextEdit.WrapAnywhere
+                                    inputMethodHints: Qt.ImhNoPredictiveText
+                                    width: parent.width
+                                    readOnly: false
+                                }
+                            }
+                            
+                            Item {
+                                 width: parent.width
+                                 height: units.gu(2)
+                            }
+                            
+                            Item {
+                                 width: parent.width
+                                 height: newCardNotice.height
+                                 anchors {
+                                     left: parent.left
+                                     right: parent.right
+                                 }
+                                 
+                    
+                                Label {
+                                    id: newCardNotice
+                                    anchors {
+                                        left: parent.left
+                                        right: parent.right
+                                        margins: units.gu(2)
+                                        horizontalCenter: parent.horizontalCenter
+                                    }
+                                    wrapMode: Text.Wrap
+                                    text: i18n.tr("Set card type and card ID manually to edit-boxes below OR scan code using icons above.")
+                                    font.pointSize: units.gu(2.5)
+                                }
+                            }
+                            
+                            Item {
+                                 width: parent.width
+                                 height: units.gu(2)
+                            }
+                            
+                            Item {
+                                 width: parent.width
+                                 height: newCardTypeLabel.height
+                    
+                                Label {
+                                    id: newCardTypeLabel
+                                    text: i18n.tr("Select card type:")
+                                    font.pointSize: units.gu(1.5)
+                                }
+                            }
+                            
+                            Item {
+                                width: parent.width
+                                height: newCardType.height
+                                 
+                                TextEdit {
+                                    id: newCardType
+                                    text: i18n.tr("CODE-128")
+                                    font.pointSize: units.gu(2)
+                                    wrapMode: TextEdit.WrapAnywhere
+                                    inputMethodHints: Qt.ImhNoPredictiveText
+                                    width: parent.width
+                                    readOnly: false
+                                }
+                            }
+                            
+                            Item {
+                                 width: parent.width
+                                 height: newCardIDLabel.height
+                    
+                                Label {
+                                    id: newCardIDLabel
+                                    text: i18n.tr("Set card ID:")
+                                    font.pointSize: units.gu(1.5)
+                                }
+                            }
+                            
+                            Item {
+                                width: parent.width
+                                height: newCardID.height
+                                 
+                                TextEdit {
+                                    id: newCardID
+                                    text: ""
+                                    font.pointSize: units.gu(2)
+                                    wrapMode: TextEdit.WrapAnywhere
+                                    inputMethodHints: Qt.ImhNoPredictiveText
+                                    width: parent.width
+                                    readOnly: false
+                                }
+                            }
+                    
+                            Button {
+                                width: parent.width
+                                text: "Insert Card"
+                                color: LomiriColors.green
+                                onClicked: {
+                                    bottomEdge.collapse()
+                                    qrCodeReader.insertData(newCardID.text, newCardType.text, newCardName.text, newCardIssuer.text);
+                                }
+                            }
+                    /*
+                            Button {
+                                width: parent.width
+                                text: "Collapse"
+                                onClicked: bottomEdge.collapse()
+                            }*/
+                    
+                        }
+                         
+                    }
+                    
+                }
+                
             }
             
             Flickable {
@@ -305,7 +506,7 @@ MainView {
                 onTriggered: {
                     if (!qrCodeReader.scanning) {
 //                        print("capturing");
-                        qrCodeReader.grab("undefined", "unknown");
+                        qrCodeReader.grab(newCardName.text, newCardIssuer.text);
                     }
                 }
 

@@ -157,6 +157,19 @@ void QRCodeReader::processImage(const QUrl &url, const QString &name, const QStr
     QMetaObject::invokeMethod(reader, "doWork", Q_ARG(QImage, image), Q_ARG(QString, name), Q_ARG(QString, issuer), Q_ARG(bool, false));
 }
 
+
+void QRCodeReader::insertData(const QString &text, const QString &type, const QString &name, const QString &issuer)
+{
+    Reader *reader = new Reader;
+    reader->moveToThread(&m_readerThread);
+    connect(reader, SIGNAL(finished()), reader, SLOT(deleteLater()));
+    connect(reader, SIGNAL(finished()), &m_readerThread, SLOT(quit()));
+    connect(reader, SIGNAL(resultReady(QString, QString, QString, QString, QImage)), this, SLOT(handleResults(QString, QString, QString, QString, QImage)));
+    m_readerThread.start();
+    
+    QMetaObject::invokeMethod(reader, "insertData", Q_ARG(QString, text), Q_ARG(QString, type), Q_ARG(QString, name),  Q_ARG(QString, issuer));
+}
+
 void QRCodeReader::handleResults(const QString &type, const QString &text, const QString &name, const QString &issuer, const QImage &codeImage)
 {
     m_type = type;
@@ -238,6 +251,12 @@ void Reader::doWork(const QImage &image, const QString &name, const QString &iss
     img.set_data(NULL, 0);
 
     emit finished();
+}
+
+void Reader::insertData(const QString &text, const QString &type, const QString &name, const QString &issuer)
+{
+    emit resultReady(type, text, name, issuer, QImage());
+    emit finished();   
 }
 
 HistoryModel *QRCodeReader::history() const
