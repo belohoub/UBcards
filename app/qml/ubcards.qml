@@ -42,22 +42,7 @@ MainView {
     PageStack {
         id: pageStack
         Component.onCompleted: {
-            pageStack.push(dummyPage)
-        }
-    }
-    Page {
-        id: dummyPage
-    }
-
-    Timer {
-        interval: 1
-        running: true
-        repeat: false
-        onTriggered: {
-            if (pageStack.currentPage == dummyPage) {
-                pageStack.pop();
-                pageStack.push(qrCodeReaderComponent)
-            }
+            pageStack.push(cardWalletComponent)
         }
     }
 
@@ -72,7 +57,7 @@ MainView {
 
         onValidChanged: {
             if (qrCodeReader.valid) {
-//                pageStack.pop();
+                pageStack.pop();
                 pageStack.push(resultsPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, imageSource: qrCodeReader.imageSource});
             }
         }
@@ -158,23 +143,21 @@ MainView {
     }
 
     Component {
-        id: qrCodeReaderComponent
-
-        PageWithBottomEdge {
-            id: qrCodeReaderPage
-            // TRANSLATORS: Title of the main page of the app, when the camera is active and scanning for codes
-            signal codeParsed(string type, string text)
-
-            property var aboutPopup: null
-
+        id: cardWalletComponent
+        
+        Page {
+            
             header: PageHeader {
-                title: i18n.tr("Scan code")
+                id: cardWalletHeader
+                title: i18n.tr("Card Wallet")
                 leadingActionBar.actions: []
                 trailingActionBar.actions: [
                     Action {
-                        text: i18n.tr("Generate code")
-                        iconName: "compose"
-                        onTriggered: pageStack.push(showQRCodeComponent)
+                        text: i18n.tr("About")
+                        iconName: "info"
+                        onTriggered: {
+                            pageStack.push(aboutComponent)
+                        }
                     },
                     Action {
                         // TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
@@ -184,74 +167,104 @@ MainView {
                             mainView.activeTransfer = picSourceSingle.request()
                             print("transfer request", mainView.activeTransfer)
                         }
+                    },
+                    Action {
+                        // TRANSLATORS: Name of an action in the toolbar to scan barcode
+                        text: i18n.tr("Scan Card")
+                        iconName: "camera-photo-symbolic"
+                        onTriggered: {
+                            onTriggered: pageStack.push(qrCodeReaderComponent)
+                        }
                     }
+                ]
+            }
+            
+            Flickable {
+                id: flickable
+                
+                flickableDirection: Flickable.AutoFlickIfNeeded
+                anchors.fill: parent
+            
+                ListView {
+                    anchors.fill: parent
+                    anchors.topMargin: cardWalletHeader.height
+                    model: qrCodeReader.history
+                
+                    delegate: ListItem {
+                        height: units.gu(10)
+                
+                        leadingActions: ListItemActions {
+                            actions: [
+                                Action {
+                                    iconName: "delete"
+                                    onTriggered: {
+                                        qrCodeReader.history.remove(index)
+                                    }
+                                }
+                            ]
+                        }
+                
+                        RowLayout {
+                            anchors.fill: parent
+                            anchors.margins: units.gu(1)
+                            LomiriShape {
+                                Layout.fillHeight: true
+                                Layout.preferredWidth: height
+                                image: Image {
+                                    anchors.fill: parent
+                                    source: model.imageSource
+                                }
+                            }
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Label {
+                                    Layout.fillWidth: true
+                                    elide: Text.ElideRight
+                                    text: model.text
+                                    maximumLineCount: 2
+                                }
+                                Label {
+                                    Layout.fillWidth: true
+                                    text: model.type + " - " + model.timestamp
+                                }
+                            }
+                        }
+                
+                        onClicked: {
+                            pageStack.push(resultsPageComponent, {type: model.type, text: model.text, imageSource: model.imageSource})
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    Component {
+        id: qrCodeReaderComponent
+        
+        Page {
+            id: qrCodeReaderPage
+            signal codeParsed(string type, string text)
+            property var aboutPopup: null
+            
+            header: PageHeader {
+                title: i18n.tr("Scan Card")
+                leadingActionBar.actions: [
+                    Action {
+                        iconName: "back"
+                        onTriggered: {
+                            pageStack.pop()
+                        }
+                    }
+                ]
+                trailingActionBar.actions: [
+                    
                 ]
             }
 
             Component.onCompleted: {
                 qrCodeReader.scanRect = Qt.rect(mainView.mapFromItem(videoOutput, 0, 0).x, mainView.mapFromItem(videoOutput, 0, 0).y, videoOutput.width, videoOutput.height)
-            }
-
-            bottomEdgeTitle: i18n.tr("Stored Cards")
-
-            bottomEdgePageComponent: Component {
-                Page {
-                    header: PageHeader {
-                        id: previouslyScannedHeader
-                        title: i18n.tr("Stored Cards")
-                    }
-                    ListView {
-                        anchors.fill: parent
-                        anchors.topMargin: previouslyScannedHeader.height
-                        model: qrCodeReader.history
-
-                        delegate: ListItem {
-                            height: units.gu(10)
-
-                            leadingActions: ListItemActions {
-                                actions: [
-                                    Action {
-                                        iconName: "delete"
-                                        onTriggered: {
-                                            qrCodeReader.history.remove(index)
-                                        }
-                                    }
-                                ]
-                            }
-
-                            RowLayout {
-                                anchors.fill: parent
-                                anchors.margins: units.gu(1)
-                                LomiriShape {
-                                    Layout.fillHeight: true
-                                    Layout.preferredWidth: height
-                                    image: Image {
-                                        anchors.fill: parent
-                                        source: model.imageSource
-                                    }
-                                }
-                                ColumnLayout {
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
-                                    Label {
-                                        Layout.fillWidth: true
-                                        elide: Text.ElideRight
-                                        text: model.text
-                                        maximumLineCount: 2
-                                    }
-                                    Label {
-                                        Layout.fillWidth: true
-                                        text: model.type + " - " + model.timestamp
-                                    }
-                                }
-                            }
-
-                            onClicked: {
-                                pageStack.push(resultsPageComponent, {type: model.type, text: model.text, imageSource: model.imageSource})
-                            }
-                        }
-                    }
-                }
             }
 
             Camera {
@@ -286,13 +299,9 @@ MainView {
                 id: captureTimer
                 interval: 2000
                 repeat: true
-                running: pageStack.depth == 1
-                         && qrCodeReaderPage.aboutPopup == null
-                         && !mainView.decodingImage
-                         && mainView.activeTransfer == null
-                         && qrCodeReaderPage.isCollapsed
+                running: true
                 onTriggered: {
-                    if (!qrCodeReader.scanning && qrCodeReaderPage.isCollapsed) {
+                    if (!qrCodeReader.scanning) {
 //                        print("capturing");
                         qrCodeReader.grab();
                     }
@@ -321,7 +330,7 @@ MainView {
                 }
                 source: camera
                 focus: visible
-                visible: pageStack.depth == 1 && !mainView.decodingImage
+                visible: !mainView.decodingImage
             }
             PinchArea {
                 id: pinchy
@@ -432,13 +441,6 @@ MainView {
                         onTriggered: {
                             Qt.openUrlExternally(resultsPage.text)
                         }
-                    },
-                    Action {
-                        text: i18n.tr("About")
-                        iconName: "info"
-                        onTriggered: {
-                            pageStack.push(aboutComponent)
-                        }
                     }
                 ]
             }
@@ -523,10 +525,29 @@ MainView {
                             source: "../fonts/Code128_new.ttf"
                         }
                         
+                        FontLoader {
+                            id: font_ean13
+                            source: "../fonts/ean13_new.ttf"
+                        }
+                        
                         Text {
                             Layout.fillWidth: true
+                            visible: (resultsPage.type === "CODE-128") ? true : false
                             text: resultsPage.text
                             font.family: font_type128.name
+                            textFormat: Text.PlainText
+                            fontSizeMode: Text.HorizontalFit
+                            minimumPointSize: units.gu(5)
+                            font.pointSize: units.gu(20)
+                            horizontalAlignment: Text.AlignHCenter
+                            anchors.margins: units.gu(1)
+                        }
+                        
+                        Text {
+                            Layout.fillWidth: true
+                            visible: (resultsPage.type === "EAN-13") ? true : false
+                            text: resultsPage.text
+                            font.family: font_ean13.name
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
                             minimumPointSize: units.gu(5)
@@ -539,7 +560,7 @@ MainView {
                         Image {
                             Layout.fillWidth: true
                             id: cardCodeImage
-                            visible: (resultsPage.type === "CODE-128") ? false : true
+                            visible: ((resultsPage.type === "CODE-128") || (resultsPage.type === "EAN-13")) ? false : true
                             source: resultsPage.imageSource
                         }
                         
@@ -551,7 +572,7 @@ MainView {
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
                             minimumPointSize: units.gu(2)
-                            font.pointSize: units.gu(20)
+                            font.pointSize: units.gu(5)
                             horizontalAlignment: Text.AlignHCenter
                             anchors.margins: units.gu(1)
                         }
