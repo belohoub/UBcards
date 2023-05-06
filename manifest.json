@@ -1,0 +1,16 @@
+{
+    "architecture": "@CLICK_ARCH@",
+    "description": "Read and create QR code and barcode tags.",
+    "framework": "ubuntu-sdk-20.04",
+    "hooks": {
+        "ubcards": {
+            "apparmor": "ubcards.apparmor",
+            "desktop": "ubcards.desktop",
+            "content-hub": "ubcards-contenthub.json"
+        }
+    },
+    "maintainer": "Jan Belohoubek <jan.belohoubek@fit.cvut.cz>",
+    "name": "ubcards.belohoub",
+    "title": "UBcards",
+    "version": "0.1.0"
+}

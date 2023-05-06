@@ -1,7 +1,8 @@
 /*****************************************************************************
  * Copyright: 2013 Michael Zanetti <michael_zanetti@gmx.net>                 *
+ * Copyright (C) 2023 Jan Belohoubek, it@sforetelem.cz                       *                                                  
  *                                                                           *
- * This file is part of tagger                                               *
+ * This file is part of UBcards, fork of Tagger                              *
  *                                                                           *
  * This prject is free software: you can redistribute it and/or modify       *
  * it under the terms of the GNU General Public License as published by      *

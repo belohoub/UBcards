@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014 Canonical, Ltd.
+ * Copyright (C) 2023 Jan Belohoubek, it@sforetelem.cz
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,56 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-    Example:
-
-    MainView {
-        objectName: "mainView"
-
-        applicationName: "com.ubuntu.developer.boiko.bottomedge"
-
-        width: units.gu(100)
-        height: units.gu(75)
-
-        Component {
-            id: pageComponent
-
-            PageWithBottomEdge {
-                id: mainPage
-                title: i18n.tr("Main Page")
-
-                Rectangle {
-                    anchors.fill: parent
-                    color: "white"
-                }
-
-                bottomEdgePageComponent: Page {
-                    title: "Contents"
-                    anchors.fill: parent
-                    //anchors.topMargin: contentsPage.flickable.contentY
-
-                    ListView {
-                        anchors.fill: parent
-                        model: 50
-                        delegate: ListItems.Standard {
-                            text: "One Content Item: " + index
-                        }
-                    }
-                }
-                bottomEdgeTitle: i18n.tr("Bottom edge action")
-            }
-        }
-
-        PageStack {
-            id: stack
-            Component.onCompleted: stack.push(pageComponent)
-        }
-    }
-
-*/
 
 import QtQuick 2.4
-import Ubuntu.Components 1.3
+import Lomiri.Components 1.3
 
 Page {
     id: page
@@ -141,7 +95,7 @@ Page {
         z: 1
     }
 
-    UbuntuShape {
+    LomiriShape {
         id: tip
         objectName: "bottomEdgeTip"
 
@@ -159,8 +113,8 @@ Page {
                     PauseAnimation {
                         duration: 300
                     }
-                    UbuntuNumberAnimation {
-                        duration: UbuntuAnimation.SnapDuration
+                    LomiriNumberAnimation {
+                        duration: LomiriAnimation.SnapDuration
                     }
                 }
             }
@@ -183,8 +137,8 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             opacity: tip.hidden ? 0.0 : 1.0
             Behavior on opacity {
-                UbuntuNumberAnimation {
-                    duration: UbuntuAnimation.SnapDuration
+                LomiriNumberAnimation {
+                    duration: LomiriAnimation.SnapDuration
                 }
             }
         }
@@ -312,22 +266,22 @@ Page {
                     SmoothedAnimation {
                         target: bottomEdge
                         property: "y"
-                        duration: UbuntuAnimation.FastDuration
+                        duration: LomiriAnimation.FastDuration
                         easing.type: Easing.Linear
                     }
                     SmoothedAnimation {
                         target: edgeLoader
                         property: "anchors.topMargin"
                         to: - units.gu(4)
-                        duration: UbuntuAnimation.FastDuration
+                        duration: LomiriAnimation.FastDuration
                         easing.type: Easing.Linear
                     }
                     SmoothedAnimation {
                         target: edgeLoader
                         property: "anchors.topMargin"
                         to: 0
-                        duration: UbuntuAnimation.FastDuration
-                        easing: UbuntuAnimation.StandardEasing
+                        duration: LomiriAnimation.FastDuration
+                        easing: LomiriAnimation.StandardEasing
                     }
                     ScriptAction {
                         script: page._pushPage()
@@ -351,7 +305,7 @@ Page {
                     SmoothedAnimation {
                         target: bottomEdge
                         property: "y"
-                        duration: UbuntuAnimation.SlowDuration
+                        duration: LomiriAnimation.SlowDuration
                     }
                     ScriptAction {
                         script: {
@@ -377,7 +331,7 @@ Page {
                 SmoothedAnimation {
                     target: bottomEdge
                     property: "y"
-                    duration: UbuntuAnimation.FastDuration
+                    duration: LomiriAnimation.FastDuration
                 }
             }
         ]

@@ -1,7 +1,8 @@
 /*****************************************************************************
  * Copyright: 2013 Michael Zanetti <michael_zanetti@gmx.net>                 *
+ * Copyright (C) 2023 Jan Belohoubek, it@sforetelem.cz                       *                                                  
  *                                                                           *
- * This file is part of ubuntu-authenticator                                 *
+ * This file is part of UBcards, fork of Tagger                              *
  *                                                                           *
  * This prject is free software: you can redistribute it and/or modify       *
  * it under the terms of the GNU General Public License as published by      *
@@ -39,8 +40,8 @@ int main(int argc, char *argv[])
     view.engine()->rootContext()->setContextProperty("qrCodeReader", &reader);
 
     FileHelper fh;
-    qmlRegisterType<QRCodeGenerator>("Tagger", 0, 1, "QRCodeGenerator");
-    qmlRegisterUncreatableType<HistoryModel>("Tagger", 0, 1, "HistoryModel", "use qrCodeReader.history");
+    qmlRegisterType<QRCodeGenerator>("UBcards", 0, 1, "QRCodeGenerator");
+    qmlRegisterUncreatableType<HistoryModel>("UBcards", 0, 1, "HistoryModel", "use qrCodeReader.history");
 
     view.engine()->addImageProvider(QStringLiteral("qrcode"), new QRCodeImageProvider);
     view.engine()->addImageProvider(QStringLiteral("reader"), &reader);
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
     view.engine()->rootContext()->setContextProperty(QStringLiteral("fileHelper"), &fh);
 
     view.setResizeMode(QQuickView::SizeRootObjectToView);
-    view.setSource(QUrl::fromLocalFile("qml/tagger.qml"));
+    view.setSource(QUrl::fromLocalFile("qml/ubcards.qml"));
     view.show();
 
     return a.exec();

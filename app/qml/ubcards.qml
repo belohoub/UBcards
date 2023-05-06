@@ -1,7 +1,8 @@
 /*****************************************************************************
- * Copyright: 2013 Michael Zanetti <michael_zanetti@gmx.net>                 *
+ * Copyright: 2013 Michael Zanetti <michael_zanetti@gmx.net>      
+ * Copyright (C) 2023 Jan Belohoubek, it@sforetelem.cz
  *                                                                           *
- * This file is part of tagger                                               *
+ * This file is part of ubsync, fork of tagger                                               *
  *                                                                           *
  * This prject is free software: you can redistribute it and/or modify       *
  * it under the terms of the GNU General Public License as published by      *
@@ -20,20 +21,20 @@
 
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.ListItems 1.3
+import Lomiri.Components.Popups 1.3
 import QtMultimedia 5.0
 import QtQuick.Window 2.0
-import Ubuntu.Content 1.3
-import Tagger 0.1
+import Lomiri.Content 1.3
+import UBcards 0.1
 
 MainView {
     id: mainView
 
-    applicationName: "openstore.tagger"
+    applicationName: "ubcards.belohoub"
 
-    Component.onCompleted: i18n.domain = "tagger"
+    Component.onCompleted: i18n.domain = "ubcards"
 
     width: units.gu(40)
     height: units.gu(68)
@@ -191,13 +192,13 @@ MainView {
                 qrCodeReader.scanRect = Qt.rect(mainView.mapFromItem(videoOutput, 0, 0).x, mainView.mapFromItem(videoOutput, 0, 0).y, videoOutput.width, videoOutput.height)
             }
 
-            bottomEdgeTitle: i18n.tr("Previously scanned")
+            bottomEdgeTitle: i18n.tr("Your Cards")
 
             bottomEdgePageComponent: Component {
                 Page {
                     header: PageHeader {
                         id: previouslyScannedHeader
-                        title: i18n.tr("Previously scanned")
+                        title: i18n.tr("Your Cards")
                     }
                     ListView {
                         anchors.fill: parent
@@ -221,7 +222,7 @@ MainView {
                             RowLayout {
                                 anchors.fill: parent
                                 anchors.margins: units.gu(1)
-                                UbuntuShape {
+                                LomiriShape {
                                     Layout.fillHeight: true
                                     Layout.preferredWidth: height
                                     image: Image {
@@ -398,7 +399,7 @@ MainView {
             header: PageHeader {
                 id: resultsHeader
                 visible: !exportVCardPeerPicker.visible
-                title: i18n.tr("Results")
+                title: i18n.tr("Card Details")
             }
 
             Item {
@@ -407,7 +408,7 @@ MainView {
                 clip: true
 
                 Flickable {
-                    id: resultsFlickable
+                    id: detailFlickable
                     anchors.fill: parent
                     contentHeight: resultsColumn.implicitHeight + units.gu(4)
                     interactive: contentHeight > height
@@ -423,7 +424,8 @@ MainView {
 
                         columnSpacing: units.gu(1)
                         rowSpacing: units.gu(1)
-                        columns: resultsPage.width > resultsPage.height ? 3 : 1
+                        /*columns: resultsPage.width > resultsPage.height ? 3 : 1*/
+                        columns: 1
 
                         Row {
                             Layout.fillWidth: true
@@ -434,7 +436,7 @@ MainView {
                                 height: portrait ? width : imageShape.height
                                 property bool portrait: resultsImage.height > resultsImage.width
 
-                                UbuntuShape {
+                                LomiriShape {
                                     id: imageShape
                                     anchors.centerIn: parent
                                     // ssh : ssw = h : w
@@ -480,7 +482,7 @@ MainView {
                                 text: i18n.tr("Code content")
                                 font.bold: true
                             }
-                            UbuntuShape {
+                            LomiriShape {
                                 width: parent.width
                                 height: resultsLabel.height + units.gu(2)
                                 color: "white"
@@ -500,17 +502,17 @@ MainView {
                             Layout.fillWidth: true
                             text: i18n.tr("Open URL")
                             visible: resultsPage.isUrl && !resultsPage.isPhoneNumber && !results.Page.isWifi
-                            color: UbuntuColors.green
+                            color: LomiriColors.green
                             onClicked: Qt.openUrlExternally(resultsPage.text)
                         }
                         ComboButton {
                             text: i18n.tr("Search online")
                             Layout.fillWidth: true
                             visible: !resultsPage.isUrl && !resultsPage.isVCard
-                            color: UbuntuColors.green
+                            color: LomiriColors.green
                             z: 2
 
-                            onClicked: Qt.openUrlExternally("https://www.google.de/search?q=" + resultsPage.text)
+                            onClicked: Qt.openUrlExternally("https://www.google.com/search?q=" + resultsPage.text)
 
                             Rectangle {
                                 height: units.gu(20)
@@ -518,7 +520,7 @@ MainView {
                                 ListView {
                                     anchors.fill: parent
                                     model: ListModel {
-                                        ListElement { text: "Google"; query: "https://www.google.de/search?q=" }
+                                        ListElement { text: "Google"; query: "https://www.google.com/search?q=" }
                                         ListElement { text: "DuckDuckGo"; query: "https://duckduckgo.com/?q=" }
                                         ListElement { text: "Baidu"; query: "https://www.baidu.com/s?wd=" }
                                         ListElement { text: "Yahoo"; query: "https://search.yahoo.com/yhs/search?p=" }
@@ -541,7 +543,7 @@ MainView {
                             Layout.fillWidth: true
                             text: i18n.tr("Call number")
                             visible: resultsPage.isPhoneNumber
-                            color: UbuntuColors.green
+                            color: LomiriColors.green
                             onClicked: {
                                 Qt.openUrlExternally("tel:///" + resultsPage.text)
                             }
@@ -550,7 +552,7 @@ MainView {
                             Layout.fillWidth: true
                             text: i18n.tr("Connect to WIFI")
                             visible: resultsPage.isWifi
-                            color: UbuntuColors.green
+                            color: LomiriColors.green
                             onClicked: {
                                 Qt.openUrlExternally(resultsPage.text)
                             }
@@ -559,7 +561,7 @@ MainView {
                             Layout.fillWidth: true
                             text: i18n.tr("Save contact")
                             visible: resultsPage.isVCard
-                            color: UbuntuColors.green
+                            color: LomiriColors.green
                             onClicked: {
                                 print("should save contact")
                                 exportVCardPeerPicker.visible = true
@@ -569,17 +571,57 @@ MainView {
                         Button {
                             Layout.fillWidth: true
                             text: i18n.tr("Copy to clipboard")
-                            color: UbuntuColors.green
+                            color: LomiriColors.green
                             onClicked: Clipboard.push(resultsPage.text)
                         }
 
                         Button {
                             Layout.fillWidth: true
                             text: i18n.tr("Generate QR code")
-                            color: UbuntuColors.green
+                            color: LomiriColors.green
                             onClicked: {
                                 pageStack.push(generateCodeComponent, {textData: resultsPage.text})
                             }
+                        }
+                        
+                        /* Display barcodes for scanning */
+                        
+                        FontLoader {
+                            id: font_type128
+                            source: "../fonts/Code128_new.ttf"
+                        }
+                        
+                        Text {
+                            Layout.fillWidth: true
+                            text: resultsPage.text
+                            font.family: font_type128.name
+                            textFormat: Text.PlainText
+                            fontSizeMode: Text.HorizontalFit
+                            minimumPointSize: units.gu(5)
+                            font.pointSize: units.gu(20)
+                            horizontalAlignment: Text.AlignHCenter
+                            anchors.margins: units.gu(1)
+                        }
+                        
+                        /* This should be visible only if code-type generation is not available */
+                        Image {
+                            Layout.fillWidth: true
+                            id: cardCodeImage
+                            visible: (resultsPage.type === "CODE-128") ? false : true
+                            source: resultsPage.imageSource
+                        }
+                        
+                        Label {
+                            Layout.fillWidth: true
+                            id: cardCodeContent
+                            text: resultsPage.text
+                            color: resultsPage.isUrl ? "blue" : "black"
+                            textFormat: Text.PlainText
+                            fontSizeMode: Text.HorizontalFit
+                            minimumPointSize: units.gu(2)
+                            font.pointSize: units.gu(20)
+                            horizontalAlignment: Text.AlignHCenter
+                            anchors.margins: units.gu(1)
                         }
                     }
                 }
@@ -740,8 +782,8 @@ MainView {
         id: aboutDialogComponent
         Dialog {
             id: aboutDialog
-            title: "Tagger 0.5"
-            text: "Michael Zanetti\nmichael_zanetti@gmx.net"
+            title: "UBcards 0.5"
+            text: "Jan Belohoubek\nit@sfortelem.cz"
 
             signal closed()
 
@@ -753,7 +795,7 @@ MainView {
                     anchors.fill: parent
                     spacing: units.gu(1)
 
-                    UbuntuShape {
+                    LomiriShape {
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: units.gu(6)
                         width: units.gu(6)
