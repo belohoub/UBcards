@@ -84,7 +84,7 @@ MainView {
             // show content picker
             print("******* transfer requested!");
             pageStack.pop();
-            pageStack.push(generateCodeComponent, {transfer: transfer})
+            pageStack.push(showQRCodeComponent, {transfer: transfer})
         }
         onImportRequested: {
             print("**** import Requested")
@@ -174,7 +174,7 @@ MainView {
                     Action {
                         text: i18n.tr("Generate code")
                         iconName: "compose"
-                        onTriggered: pageStack.push(generateCodeComponent)
+                        onTriggered: pageStack.push(showQRCodeComponent)
                     },
                     Action {
                         // TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
@@ -192,13 +192,13 @@ MainView {
                 qrCodeReader.scanRect = Qt.rect(mainView.mapFromItem(videoOutput, 0, 0).x, mainView.mapFromItem(videoOutput, 0, 0).y, videoOutput.width, videoOutput.height)
             }
 
-            bottomEdgeTitle: i18n.tr("Your Cards")
+            bottomEdgeTitle: i18n.tr("Stored Cards")
 
             bottomEdgePageComponent: Component {
                 Page {
                     header: PageHeader {
                         id: previouslyScannedHeader
-                        title: i18n.tr("Your Cards")
+                        title: i18n.tr("Stored Cards")
                     }
                     ListView {
                         anchors.fill: parent
@@ -389,19 +389,60 @@ MainView {
             id: resultsPage
             property string type
             property string text
+             /* Card provider like Tesco .. */
+            property string provider
+            /* My Card name */
+            property string name 
             property string imageSource
 
             property bool isUrl: resultsPage.text.match(/^[a-z0-9]+:[^\s]+$/)
-            property bool isPhoneNumber: resultsPage.text.indexOf("tel:") == 0
-            property bool isWifi: resultsPage.text.indexOf("WIFI:") == 0
-            property bool isVCard: resultsPage.text.indexOf("BEGIN:VCARD") == 0
 
             header: PageHeader {
                 id: resultsHeader
                 visible: !exportVCardPeerPicker.visible
                 title: i18n.tr("Card Details")
+                leadingActionBar.actions: [
+                    Action {
+                        iconName: "back"
+                        onTriggered: {
+                            pageStack.pop()
+                        }
+                    }
+                ]
+                trailingActionBar.actions: [
+                    Action {
+                        text: i18n.tr("Copy to clipboard")
+                        iconName: "edit-copy"
+                        onTriggered: {
+                            Clipboard.push(resultsPage.text)
+                        }
+                    },
+                    Action {
+                        // TRANSLATORS: Name of an action in the toolbar to import show card code as QR code
+                        text: i18n.tr("Show QR code")
+                        iconName: "share"
+                        onTriggered: {
+                            pageStack.push(showQRCodeComponent, {textData: resultsPage.text})
+                        }
+                    },
+                    Action {
+                        text: i18n.tr("Open URL")
+                        visible: resultsPage.isUrl
+                        iconName: "stock_website"
+                        onTriggered: {
+                            Qt.openUrlExternally(resultsPage.text)
+                        }
+                    },
+                    Action {
+                        text: i18n.tr("About")
+                        iconName: "info"
+                        onTriggered: {
+                            pageStack.push(aboutComponent)
+                        }
+                    }
+                ]
             }
-
+            
             Item {
                 anchors.fill: parent
                 anchors.topMargin: resultsHeader.height
@@ -473,115 +514,6 @@ MainView {
                                 }
                             }
 
-                        }
-                        Column {
-                            Layout.fillWidth: true
-                            Layout.columnSpan: resultsColumn.columns == 1 ? 1 : 2
-                            spacing: units.gu(1)
-                            Label {
-                                text: i18n.tr("Code content")
-                                font.bold: true
-                            }
-                            LomiriShape {
-                                width: parent.width
-                                height: resultsLabel.height + units.gu(2)
-                                color: "white"
-
-                                Label {
-                                    id: resultsLabel
-                                    text: resultsPage.text
-                                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                    width: parent.width - units.gu(2)
-                                    anchors.centerIn: parent
-                                    color: resultsPage.isUrl ? "blue" : "black"
-                                }
-                            }
-                        }
-
-                        Button {
-                            Layout.fillWidth: true
-                            text: i18n.tr("Open URL")
-                            visible: resultsPage.isUrl && !resultsPage.isPhoneNumber && !results.Page.isWifi
-                            color: LomiriColors.green
-                            onClicked: Qt.openUrlExternally(resultsPage.text)
-                        }
-                        ComboButton {
-                            text: i18n.tr("Search online")
-                            Layout.fillWidth: true
-                            visible: !resultsPage.isUrl && !resultsPage.isVCard
-                            color: LomiriColors.green
-                            z: 2
-
-                            onClicked: Qt.openUrlExternally("https://www.google.com/search?q=" + resultsPage.text)
-
-                            Rectangle {
-                                height: units.gu(20)
-                                color: mainView.backgroundColor
-                                ListView {
-                                    anchors.fill: parent
-                                    model: ListModel {
-                                        ListElement { text: "Google"; query: "https://www.google.com/search?q=" }
-                                        ListElement { text: "DuckDuckGo"; query: "https://duckduckgo.com/?q=" }
-                                        ListElement { text: "Baidu"; query: "https://www.baidu.com/s?wd=" }
-                                        ListElement { text: "Yahoo"; query: "https://search.yahoo.com/yhs/search?p=" }
-                                        ListElement { text: "Bing"; query: "https://www.bing.com/search?q=" }
-                                        ListElement { text: "Wikipedia"; query: "https://wikipedia.org/wiki/Special:Search?search=" }
-                                        ListElement { text: "Amazon"; query: "http://www.amazon.com/s?field-keywords=" }
-                                        ListElement { text: "ebay"; query: "http://www.ebay.com/sch/i.html?_nkw=" }
-                                    }
-
-                                    delegate: Standard {
-                                        text: model.text
-                                        onClicked: {
-                                            Qt.openUrlExternally(model.query + resultsPage.text)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        Button {
-                            Layout.fillWidth: true
-                            text: i18n.tr("Call number")
-                            visible: resultsPage.isPhoneNumber
-                            color: LomiriColors.green
-                            onClicked: {
-                                Qt.openUrlExternally("tel:///" + resultsPage.text)
-                            }
-                        }
-                        Button {
-                            Layout.fillWidth: true
-                            text: i18n.tr("Connect to WIFI")
-                            visible: resultsPage.isWifi
-                            color: LomiriColors.green
-                            onClicked: {
-                                Qt.openUrlExternally(resultsPage.text)
-                            }
-                        }
-                        Button {
-                            Layout.fillWidth: true
-                            text: i18n.tr("Save contact")
-                            visible: resultsPage.isVCard
-                            color: LomiriColors.green
-                            onClicked: {
-                                print("should save contact")
-                                exportVCardPeerPicker.visible = true
-                            }
-                        }
-
-                        Button {
-                            Layout.fillWidth: true
-                            text: i18n.tr("Copy to clipboard")
-                            color: LomiriColors.green
-                            onClicked: Clipboard.push(resultsPage.text)
-                        }
-
-                        Button {
-                            Layout.fillWidth: true
-                            text: i18n.tr("Generate QR code")
-                            color: LomiriColors.green
-                            onClicked: {
-                                pageStack.push(generateCodeComponent, {textData: resultsPage.text})
-                            }
                         }
                         
                         /* Display barcodes for scanning */
@@ -657,15 +589,15 @@ MainView {
     }
 
     Component {
-        id: generateCodeComponent
+        id: showQRCodeComponent
         Page {
-            id: generateCodePage
-            property alias textData: dataTextField.text
+            id: showQRCodePage
+            property string textData
             property var transfer: null
 
             header: PageHeader {
                 id: generateQRCodeHeader
-                title: i18n.tr("Generate QR code")
+                title: i18n.tr("QR code")
                 visible: !contentPeerPicker.visible
 
                 leadingActionBar.actions: [
@@ -683,24 +615,12 @@ MainView {
 
                 trailingActionBar.actions: [
                     Action {
-                        iconName: "tick"
-                        onTriggered: {
-                            var items = new Array()
-                            var path = generator.generateCode("export.png", dataTextField.text)
-                            exportItem.url = path
-                            items.push(exportItem);
-                            transfer.items = items;
-                            transfer.state = ContentTransfer.Charged;
-                        }
-                        visible: transfer != null
-                    },
-                    Action {
                         iconName: "share"
                         onTriggered: {
                             Qt.inputMethod.hide();
                             contentPeerPicker.visible = true;
                         }
-                        visible: transfer == null && dataTextField.text
+                        visible: transfer == null && textData
                     }
                 ]
             }
@@ -725,36 +645,17 @@ MainView {
                 rowSpacing: units.gu(1)
                 columns: width > height ? 2 : 1
 
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    spacing: units.gu(1)
-                    Label {
-                        text: i18n.tr("Code content")
-                    }
-                    TextArea {
-                        id: dataTextField
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
-                }
-
-
                 Image {
                     id: qrCodeImage
                     Layout.preferredWidth: Math.min(parent.width, parent.height)
                     Layout.preferredHeight: width
                     fillMode: Image.PreserveAspectFit
-                    source: dataTextField.text.length > 0 ? "image://qrcode/" + dataTextField.text : ""
+                    source: textData.length > 0 ? "image://qrcode/" + textData : ""
                     onStatusChanged: print("status changed", status)
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: dataTextField.focus = false
-                    }
                 }
             }
-
-            ContentPeerPicker {
+            
+             ContentPeerPicker {
                 id: contentPeerPicker
                 visible: false
                 contentType: ContentType.Pictures
@@ -765,7 +666,7 @@ MainView {
                     var transfer = peer.request();
                     if (transfer.state === ContentTransfer.InProgress) {
                         var items = new Array()
-                        var path = generator.generateCode("export.png", dataTextField.text)
+                        var path = generator.generateCode("export.png", textData)
                         exportItem.url = path
                         items.push(exportItem);
                         transfer.items = items;
@@ -777,65 +678,155 @@ MainView {
             }
         }
     }
-
+    
     Component {
-        id: aboutDialogComponent
-        Dialog {
-            id: aboutDialog
-            title: "UBcards 0.5"
-            text: "Jan Belohoubek\nit@sfortelem.cz"
+        id: aboutComponent
+        
+        Page {
+            id: aboutPage
 
-            signal closed()
+            header: PageHeader {
+                id: generateQRCodeHeader
+                title: i18n.tr("About")
 
-            Item {
-                width: parent.width
-                height: units.gu(40)
-                Column {
-                    id: contentColumn
-                    anchors.fill: parent
-                    spacing: units.gu(1)
-
-                    LomiriShape {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        height: units.gu(6)
-                        width: units.gu(6)
-                        radius: "medium"
-                        image: Image {
-                            source: "images/tagger.svg"
+                leadingActionBar.actions: [
+                    Action {
+                        iconName: "back"
+                        onTriggered: {
+                            pageStack.pop()
                         }
                     }
-
-                    Flickable {
+                ]
+            }
+            
+            Flickable {
+            id: flickable
+            
+            flickableDirection: Flickable.AutoFlickIfNeeded
+            anchors.fill: parent
+            contentHeight: dataColumn.height + units.gu(10) + dataColumn.anchors.topMargin
+            
+                Column {
+                    id: dataColumn
+                
+                    spacing: units.gu(3)
+                    anchors {
+                        top: parent.top; left: parent.left; right: parent.right; topMargin: units.gu(10); rightMargin:units.gu(2.5); leftMargin: units.gu(2.5)
+                    }
+                
+                    LomiriShape {
+                        width: units.gu(20)
+                        height: width
+                        anchors {
+                            horizontalCenter: parent.horizontalCenter
+                            topMargin: units.gu(20)
+                        }
+                        source: Image {
+                           source: "../graphics/tagger.png"
+                        }
+                
+                    }
+                
+                    Label {
                         width: parent.width
-                        height: parent.height - y - (closeButton.height + parent.spacing) * 3
-                        contentHeight: gplLabel.implicitHeight
-                        clip: true
+                        textSize: Label.XLarge
+                        font.weight: Font.DemiBold
+                        horizontalAlignment: Text.AlignHCenter
+                        text: "UBcards"
+                    }
+                
+                    Column {
+                        width: parent.width
+                
                         Label {
-                            id: gplLabel
+                            id: appVersionLabel
+                            width: parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            // TRANSLATORS: Version number
+                            text: i18n.tr("App Version %1").arg(Qt.application.version)
+                        }
+                        Label {
+                            width: parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            text: " "
+                        }
+                        LabelLinkRow {
+                            id: maintainerLabel
+                            //width: parent.width
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            labeltext: i18n.tr("Maintained by")
+                            linktext: i18n.tr("Jan Belohoubek")
+                            linkurl: "https://github.com/belohoub/UBcards"
+                        }
+                        Label {
+                            width: parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            text: " "
+                        }
+                        LabelLinkRow {
+                            id: issueReportLabel
+                            //width: parent.width
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            labeltext: i18n.tr("Please report bugs to the")
+                            linktext: i18n.tr("issue tracker")
+                            linkurl: "https://github.com/belohoub/UBcards/issues"
+                        }
+                        
+                        LabelLinkRow {
+                            id: supportReportLabel
+                            //width: parent.width
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            labeltext: i18n.tr("Please support")
+                            linktext: i18n.tr("the app development")
+                            linkurl: "https://github.com/sponsors/belohoub"
+                        }
+                    }
+                
+                    Column {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            margins: units.gu(2)
+                        }
+                        Label {
                             width: parent.width
                             wrapMode: Text.WordWrap
-                            text: "This program is free software: you can redistribute it and/or modify " +
-                                  "it under the terms of the GNU General Public License as published by " +
-                                  "the Free Software Foundation, either version 3 of the License, or " +
-                                  "(at your option) any later version.\n\n" +
-
-                                  "This program is distributed in the hope that it will be useful, " +
-                                  "but WITHOUT ANY WARRANTY; without even the implied warranty of " +
-                                  "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the " +
-                                  "GNU General Public License for more details.\n\n" +
-
-                                  "You should have received a copy of the GNU General Public License " +
-                                  "along with this program.  If not, see http://www.gnu.org/licenses/."
+                            font.weight: Font.DemiBold
+                            horizontalAlignment: Text.AlignHCenter
+                            text: i18n.tr("Thanks to")
+                        }
+                
+                        LabelLinkRow {
+                            id: taggerAppLabel
+                            //width: parent.width
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            labeltext: i18n.tr("Chris Clime, Tagger application:")
+                            linktext: "Tagger Application"
+                            linkurl: "https://gitlab.com/balcy/tagger"
+                        }
+                        LabelLinkRow {
+                            id: cwAppLabel
+                            //width: parent.width
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            labeltext: i18n.tr("Richard Lee, Card Wallet application:")
+                            linktext: "Card Wallet"
+                            linkurl: "https://gitlab.com/AppsLee/cardwallet"
                         }
                     }
-                    Button {
-                        id: closeButton
+                    Label {
+                        textSize: Label.Small
                         width: parent.width
-                        text: i18n.tr("Close")
-                        onClicked: {
-                            aboutDialog.closed()
-                            PopupUtils.close(aboutDialog)
-                        }
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        text: i18n.tr("Released under the terms of the GNU GPLv3")
+                    }
+                    LabelLinkRow {
+                        id: sourceCodeLabel
+                        //width: parent.width
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        labeltext: i18n.tr("Source code available on:")
+                        linktext: "github.com/belohoub/UBcards"
+                        linkurl: "https://github.com/belohoub/UBcards"
                     }
                 }
             }
