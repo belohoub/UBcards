@@ -58,7 +58,7 @@ MainView {
         onValidChanged: {
             if (qrCodeReader.valid) {
                 pageStack.pop();
-                pageStack.push(resultsPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, imageSource: qrCodeReader.imageSource});
+                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, issuer: qrCodeReader.issuer, imageSource: qrCodeReader.imageSource});
             }
         }
     }
@@ -74,13 +74,13 @@ MainView {
         onImportRequested: {
             print("**** import Requested")
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath);
+            qrCodeReader.processImage(filePath, "undefined", "unknown");
         }
 
         onShareRequested: {
             print("***** share requested", transfer)
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath);
+            qrCodeReader.processImage(filePath, "undefined", "unknown");
         }
     }
 
@@ -106,7 +106,7 @@ MainView {
             case ContentTransfer.Charged:
                 print("should process", activeTransfer.items[0].url)
                 mainView.decodingImage = true;
-                qrCodeReader.processImage(activeTransfer.items[0].url);
+                qrCodeReader.processImage(activeTransfer.items[0].url, "undefined", "unknown");
                 mainView.activeTransfer = null;
                 break;
             case ContentTransfer.Aborted:
@@ -149,7 +149,7 @@ MainView {
             
             header: PageHeader {
                 id: cardWalletHeader
-                title: i18n.tr("Card Wallet")
+                title: i18n.tr("UBcards")
                 leadingActionBar.actions: []
                 trailingActionBar.actions: [
                     Action {
@@ -221,18 +221,20 @@ MainView {
                                 Label {
                                     Layout.fillWidth: true
                                     elide: Text.ElideRight
-                                    text: model.text
+                                    text: model.name + " by " + model.issuer
+                                    font.pointSize: units.gu(2)
                                     maximumLineCount: 2
                                 }
                                 Label {
                                     Layout.fillWidth: true
-                                    text: model.type + " - " + model.timestamp
+                                    elide: Text.ElideRight
+                                    text:model.timestamp
                                 }
                             }
                         }
                 
                         onClicked: {
-                            pageStack.push(resultsPageComponent, {type: model.type, text: model.text, imageSource: model.imageSource})
+                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, issuer: model.issuer, imageSource: model.imageSource})
                         }
                     }
                 }
@@ -303,7 +305,7 @@ MainView {
                 onTriggered: {
                     if (!qrCodeReader.scanning) {
 //                        print("capturing");
-                        qrCodeReader.grab();
+                        qrCodeReader.grab("undefined", "unknown");
                     }
                 }
 
@@ -393,23 +395,23 @@ MainView {
     }
 
     Component {
-        id: resultsPageComponent
+        id: editPageComponent
         Page {
-            id: resultsPage
+            id: editPage
             property string type
             property string text
              /* Card provider like Tesco .. */
-            property string provider
+            property string issuer
             /* My Card name */
             property string name 
             property string imageSource
 
-            property bool isUrl: resultsPage.text.match(/^[a-z0-9]+:[^\s]+$/)
+            property bool isUrl: editPage.text.match(/^[a-z0-9]+:[^\s]+$/)
 
             header: PageHeader {
                 id: resultsHeader
                 visible: !exportVCardPeerPicker.visible
-                title: i18n.tr("Card Details")
+                title: i18n.tr("Edit Card")
                 leadingActionBar.actions: [
                     Action {
                         iconName: "back"
@@ -423,23 +425,23 @@ MainView {
                         text: i18n.tr("Copy to clipboard")
                         iconName: "edit-copy"
                         onTriggered: {
-                            Clipboard.push(resultsPage.text)
+                            Clipboard.push(editPage.text)
                         }
                     },
                     Action {
                         // TRANSLATORS: Name of an action in the toolbar to import show card code as QR code
-                        text: i18n.tr("Show QR code")
+                        text: i18n.tr("Show as QR code")
                         iconName: "share"
                         onTriggered: {
-                            pageStack.push(showQRCodeComponent, {textData: resultsPage.text})
+                            pageStack.push(showQRCodeComponent, {textData: editPage.text})
                         }
                     },
                     Action {
                         text: i18n.tr("Open URL")
-                        visible: resultsPage.isUrl
+                        visible: editPage.isUrl
                         iconName: "stock_website"
                         onTriggered: {
-                            Qt.openUrlExternally(resultsPage.text)
+                            Qt.openUrlExternally(editPage.text)
                         }
                     }
                 ]
@@ -467,7 +469,7 @@ MainView {
 
                         columnSpacing: units.gu(1)
                         rowSpacing: units.gu(1)
-                        /*columns: resultsPage.width > resultsPage.height ? 3 : 1*/
+                        /*columns: editPage.width > editPage.height ? 3 : 1*/
                         columns: 1
 
                         Row {
@@ -487,20 +489,18 @@ MainView {
                                     width: imageItem.portrait ? resultsImage.width * height / resultsImage.height : parent.width
                                     image: Image {
                                         id: resultsImage
-                                        source: resultsPage.imageSource
+                                        source: editPage.imageSource
                                     }
                                 }
                             }
 
                             Column {
-                                width: (parent.width - parent.spacing) / 2
                                 Label {
-                                    text: i18n.tr("Code type")
+                                    text: i18n.tr("Name")
                                     font.bold: true
                                 }
                                 Label {
-                                    text: resultsPage.type
-                                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                                    text: editPage.name
                                 }
                                 Item {
                                     width: parent.width
@@ -508,11 +508,25 @@ MainView {
                                 }
 
                                 Label {
-                                    text: i18n.tr("Content length")
+                                    text: i18n.tr("Issuer")
                                     font.bold: true
                                 }
                                 Label {
-                                    text: resultsPage.text.length
+                                    text: editPage.issuer
+                                }
+                                Item {
+                                    width: parent.width
+                                    height: units.gu(1)
+                                }
+                                
+                                width: (parent.width - parent.spacing) / 2
+                                Label {
+                                    text: i18n.tr("Code type")
+                                    font.bold: true
+                                }
+                                Label {
+                                    text: editPage.type
+                                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                 }
                             }
 
@@ -532,8 +546,8 @@ MainView {
                         
                         Text {
                             Layout.fillWidth: true
-                            visible: (resultsPage.type === "CODE-128") ? true : false
-                            text: resultsPage.text
+                            visible: (editPage.type === "CODE-128") ? true : false
+                            text: editPage.text
                             font.family: font_type128.name
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
@@ -545,8 +559,8 @@ MainView {
                         
                         Text {
                             Layout.fillWidth: true
-                            visible: (resultsPage.type === "EAN-13") ? true : false
-                            text: resultsPage.text
+                            visible: (editPage.type === "EAN-13") ? true : false
+                            text: editPage.text
                             font.family: font_ean13.name
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
@@ -560,15 +574,15 @@ MainView {
                         Image {
                             Layout.fillWidth: true
                             id: cardCodeImage
-                            visible: ((resultsPage.type === "CODE-128") || (resultsPage.type === "EAN-13")) ? false : true
-                            source: resultsPage.imageSource
+                            visible: ((editPage.type === "CODE-128") || (editPage.type === "EAN-13")) ? false : true
+                            source: editPage.imageSource
                         }
                         
                         Label {
                             Layout.fillWidth: true
                             id: cardCodeContent
-                            text: resultsPage.text
-                            color: resultsPage.isUrl ? "blue" : "black"
+                            text: editPage.text
+                            color: editPage.isUrl ? "blue" : "black"
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
                             minimumPointSize: units.gu(2)
@@ -596,7 +610,7 @@ MainView {
                     var transfer = peer.request();
                     if (transfer.state === ContentTransfer.InProgress) {
                         var items = new Array()
-                        var path = fileHelper.saveToFile(resultsPage.text, "vcf")
+                        var path = fileHelper.saveToFile(editPage.text, "vcf")
                         exportItem.url = path
                         items.push(exportItem);
                         transfer.items = items;

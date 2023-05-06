@@ -10,7 +10,7 @@ HistoryModel::HistoryModel(QObject *parent):
     QAbstractListModel(parent),
     QQuickImageProvider(QQuickImageProvider::Image),
     m_cacheLocation(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first() + "/.cache/ubcards.belohoub/"),
-    m_settings(m_cacheLocation + "history.ini", QSettings::IniFormat)
+    m_settings(m_cacheLocation + "wallet.ini", QSettings::IniFormat)
 {
     qDebug() << "History saved in" << m_settings.fileName();
 }
@@ -33,6 +33,12 @@ QVariant HistoryModel::data(const QModelIndex &index, int role) const
     case RoleType:
         ret = m_settings.value("type");
         break;
+    case RoleName:
+        ret = m_settings.value("name");
+        break;
+    case RoleIssuer:
+        ret = m_settings.value("issuer");
+        break;
     case RoleImageSource:
         ret = "image://history/" + id;
         break;
@@ -50,12 +56,14 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles.insert(RoleText, "text");
     roles.insert(RoleType, "type");
+    roles.insert(RoleName, "name");
+    roles.insert(RoleIssuer, "issuer");
     roles.insert(RoleImageSource, "imageSource");
     roles.insert(RoleTimestamp, "timestamp");
     return roles;
 }
 
-void HistoryModel::add(const QString &text, const QString &type, const QImage &image)
+void HistoryModel::add(const QString &text, const QString &type, const QString &name, const QString &issuer, const QImage &image)
 {
     QString id = QUuid::createUuid().toString().remove(QRegExp("[{}]"));
     image.save(m_cacheLocation + id + ".jpg");
@@ -67,6 +75,8 @@ void HistoryModel::add(const QString &text, const QString &type, const QImage &i
     m_settings.setValue("all", all);
 
     m_settings.beginGroup(id);
+    m_settings.setValue("name", name);
+    m_settings.setValue("issuer", issuer);
     m_settings.setValue("text", text);
     m_settings.setValue("type", type);
     m_settings.setValue("timestamp", QDateTime::currentDateTime());

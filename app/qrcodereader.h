@@ -35,6 +35,8 @@ class QRCodeReader : public QObject, public QQuickImageProvider
     Q_PROPERTY(bool valid READ valid NOTIFY validChanged)
     Q_PROPERTY(QString type READ type NOTIFY validChanged)
     Q_PROPERTY(QString text READ text NOTIFY validChanged)
+    Q_PROPERTY(QString name READ name NOTIFY validChanged)
+    Q_PROPERTY(QString issuer READ issuer NOTIFY validChanged)
     Q_PROPERTY(QImage image READ image NOTIFY validChanged)
     Q_PROPERTY(QString imageSource READ imageSource NOTIFY validChanged)
     Q_PROPERTY(QRect scanRect READ scanRect WRITE setScanRect NOTIFY scanRectChanged)
@@ -47,6 +49,8 @@ public:
     bool valid() const;
     QString type() const;
     QString text() const;
+    QString name() const;
+    QString issuer() const;
     QImage image() const;
     QString imageSource() const;
     QRect scanRect() const;
@@ -57,8 +61,8 @@ public:
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
 public slots:
-    void grab();
-    void processImage(const QUrl &url);
+    void grab(const QString &name, const QString &issuer);
+    void processImage(const QUrl &url, const QString &name, const QString &issuer);
 
 signals:
     void validChanged();
@@ -66,13 +70,15 @@ signals:
     void scanningChanged();
 
 private slots:
-    void handleResults(const QString &type, const QString &text, const QImage &codeImage);
+    void handleResults(const QString &type, const QString &text, const QString &name, const QString &issuer, const QImage &codeImage);
 
 private:
     QQuickWindow *m_mainWindow;
 
     QString m_type;
     QString m_text;
+    QString m_name;
+    QString m_issuer;
     QImage m_image;
     QUuid m_imageUuid;
     QRect m_scanRect;
@@ -86,10 +92,10 @@ class Reader : public QObject
     Q_OBJECT
 
 public slots:
-    void doWork(const QImage &image, bool invert);
+    void doWork(const QImage &image, const QString &name, const QString &issuer, bool invert);
 
 signals:
-    void resultReady(const QString &type, const QString &text, const QImage &codeImage);
+    void resultReady(const QString &type, const QString &text, const QString &name, const QString &issuer, const QImage &codeImage);
     void finished();
 };
 

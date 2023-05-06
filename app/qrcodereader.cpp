@@ -68,6 +68,16 @@ QString QRCodeReader::text() const
     return m_text;
 }
 
+QString QRCodeReader::name() const
+{
+    return m_name;
+}
+
+QString QRCodeReader::issuer() const
+{
+    return m_issuer;
+}
+
 QImage QRCodeReader::image() const
 {
     return m_image;
@@ -104,7 +114,7 @@ QImage QRCodeReader::requestImage(const QString &id, QSize *size, const QSize &r
     return QImage();
 }
 
-void QRCodeReader::grab()
+void QRCodeReader::grab(const QString &name, const QString &issuer)
 {
     if (!m_mainWindow) {
         return;
@@ -123,13 +133,13 @@ void QRCodeReader::grab()
     reader->moveToThread(&m_readerThread);
     connect(reader, SIGNAL(finished()), reader, SLOT(deleteLater()));
     connect(reader, SIGNAL(finished()), &m_readerThread, SLOT(quit()));
-    connect(reader, SIGNAL(resultReady(QString, QString, QImage)), this, SLOT(handleResults(QString, QString, QImage)));
+    connect(reader, SIGNAL(resultReady(QString, QString, QString, QString, QImage)), this, SLOT(handleResults(QString, QString, QString, QString, QImage)));
     m_readerThread.start();
 
-    QMetaObject::invokeMethod(reader, "doWork", Q_ARG(QImage, img), Q_ARG(bool, false));
+    QMetaObject::invokeMethod(reader, "doWork", Q_ARG(QImage, img), Q_ARG(QString, name), Q_ARG(QString, issuer), Q_ARG(bool, false));
 }
 
-void QRCodeReader::processImage(const QUrl &url)
+void QRCodeReader::processImage(const QUrl &url, const QString &name, const QString &issuer)
 {
     QImage image;
     if (!image.load(url.path())) {
@@ -141,23 +151,25 @@ void QRCodeReader::processImage(const QUrl &url)
     reader->moveToThread(&m_readerThread);
     connect(reader, SIGNAL(finished()), reader, SLOT(deleteLater()));
     connect(reader, SIGNAL(finished()), &m_readerThread, SLOT(quit()));
-    connect(reader, SIGNAL(resultReady(QString, QString, QImage)), this, SLOT(handleResults(QString, QString, QImage)));
+    connect(reader, SIGNAL(resultReady(QString, QString, QString, QString, QImage)), this, SLOT(handleResults(QString, QString, QString, QString, QImage)));
     m_readerThread.start();
 
-    QMetaObject::invokeMethod(reader, "doWork", Q_ARG(QImage, image), Q_ARG(bool, false));
+    QMetaObject::invokeMethod(reader, "doWork", Q_ARG(QImage, image), Q_ARG(QString, name), Q_ARG(QString, issuer), Q_ARG(bool, false));
 }
 
-void QRCodeReader::handleResults(const QString &type, const QString &text, const QImage &codeImage)
+void QRCodeReader::handleResults(const QString &type, const QString &text, const QString &name, const QString &issuer, const QImage &codeImage)
 {
     m_type = type;
     m_text = text;
+    m_name = name;
+    m_issuer = issuer;
     m_image = codeImage;
     m_imageUuid = QUuid::createUuid();
     emit validChanged();
-    m_historyModel->add(text, type, codeImage);
+    m_historyModel->add(text, type, name, issuer, codeImage);
 }
 
-void Reader::doWork(const QImage &image, bool invert)
+void Reader::doWork(const QImage &image, const QString &name, const QString &issuer, bool invert)
 {
     // Prepare image
     QImage copy = image;
@@ -180,7 +192,7 @@ void Reader::doWork(const QImage &image, bool invert)
 //    qDebug() << "scanned. have" << n << "symbols";
     if (!invert && n == 0) {
         // Nothing found... try again inverted
-        doWork(image, true);
+        doWork(image, name, issuer, true);
         return;
     }
 
@@ -219,7 +231,7 @@ void Reader::doWork(const QImage &image, bool invert)
 
         qDebug() << "Code recognized:" << typeName << ", Text:" << symbolString;
 
-        emit resultReady(typeName, symbolString, codeImage);
+        emit resultReady(typeName, symbolString, name, issuer, codeImage);
     }
 
     tmp.set_data(NULL, 0);

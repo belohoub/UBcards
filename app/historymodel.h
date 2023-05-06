@@ -12,6 +12,8 @@ public:
     enum Roles {
         RoleText,
         RoleType,
+        RoleName,
+        RoleIssuer,
         RoleImageSource,
         RoleTimestamp
     };
@@ -22,7 +24,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    void add(const QString &text, const QString &type, const QImage &image);
+    void add(const QString &text, const QString &type, const QString &name, const QString &issuer, const QImage &image);
     Q_INVOKABLE void remove(int index);
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
