@@ -38,7 +38,7 @@ MainView {
 
     Component.onCompleted: i18n.domain = "ubcards"
     
-    property var m_issuer: "undefined"
+    property var m_cathegory: "undefined"
     property var m_name: "undefined"
 
     width: units.gu(40)
@@ -63,7 +63,7 @@ MainView {
         onValidChanged: {
             if (qrCodeReader.valid) {
                 pageStack.pop();
-                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, issuer: qrCodeReader.issuer, imageSource: qrCodeReader.imageSource});
+                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, cathegory: qrCodeReader.cathegory, imageSource: qrCodeReader.imageSource});
             }
         }
     }
@@ -79,13 +79,13 @@ MainView {
         onImportRequested: {
             print("**** import Requested")
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath, m_name, m_issuer);
+            qrCodeReader.processImage(filePath, m_name, m_cathegory);
         }
 
         onShareRequested: {
             print("***** share requested", transfer)
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath, m_name, m_issuer);
+            qrCodeReader.processImage(filePath, m_name, m_cathegory);
         }
     }
 
@@ -111,7 +111,7 @@ MainView {
             case ContentTransfer.Charged:
                 print("should process", activeTransfer.items[0].url)
                 mainView.decodingImage = true;
-                qrCodeReader.processImage(activeTransfer.items[0].url, m_name, m_issuer);
+                qrCodeReader.processImage(activeTransfer.items[0].url, m_name, m_cathegory);
                 mainView.activeTransfer = null;
                 break;
             case ContentTransfer.Aborted:
@@ -186,7 +186,7 @@ MainView {
                                 iconName: "insert-image"
                                 onTriggered: {
                                     m_name = newCardName.text
-                                    m_issuer = newCardIssuer.text
+                                    m_cathegory = newCardCathegory.text
                                     mainView.activeTransfer = picSourceSingle.request()
                                     print("transfer request", mainView.activeTransfer)
                                 }
@@ -248,23 +248,23 @@ MainView {
                             
                             Item {
                                  width: parent.width
-                                 height: newCardIssuerLabel.height
+                                 height: newCardCathegoryLabel.height
                     
                                 Label {
-                                    id: newCardIssuerLabel
-                                    text: i18n.tr("Insert card issuer:")
+                                    id: newCardCathegoryLabel
+                                    text: i18n.tr("Insert card cathegory:")
                                     font.pointSize: units.gu(1.5)
                                 }
                             }
                             
                             Item {
                                 width: parent.width
-                                height: newCardIssuer.height
+                                height: newCardCathegory.height
                                  
                                 TextEdit {
-                                    id: newCardIssuer
-                                    // TRANSLATORS: Default Card Issuer name
-                                    text: i18n.tr("Card-Issuer")
+                                    id: newCardCathegory
+                                    // TRANSLATORS: Default Card Cathegory name
+                                    text: i18n.tr("Card-Cathegory")
                                     font.pointSize: units.gu(2)
                                     wrapMode: TextEdit.WrapAnywhere
                                     inputMethodHints: Qt.ImhNoPredictiveText
@@ -364,7 +364,7 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    qrCodeReader.insertData(newCardID.text, newCardType.text, newCardName.text, newCardIssuer.text);
+                                    qrCodeReader.insertData(newCardID.text, newCardType.text, newCardName.text, newCardCathegory.text);
                                 }
                             }
                     /*
@@ -424,7 +424,7 @@ MainView {
                                 Label {
                                     Layout.fillWidth: true
                                     elide: Text.ElideRight
-                                    text: model.name + " by " + model.issuer
+                                    text: model.name + " by " + model.cathegory
                                     font.pointSize: units.gu(2)
                                     maximumLineCount: 2
                                 }
@@ -437,7 +437,7 @@ MainView {
                         }
                 
                         onClicked: {
-                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, issuer: model.issuer, imageSource: model.imageSource})
+                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, cathegory: model.cathegory, imageSource: model.imageSource})
                         }
                     }
                 }
@@ -508,7 +508,7 @@ MainView {
                 onTriggered: {
                     if (!qrCodeReader.scanning) {
 //                        print("capturing");
-                        qrCodeReader.grab(newCardName.text, newCardIssuer.text);
+                        qrCodeReader.grab(newCardName.text, newCardCathegory.text);
                     }
                 }
 
@@ -604,7 +604,7 @@ MainView {
             property string type
             property string text
              /* Card provider like Tesco .. */
-            property string issuer
+            property string cathegory
             /* My Card name */
             property string name 
             property string imageSource
@@ -711,11 +711,11 @@ MainView {
                                 }
 
                                 Label {
-                                    text: i18n.tr("Issuer")
+                                    text: i18n.tr("Cathegory")
                                     font.bold: true
                                 }
                                 Label {
-                                    text: editPage.issuer
+                                    text: editPage.cathegory
                                 }
                                 Item {
                                     width: parent.width

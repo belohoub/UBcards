@@ -36,8 +36,8 @@ QVariant HistoryModel::data(const QModelIndex &index, int role) const
     case RoleName:
         ret = m_settings.value("name");
         break;
-    case RoleIssuer:
-        ret = m_settings.value("issuer");
+    case RoleCathegory:
+        ret = m_settings.value("cathegory");
         break;
     case RoleImageSource:
         ret = "image://history/" + id;
@@ -57,13 +57,13 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
     roles.insert(RoleText, "text");
     roles.insert(RoleType, "type");
     roles.insert(RoleName, "name");
-    roles.insert(RoleIssuer, "issuer");
+    roles.insert(RoleCathegory, "cathegory");
     roles.insert(RoleImageSource, "imageSource");
     roles.insert(RoleTimestamp, "timestamp");
     return roles;
 }
 
-void HistoryModel::add(const QString &text, const QString &type, const QString &name, const QString &issuer, const QImage &image)
+void HistoryModel::add(const QString &text, const QString &type, const QString &name, const QString &cathegory, const QImage &image)
 {
     QString id = QUuid::createUuid().toString().remove(QRegExp("[{}]"));
     image.save(m_cacheLocation + id + ".jpg");
@@ -76,7 +76,7 @@ void HistoryModel::add(const QString &text, const QString &type, const QString &
 
     m_settings.beginGroup(id);
     m_settings.setValue("name", name);
-    m_settings.setValue("issuer", issuer);
+    m_settings.setValue("cathegory", cathegory);
     m_settings.setValue("text", text);
     m_settings.setValue("type", type);
     m_settings.setValue("timestamp", QDateTime::currentDateTime());
