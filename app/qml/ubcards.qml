@@ -44,6 +44,32 @@ MainView {
     width: units.gu(40)
     height: units.gu(68)
 
+    ListModel {
+        id: codeTypeModel
+        ListElement { name: "CODE-128"}
+        ListElement { name: "CODE-128B"}
+        ListElement { name: "GS1"     }
+        ListElement { name: "EAN-13"  }
+        ListElement { name: "EAN-8"   }
+        ListElement { name: "CODE-2of5"}    
+    }
+    
+    Component {
+        id: codeTypeDelegate
+        OptionSelectorDelegate { text: name }
+    }
+    
+    /* Return index of the name in the model, if not found, return the first element */
+    function getCodeIndex(name)
+    { 
+        for (var i = 0; i < codeTypeModel.count; i++) {
+            if (codeTypeModel.get(i).name === name) {
+                return i
+            }
+        }
+        return 0
+    }
+    
     PageStack {
         id: pageStack
         Component.onCompleted: {
@@ -255,14 +281,10 @@ MainView {
                                     id: newCardType
                                     text: i18n.tr("Select card type:")
                                     expanded: false
+                                    selectedIndex: 0
                                     multiSelection: false
-                                    model: ["CODE-128",
-                                            "CODE-128B",
-                                            "GS1",
-                                            "EAN-13",
-                                            "EAN-8",
-                                            "CODE-2of5"
-                                            ]
+                                    delegate: codeTypeDelegate
+                                    model: codeTypeModel
                                     width: parent.width
                                 }
                             }
@@ -299,7 +321,7 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    qrCodeReader.insertData(newCardID.text, newCardType.model[newCardType.selectedIndex], i18n.tr("Card-Name"), i18n.tr("Card-Cathegory"));
+                                    qrCodeReader.insertData(newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), i18n.tr("Card-Cathegory"));
                                 }
                             }
                     /*
@@ -602,7 +624,7 @@ MainView {
                         iconName: "save"
                         onTriggered: {
                             qrCodeReader.history.remove(editPage.historyIndex)
-                            qrCodeReader.insertData(editPage.text, editCardType.model[editCardType.selectedIndex], editCardName.text, editCardCathegory.text);
+                            qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, editCardCathegory.text);
                         }
                     }
                 ]
@@ -712,14 +734,9 @@ MainView {
                             text: i18n.tr("Card type:")
                             expanded: false
                             multiSelection: false
-                            selectedIndex: editCardType.model.indexOf(editPage.type)
-                            model: ["CODE-128",
-                                    "CODE-128B",
-                                    "GS1",
-                                    "EAN-13",
-                                    "EAN-8",
-                                    "CODE-2of5"
-                                    ]
+                            selectedIndex: getCodeIndex(editPage.type)
+                            delegate: codeTypeDelegate
+                            model: codeTypeModel
                             width: parent.width
                         }
                     }
