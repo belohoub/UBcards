@@ -209,75 +209,16 @@ MainView {
                         anchors.fill: parent
                         anchors.topMargin: addNewCardPageHeader.height
                          anchors.bottomMargin: units.gu(5)
-                        contentHeight: accountEditColumn.height
+                        contentHeight: newCardColumn.height
                 
                         Column {
-                            id: accountEditColumn
+                            id: newCardColumn
                 
                             spacing: units.gu(1.5)
                             anchors {
                                 top: parent.top; left: parent.left; right: parent.right; margins: units.gu(2)
                             }
 
-                            Item {
-                                 width: parent.width
-                                 height: newCardNameLabel.height
-                    
-                                Label {
-                                    id: newCardNameLabel
-                                    text: i18n.tr("Insert card name:")
-                                    font.pointSize: units.gu(1.5)
-                                }
-                            }
-                            
-                            Item {
-                                 width: parent.width
-                                 height: newCardName.height
-                    
-                                TextEdit {
-                                    id: newCardName
-                                    // TRANSLATORS: Default Card Name
-                                    text: i18n.tr("Card-Name")
-                                    font.pointSize: units.gu(2)
-                                    wrapMode: TextEdit.WrapAnywhere
-                                    inputMethodHints: Qt.ImhNoPredictiveText
-                                    width: parent.width
-                                    readOnly: false
-                                }
-                            }
-                            
-                            Item {
-                                 width: parent.width
-                                 height: newCardCathegoryLabel.height
-                    
-                                Label {
-                                    id: newCardCathegoryLabel
-                                    text: i18n.tr("Insert card cathegory:")
-                                    font.pointSize: units.gu(1.5)
-                                }
-                            }
-                            
-                            Item {
-                                width: parent.width
-                                height: newCardCathegory.height
-                                 
-                                TextEdit {
-                                    id: newCardCathegory
-                                    // TRANSLATORS: Default Card Cathegory name
-                                    text: i18n.tr("Card-Cathegory")
-                                    font.pointSize: units.gu(2)
-                                    wrapMode: TextEdit.WrapAnywhere
-                                    inputMethodHints: Qt.ImhNoPredictiveText
-                                    width: parent.width
-                                    readOnly: false
-                                }
-                            }
-                            
-                            Item {
-                                 width: parent.width
-                                 height: units.gu(2)
-                            }
-                            
                             Item {
                                  width: parent.width
                                  height: newCardNotice.height
@@ -307,28 +248,22 @@ MainView {
                             }
                             
                             Item {
-                                 width: parent.width
-                                 height: newCardTypeLabel.height
-                    
-                                Label {
-                                    id: newCardTypeLabel
-                                    text: i18n.tr("Select card type:")
-                                    font.pointSize: units.gu(1.5)
-                                }
-                            }
-                            
-                            Item {
                                 width: parent.width
                                 height: newCardType.height
                                  
-                                TextEdit {
+                                OptionSelector {
                                     id: newCardType
-                                    text: i18n.tr("CODE-128")
-                                    font.pointSize: units.gu(2)
-                                    wrapMode: TextEdit.WrapAnywhere
-                                    inputMethodHints: Qt.ImhNoPredictiveText
+                                    text: i18n.tr("Select card type:")
+                                    expanded: false
+                                    multiSelection: false
+                                    model: ["CODE-128",
+                                            "CODE-128B",
+                                            "GS1",
+                                            "EAN-13",
+                                            "EAN-8",
+                                            "CODE-2of5"
+                                            ]
                                     width: parent.width
-                                    readOnly: false
                                 }
                             }
                             
@@ -364,7 +299,7 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    qrCodeReader.insertData(newCardID.text, newCardType.text, newCardName.text, newCardCathegory.text);
+                                    qrCodeReader.insertData(newCardID.text, newCardType.model[newCardType.selectedIndex], i18n.tr("Card-Name"), i18n.tr("Card-Cathegory"));
                                 }
                             }
                     /*
@@ -406,6 +341,17 @@ MainView {
                                 }
                             ]
                         }
+                        
+                        trailingActions: ListItemActions {
+                            actions: [
+                                Action {
+                                    iconName: "edit"
+                                    onTriggered: {
+                                         pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, cathegory: model.cathegory, imageSource: model.imageSource, editable: true, historyIndex: index})
+                                    }
+                                }
+                            ]
+                        }
                 
                         RowLayout {
                             anchors.fill: parent
@@ -437,7 +383,7 @@ MainView {
                         }
                 
                         onClicked: {
-                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, cathegory: model.cathegory, imageSource: model.imageSource})
+                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, cathegory: model.cathegory, imageSource: model.imageSource, editable: false})
                         }
                     }
                 }
@@ -608,13 +554,16 @@ MainView {
             /* My Card name */
             property string name 
             property string imageSource
+            /* This is to be viewed or to be edited */
+            property bool editable
+            property int historyIndex
 
             property bool isUrl: editPage.text.match(/^[a-z0-9]+:[^\s]+$/)
 
             header: PageHeader {
-                id: resultsHeader
+                id: editPageHeader
                 visible: !exportVCardPeerPicker.visible
-                title: i18n.tr("Edit Card")
+                title: (editPage.editable === true) ? i18n.tr("Edit Card") : i18n.tr("View Card")
                 leadingActionBar.actions: [
                     Action {
                         iconName: "back"
@@ -646,142 +595,187 @@ MainView {
                         onTriggered: {
                             Qt.openUrlExternally(editPage.text)
                         }
+                    },
+                    Action {
+                        text: i18n.tr("Save")
+                        visible: editPage.editable
+                        iconName: "save"
+                        onTriggered: {
+                            qrCodeReader.history.remove(editPage.historyIndex)
+                            qrCodeReader.insertData(editPage.text, editCardType.model[editCardType.selectedIndex], editCardName.text, editCardCathegory.text);
+                        }
                     }
                 ]
             }
-            
-            Item {
+
+            Flickable {
+                id: editCardFlickable
+                flickableDirection: Flickable.AutoFlickIfNeeded
                 anchors.fill: parent
-                anchors.topMargin: resultsHeader.height
-                clip: true
+                anchors.topMargin: editPageHeader.height
+                anchors.bottomMargin: units.gu(5)
+                contentHeight: editEditColumn.height
 
-                Flickable {
-                    id: detailFlickable
-                    anchors.fill: parent
-                    contentHeight: resultsColumn.implicitHeight + units.gu(4)
-                    interactive: contentHeight > height
-
-                    GridLayout {
-                        id: resultsColumn
-                        anchors {
-                            top: parent.top
-                            left: parent.left
-                            right: parent.right
-                            margins: units.gu(2)
+                Column {
+                    id: editEditColumn
+                    
+                    spacing: units.gu(1.5)
+                    anchors {
+                        top: parent.top; left: parent.left; right: parent.right; margins: units.gu(2)
+                    }
+                    
+//                     Item {
+//                         id: imageItem
+//                         width: units.gu(10)
+//                         height: portrait ? width : imageShape.height
+//                         property bool portrait: resultsImage.height > resultsImage.width
+//                     
+//                         LomiriShape {
+//                             id: imageShape
+//                             anchors.centerIn: parent
+//                             // ssh : ssw = h : w
+//                             height: imageItem.portrait ? parent.height : resultsImage.height * width / resultsImage.width
+//                             width: imageItem.portrait ? resultsImage.width * height / resultsImage.height : parent.width
+//                             image: Image {
+//                                 id: resultsImage
+//                                 source: editPage.imageSource
+//                             }
+//                         }
+//                     }
+                    
+                    Item {
+                         width: parent.width
+                         height: editCardNameLabel.height
+                    
+                        Label {
+                            id: editCardNameLabel
+                            text: i18n.tr("Card name:")
+                            font.pointSize: units.gu(1.5)
                         }
-
-                        columnSpacing: units.gu(1)
-                        rowSpacing: units.gu(1)
-                        /*columns: editPage.width > editPage.height ? 3 : 1*/
-                        columns: 1
-
-                        Row {
-                            Layout.fillWidth: true
-                            spacing: units.gu(1)
-                            Item {
-                                id: imageItem
-                                width: units.gu(10)
-                                height: portrait ? width : imageShape.height
-                                property bool portrait: resultsImage.height > resultsImage.width
-
-                                LomiriShape {
-                                    id: imageShape
-                                    anchors.centerIn: parent
-                                    // ssh : ssw = h : w
-                                    height: imageItem.portrait ? parent.height : resultsImage.height * width / resultsImage.width
-                                    width: imageItem.portrait ? resultsImage.width * height / resultsImage.height : parent.width
-                                    image: Image {
-                                        id: resultsImage
-                                        source: editPage.imageSource
-                                    }
-                                }
-                            }
-
-                            Column {
-                                Label {
-                                    text: i18n.tr("Name")
-                                    font.bold: true
-                                }
-                                Label {
-                                    text: editPage.name
-                                }
-                                Item {
-                                    width: parent.width
-                                    height: units.gu(1)
-                                }
-
-                                Label {
-                                    text: i18n.tr("Cathegory")
-                                    font.bold: true
-                                }
-                                Label {
-                                    text: editPage.cathegory
-                                }
-                                Item {
-                                    width: parent.width
-                                    height: units.gu(1)
-                                }
-                                
-                                width: (parent.width - parent.spacing) / 2
-                                Label {
-                                    text: i18n.tr("Code type")
-                                    font.bold: true
-                                }
-                                Label {
-                                    text: editPage.type
-                                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                }
-                            }
-
+                    }
+                    
+                    Item {
+                         width: parent.width
+                         height: editCardName.height
+                    
+                        TextEdit {
+                            id: editCardName
+                            // TRANSLATORS: Default Card Name
+                            text: (editPage.name === "") ? i18n.tr("Card-Name") : editPage.name
+                            font.pointSize: units.gu(2)
+                            wrapMode: TextEdit.WrapAnywhere
+                            inputMethodHints: Qt.ImhNoPredictiveText
+                            width: parent.width
+                            readOnly: !(editPage.editable)
                         }
-                        
-                        /* Display barcodes for scanning */
-                        
-                        FontLoader {
-                            id: font_type128
-                            source: "../fonts/Code128_new.ttf"
+                    }
+                    
+                    Item {
+                         width: parent.width
+                         height: editCardCathegoryLabel.height
+                    
+                        Label {
+                            id: editCardCathegoryLabel
+                            text: i18n.tr("Card cathegory:")
+                            font.pointSize: units.gu(1.5)
                         }
-                        
-                        FontLoader {
-                            id: font_ean13
-                            source: "../fonts/ean13_new.ttf"
+                    }
+                    
+                    Item {
+                        width: parent.width
+                        height: editCardCathegory.height
+                         
+                        TextEdit {
+                            id: editCardCathegory
+                            // TRANSLATORS: Default Card Cathegory
+                            text: (editPage.cathegory === "") ? i18n.tr("Card-Cathegory") : editPage.cathegory
+                            font.pointSize: units.gu(2)
+                            wrapMode: TextEdit.WrapAnywhere
+                            inputMethodHints: Qt.ImhNoPredictiveText
+                            width: parent.width
+                            readOnly: !(editPage.editable)
                         }
-                        
+                    }
+                    
+                    Item {
+                         width: parent.width
+                         height: units.gu(2)
+                    }
+                    
+                    Item {
+                        width: parent.width
+                        height: editCardType.height
+                         
+                        OptionSelector {
+                            id: editCardType
+                            visible: editPage.editable
+                            text: i18n.tr("Card type:")
+                            expanded: false
+                            multiSelection: false
+                            selectedIndex: editCardType.model.indexOf(editPage.type)
+                            model: ["CODE-128",
+                                    "CODE-128B",
+                                    "GS1",
+                                    "EAN-13",
+                                    "EAN-8",
+                                    "CODE-2of5"
+                                    ]
+                            width: parent.width
+                        }
+                    }
+                    
+                    
+                    /* Display barcodes for scanning */
+                
+                    FontLoader {
+                        id: font_type128
+                        source: "../fonts/Code128_new.ttf"
+                    }
+                    
+                    FontLoader {
+                        id: font_ean13
+                        source: "../fonts/ean13_new.ttf"
+                    }
+                    
+                    /* TODO add another codes */
+                    Item {
+                        width: parent.width
+                        height: encodedCodeField.height
+                         
                         Text {
+                            id: encodedCodeField
                             Layout.fillWidth: true
                             visible: (editPage.type === "CODE-128") ? true : false
                             text: Encoder.stringToBarcode('CODE-128', editPage.text)
                             font.family: font_type128.name
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
-                            minimumPointSize: units.gu(5)
+                            minimumPointSize: units.gu(2)
                             font.pointSize: units.gu(20)
                             horizontalAlignment: Text.AlignHCenter
-                            anchors.margins: units.gu(1)
+                            // anchors.margins: units.gu(1)
+                            anchors.centerIn: parent
                         }
-                        
-                        Text {
-                            Layout.fillWidth: true
-                            visible: (editPage.type === "EAN-13") ? true : false
-                            text: Encoder.stringToBarcode('EAN-13', editPage.text)
-                            font.family: font_ean13.name
-                            textFormat: Text.PlainText
-                            fontSizeMode: Text.HorizontalFit
-                            minimumPointSize: units.gu(5)
-                            font.pointSize: units.gu(20)
-                            horizontalAlignment: Text.AlignHCenter
-                            anchors.margins: units.gu(1)
-                        }
-                        
-                        /* This should be visible only if code-type generation is not available */
+                    }
+                    
+                    /* This should be visible only if code-type generation is not available */
+                    Item {
+                        width: parent.width
+                        height: cardCodeImage.height
+                         
                         Image {
                             Layout.fillWidth: true
                             id: cardCodeImage
                             visible: ((editPage.type === "CODE-128") || (editPage.type === "EAN-13")) ? false : true
                             source: editPage.imageSource
                         }
-                        
-                        /* Common string representation of the Code */
+                    }
+                    
+                    /* Common string representation of the Code */
+                    Item {
+                        width: parent.width
+                        height: cardCodeContent.height
+                         
                         Label {
                             Layout.fillWidth: true
                             id: cardCodeContent
@@ -795,7 +789,9 @@ MainView {
                             anchors.margins: units.gu(1)
                         }
                     }
+                    
                 }
+                    
             }
 
             ContentItem {
