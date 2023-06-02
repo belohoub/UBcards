@@ -29,6 +29,8 @@ import QtQuick.Window 2.0
 import Lomiri.Content 1.3
 import UBcards 0.1
 
+import "encoder.js" as Encoder
+
 MainView {
     id: mainView
 
@@ -748,7 +750,7 @@ MainView {
                         Text {
                             Layout.fillWidth: true
                             visible: (editPage.type === "CODE-128") ? true : false
-                            text: editPage.text
+                            text: Encoder.stringToBarcode('CODE-128', editPage.text)
                             font.family: font_type128.name
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
@@ -761,7 +763,7 @@ MainView {
                         Text {
                             Layout.fillWidth: true
                             visible: (editPage.type === "EAN-13") ? true : false
-                            text: editPage.text
+                            text: Encoder.stringToBarcode('EAN-13', editPage.text)
                             font.family: font_ean13.name
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
@@ -779,6 +781,7 @@ MainView {
                             source: editPage.imageSource
                         }
                         
+                        /* Common string representation of the Code */
                         Label {
                             Layout.fillWidth: true
                             id: cardCodeContent
