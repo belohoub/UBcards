@@ -32,30 +32,35 @@ either expressed or implied, of the FreeBSD Project.
 */
 
 
+/* Symbol names reference: https://sourceforge.net/p/zbar/code/ci/default/tree/zbar/symbol.c*/
 function stringToBarcode (type, str)
 {
     switch (type)
     {
-    case 'CODE-128B':
-        return "Ñ" + getCodeB(str) + "Ó";
-
     case undefined:
     case 'CODE-128':
-        return "Ò" + getCodeC(str) + "Ó";
-
-    case 'GS1':
+        if (/^-?\d+$/.test(str)) {
+            /* Numeric-only codes are type C*/
+            return "Ò" + getCodeC(str) + "Ó";
+        } else {
+            return "Ñ" + getCodeB(str) + "Ó";
+        }
+    
+    case 'DataBar':
         return "Ò" + getCodeGS1(str) + "Ó";
 
+    case 'UPC-A':
     case 'EAN-13':
+    case 'ISBN-13':
         return ":" + getEAN13(str) + "+";
 
     case 'EAN-8':
         return ":" + getEAN8(str) + "+";
 
-    case 'CODE-2of5':
+    case 'I2/5':
         return "(" + getI2of5(str) + ")";
-
-    case 'XXX':
+        
+    case 'CODE-39':
         return "*" + str.toUpperCase().replace (/[^A-Z\s\d-$%./+]/g, "") + "*";
     }
 }

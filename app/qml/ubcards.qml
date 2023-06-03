@@ -78,14 +78,16 @@ MainView {
         }
     }
     
+    /* TODO: Implement QR code handling */
+    /* Symbol names reference: https://sourceforge.net/p/zbar/code/ci/default/tree/zbar/symbol.c*/
     ListModel {
         id: codeTypeModel
         ListElement { name: "CODE-128"  ; font: "../fonts/Code128_new.ttf" }
-        ListElement { name: "CODE-128B" ; font: "../fonts/Code128_new.ttf" }
-        ListElement { name: "GS1"       ; font: "../fonts/Free3of9.ttf"    }
+        ListElement { name: "DataBar"   ; font: "../fonts/Free3of9.ttf"    }
         ListElement { name: "EAN-13"    ; font: "../fonts/ean13_new.ttf"   }
         ListElement { name: "EAN-8"     ; font: "../fonts/ean13_new.ttf"   }
-        ListElement { name: "CODE-2of5" ; font: "../fonts/I2of5_new.ttf"   }    
+        ListElement { name: "I2/5"      ; font: "../fonts/I2of5_new.ttf"   }  
+        ListElement { name: "QR-Code"   ; font: ""                         }  
     }
     
     Component {
@@ -144,8 +146,8 @@ MainView {
 
         onValidChanged: {
             if (qrCodeReader.valid) {
-                pageStack.pop();
-                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, cathegory: qrCodeReader.cathegory, imageSource: qrCodeReader.imageSource});
+                /*pageStack.pop();*/
+                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, cathegory: qrCodeReader.cathegory, imageSource: qrCodeReader.imageSource, editable: true});
             }
         }
     }
@@ -228,7 +230,7 @@ MainView {
             }
         }
     }
-
+    
     Component {
         id: cardWalletComponent
         
@@ -267,8 +269,9 @@ MainView {
                                 text: i18n.tr("Import image")
                                 iconName: "insert-image"
                                 onTriggered: {
-                                    m_name = newCardName.text
-                                    m_cathegory = newCardCathegory.text
+                                    bottomEdge.collapse()
+                                    m_name = "Unknown Card"
+                                    m_cathegory = "Undefined Cathegory"
                                     mainView.activeTransfer = picSourceSingle.request()
                                     print("transfer request", mainView.activeTransfer)
                                 }
@@ -278,6 +281,7 @@ MainView {
                                 text: i18n.tr("Scan Card")
                                 iconName: "camera-photo-symbolic"
                                 onTriggered: {
+                                    bottomEdge.collapse()
                                     onTriggered: pageStack.push(qrCodeReaderComponent)
                                 }
                             }
@@ -647,7 +651,7 @@ MainView {
             header: PageHeader {
                 id: editPageHeader
                 visible: !exportVCardPeerPicker.visible
-                title: (editPage.editable === true) ? i18n.tr("Edit Card") + editPage.name : i18n.tr("View Card")
+                title: (editPage.editable === true) ? i18n.tr("Edit Card") : i18n.tr("View Card")
                 leadingActionBar.actions: [
                     Action {
                         iconName: "back"
@@ -753,12 +757,6 @@ MainView {
                             width: parent.width
                             readOnly: !(editPage.editable)
                         }
-                    }
-                    
-                    Item {
-                         width: parent.width
-                         height: editCardCathegoryLabel.height
-                        
                     }
                     
                     Item {
