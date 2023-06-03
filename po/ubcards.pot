@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-02 23:28+0000\n"
+"POT-Creation-Date: 2023-06-03 12:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,203 +17,211 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../app/qml/ubcards.qml:159
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:159
+#: ../app/qml/ubcards.qml:74
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:74
+msgid "Shopping Card"
+msgstr ""
+
+#: ../app/qml/ubcards.qml:77
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:77
+msgid "Loyality Card"
+msgstr ""
+
+#: ../app/qml/ubcards.qml:215
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:215
 msgid "Error"
 msgstr ""
 
 #. TRANSLATORS: Displayed after a picture has been scanned and no code was found in it
-#: ../app/qml/ubcards.qml:170
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:170
+#: ../app/qml/ubcards.qml:226
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:226
 msgid "No code found in image"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:184
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:184
+#: ../app/qml/ubcards.qml:240
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:240
 #: ../build/aarch64-linux-gnu/app/po/ubcards.desktop.h:1 ubcards.desktop.h:1
 msgid "UBcards"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:188 ../app/qml/ubcards.qml:942
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:188
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:942
+#: ../app/qml/ubcards.qml:244 ../app/qml/ubcards.qml:1000
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:244
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1000
 msgid "About"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:200
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:200
+#: ../app/qml/ubcards.qml:256
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:256
 msgid "Add New Card"
 msgstr ""
 
 #. TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
-#: ../app/qml/ubcards.qml:211
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:211
+#: ../app/qml/ubcards.qml:267
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:267
 msgid "Import image"
 msgstr ""
 
 #. TRANSLATORS: Name of an action in the toolbar to scan barcode
-#: ../app/qml/ubcards.qml:222 ../app/qml/ubcards.qml:425
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:222
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:425
+#: ../app/qml/ubcards.qml:278 ../app/qml/ubcards.qml:487
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:278
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:487
 msgid "Scan Card"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:266
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:266
+#: ../app/qml/ubcards.qml:322
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:322
 msgid ""
 "Set card type and card ID manually to edit-boxes below OR scan code using "
 "icons above."
 msgstr ""
 
-#: ../app/qml/ubcards.qml:282
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:282
-msgid "Select card type:"
+#: ../app/qml/ubcards.qml:338 ../app/qml/ubcards.qml:794
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:338
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:794
+msgid "Card type:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:298
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:298
+#: ../app/qml/ubcards.qml:354
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:354
 msgid "Set card ID:"
 msgstr ""
 
-#. TRANSLATORS: Default Card Name
-#: ../app/qml/ubcards.qml:324 ../app/qml/ubcards.qml:686
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:324
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:686
+#: ../app/qml/ubcards.qml:380
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:380
 msgid "Card-Name"
 msgstr ""
 
-#. TRANSLATORS: Default Card Cathegory
-#: ../app/qml/ubcards.qml:324 ../app/qml/ubcards.qml:713
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:324
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:713
-msgid "Card-Cathegory"
+#: ../app/qml/ubcards.qml:380
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:380
+msgid "generic"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:562
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:562
+#: ../app/qml/ubcards.qml:624
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:624
 msgid "Decoding image"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:588
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:588
+#: ../app/qml/ubcards.qml:650
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:650
 msgid "Edit Card"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:588
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:588
+#: ../app/qml/ubcards.qml:650
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:650
 msgid "View Card"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:599
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:599
+#: ../app/qml/ubcards.qml:661
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:661
 msgid "Copy to clipboard"
 msgstr ""
 
 #. TRANSLATORS: Name of an action in the toolbar to import show card code as QR code
-#: ../app/qml/ubcards.qml:607
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:607
+#: ../app/qml/ubcards.qml:669
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:669
 msgid "Show as QR code"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:614
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:614
+#: ../app/qml/ubcards.qml:676
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:676
 msgid "Open URL"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:622
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:622
+#: ../app/qml/ubcards.qml:684
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:684
 msgid "Save"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:674
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:674
+#: ../app/qml/ubcards.qml:737
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:737
 msgid "Card name:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:701
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:701
+#. TRANSLATORS: Default Card Name
+#: ../app/qml/ubcards.qml:749
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:749
+msgid "New Card Name"
+msgstr ""
+
+#: ../app/qml/ubcards.qml:771
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:771
 msgid "Card cathegory:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:734
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:734
-msgid "Card type:"
-msgstr ""
-
-#: ../app/qml/ubcards.qml:816
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:816
+#: ../app/qml/ubcards.qml:874
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:874
 msgid "Contact"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:852
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:852
+#: ../app/qml/ubcards.qml:910
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:910
 msgid "QR code"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:883
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:883
+#: ../app/qml/ubcards.qml:941
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:941
 msgid "QR-Code"
 msgstr ""
 
 #. TRANSLATORS: Version number
-#: ../app/qml/ubcards.qml:998
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:998
+#: ../app/qml/ubcards.qml:1056
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1056
 #, qt-format
 msgid "App Version %1"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1009
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1009
+#: ../app/qml/ubcards.qml:1067
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1067
 msgid "Maintained by"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1010
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1010
+#: ../app/qml/ubcards.qml:1068
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1068
 msgid "Jan Belohoubek"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1022
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1022
+#: ../app/qml/ubcards.qml:1080
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1080
 msgid "Please report bugs to the"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1023
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1023
+#: ../app/qml/ubcards.qml:1081
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1081
 msgid "issue tracker"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1031
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1031
+#: ../app/qml/ubcards.qml:1089
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1089
 msgid "Please support"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1032
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1032
+#: ../app/qml/ubcards.qml:1090
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1090
 msgid "the app development"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1048
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1048
+#: ../app/qml/ubcards.qml:1106
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1106
 msgid "Thanks to"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1055
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1055
+#: ../app/qml/ubcards.qml:1113
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1113
 msgid "Chris Clime, Tagger application:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1063
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1063
+#: ../app/qml/ubcards.qml:1121
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1121
 msgid "Richard Lee, Card Wallet application:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1073
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1073
+#: ../app/qml/ubcards.qml:1131
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1131
 msgid "Released under the terms of the GNU GPLv3"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1079
-#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1079
+#: ../app/qml/ubcards.qml:1137
+#: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:1137
 msgid "Source code available on:"
 msgstr ""
 

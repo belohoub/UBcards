@@ -74,6 +74,7 @@ add_custom_target(${DESKTOP_FILE} ALL
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE} DESTINATION ${DESKTOP_DIR})
 install(DIRECTORY "app/graphics" DESTINATION ${DATA_DIR})
 install(DIRECTORY "app/fonts" DESTINATION ${DATA_DIR})
+install(DIRECTORY "app/icons" DESTINATION ${DATA_DIR})
 install(FILES "ubcards.apparmor" DESTINATION ${DATA_DIR})
 install(FILES "ubcards-contenthub.json" DESTINATION ${DATA_DIR})
 install(FILES

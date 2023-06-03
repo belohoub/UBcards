@@ -45,18 +45,63 @@ MainView {
     height: units.gu(68)
 
     ListModel {
+        id: cathegoryModel
+        ListElement { name: "generic"  ; image: "../icons/credit-card.svg" }
+        ListElement { name: "shopping" ; image: "../icons/cart-shopping.svg" }
+    }
+    
+    Component {
+        id: cathegoryDelegate
+        OptionSelectorDelegate { text: getCathegoryDescription(name); }
+    }
+    
+    /* Return icon for selected cathegory */
+    function getCathegoryIcon(name)
+    { 
+        for (var i = 0; i < cathegoryModel.count; i++) {
+            if (cathegoryModel.get(i).name === name) {
+                return cathegoryModel.get(i).image
+            }
+        }
+        return cathegoryModel.get(0).image
+    }
+    
+    /* Return textual description for a given cathegory */
+    function getCathegoryDescription(name)
+    { 
+        switch (name) {
+            case 'shopping':
+                return i18n.tr("Shopping Card");
+            case 'generic':
+            case undefined:
+                return i18n.tr("Loyality Card");
+        }
+    }
+    
+    ListModel {
         id: codeTypeModel
-        ListElement { name: "CODE-128"}
-        ListElement { name: "CODE-128B"}
-        ListElement { name: "GS1"     }
-        ListElement { name: "EAN-13"  }
-        ListElement { name: "EAN-8"   }
-        ListElement { name: "CODE-2of5"}    
+        ListElement { name: "CODE-128"  ; font: "../fonts/Code128_new.ttf" }
+        ListElement { name: "CODE-128B" ; font: "../fonts/Code128_new.ttf" }
+        ListElement { name: "GS1"       ; font: "../fonts/Free3of9.ttf"    }
+        ListElement { name: "EAN-13"    ; font: "../fonts/ean13_new.ttf"   }
+        ListElement { name: "EAN-8"     ; font: "../fonts/ean13_new.ttf"   }
+        ListElement { name: "CODE-2of5" ; font: "../fonts/I2of5_new.ttf"   }    
     }
     
     Component {
         id: codeTypeDelegate
         OptionSelectorDelegate { text: name }
+    }
+    
+    /* Return true if code font is defined */
+    function hasCodeFont(name)
+    { 
+        for (var i = 0; i < codeTypeModel.count; i++) {
+            if (codeTypeModel.get(i).name === name) {
+                return true
+            }
+        }
+        return false
     }
     
     /* Return index of the name in the model, if not found, return the first element */
@@ -68,6 +113,17 @@ MainView {
             }
         }
         return 0
+    }
+    
+    /* Return font for selected type */
+    function getCodeFont(name)
+    { 
+        for (var i = 0; i < codeTypeModel.count; i++) {
+            if (codeTypeModel.get(i).name === name) {
+                return codeTypeModel.get(i).font
+            }
+        }
+        return codeTypeModel.get(0).font
     }
     
     PageStack {
@@ -279,7 +335,7 @@ MainView {
                                  
                                 OptionSelector {
                                     id: newCardType
-                                    text: i18n.tr("Select card type:")
+                                    text: i18n.tr("Card type:")
                                     expanded: false
                                     selectedIndex: 0
                                     multiSelection: false
@@ -321,7 +377,7 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    qrCodeReader.insertData(newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), i18n.tr("Card-Cathegory"));
+                                    qrCodeReader.insertData(newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), i18n.tr("generic"));
                                 }
                             }
                     /*
@@ -377,22 +433,28 @@ MainView {
                 
                         RowLayout {
                             anchors.fill: parent
-                            anchors.margins: units.gu(1)
+                            anchors.margins: units.gu(1.5)
                             LomiriShape {
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: height
+                                anchors.margins: units.gu(1)
                                 image: Image {
                                     anchors.fill: parent
-                                    source: model.imageSource
+                                    anchors.margins: units.gu(1)
+                                    /*source: model.imageSource*/
+                                    source: getCathegoryIcon(model.cathegory)
+                                    sourceSize.width: units.gu(5)
+                                    sourceSize.height: units.gu(5)
                                 }
                             }
                             ColumnLayout {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
+                                
                                 Label {
                                     Layout.fillWidth: true
                                     elide: Text.ElideRight
-                                    text: model.name + " by " + model.cathegory
+                                    text: model.name
                                     font.pointSize: units.gu(2)
                                     maximumLineCount: 2
                                 }
@@ -585,7 +647,7 @@ MainView {
             header: PageHeader {
                 id: editPageHeader
                 visible: !exportVCardPeerPicker.visible
-                title: (editPage.editable === true) ? i18n.tr("Edit Card") : i18n.tr("View Card")
+                title: (editPage.editable === true) ? i18n.tr("Edit Card") + editPage.name : i18n.tr("View Card")
                 leadingActionBar.actions: [
                     Action {
                         iconName: "back"
@@ -624,7 +686,7 @@ MainView {
                         iconName: "save"
                         onTriggered: {
                             qrCodeReader.history.remove(editPage.historyIndex)
-                            qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, editCardCathegory.text);
+                            qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, cathegoryModel.get(editCardCathegory.selectedIndex).name);
                         }
                     }
                 ]
@@ -667,8 +729,9 @@ MainView {
                     
                     Item {
                          width: parent.width
-                         height: editCardNameLabel.height
-                    
+                         height: (editPage.editable) ? editCardNameLabel.height : 0
+                         visible: editPage.editable
+                         
                         Label {
                             id: editCardNameLabel
                             text: i18n.tr("Card name:")
@@ -683,8 +746,8 @@ MainView {
                         TextEdit {
                             id: editCardName
                             // TRANSLATORS: Default Card Name
-                            text: (editPage.name === "") ? i18n.tr("Card-Name") : editPage.name
-                            font.pointSize: units.gu(2)
+                            text: (editPage.name === "") ? i18n.tr("New Card Name") : editPage.name
+                            font.pointSize: units.gu(4)
                             wrapMode: TextEdit.WrapAnywhere
                             inputMethodHints: Qt.ImhNoPredictiveText
                             width: parent.width
@@ -695,27 +758,23 @@ MainView {
                     Item {
                          width: parent.width
                          height: editCardCathegoryLabel.height
-                    
-                        Label {
-                            id: editCardCathegoryLabel
-                            text: i18n.tr("Card cathegory:")
-                            font.pointSize: units.gu(1.5)
-                        }
+                        
                     }
                     
                     Item {
                         width: parent.width
-                        height: editCardCathegory.height
+                        height: (editPage.editable) ? editCardCathegory.height : 0
+                        visible: editPage.editable
                          
-                        TextEdit {
+                        OptionSelector {
                             id: editCardCathegory
-                            // TRANSLATORS: Default Card Cathegory
-                            text: (editPage.cathegory === "") ? i18n.tr("Card-Cathegory") : editPage.cathegory
-                            font.pointSize: units.gu(2)
-                            wrapMode: TextEdit.WrapAnywhere
-                            inputMethodHints: Qt.ImhNoPredictiveText
+                            text: i18n.tr("Card cathegory:")
+                            expanded: false
+                            selectedIndex: 0
+                            multiSelection: false
+                            delegate: cathegoryDelegate
+                            model: cathegoryModel
                             width: parent.width
-                            readOnly: !(editPage.editable)
                         }
                     }
                     
@@ -726,7 +785,8 @@ MainView {
                     
                     Item {
                         width: parent.width
-                        height: editCardType.height
+                        height: (editPage.editable) ? editCardType.height : 0
+                        visible: editPage.editable
                          
                         OptionSelector {
                             id: editCardType
@@ -745,26 +805,22 @@ MainView {
                     /* Display barcodes for scanning */
                 
                     FontLoader {
-                        id: font_type128
-                        source: "../fonts/Code128_new.ttf"
+                        id: loadedFont
+                        source: getCodeFont(editPage.type)
                     }
                     
-                    FontLoader {
-                        id: font_ean13
-                        source: "../fonts/ean13_new.ttf"
-                    }
-                    
-                    /* TODO add another codes */
                     Item {
                         width: parent.width
-                        height: encodedCodeField.height
+                        height: (hasCodeFont(editPage.type)) ? encodedCodeField.height : 0
+                        visible: hasCodeFont(editPage.type)
                          
                         Text {
                             id: encodedCodeField
                             Layout.fillWidth: true
-                            visible: (editPage.type === "CODE-128") ? true : false
-                            text: Encoder.stringToBarcode('CODE-128', editPage.text)
-                            font.family: font_type128.name
+                            width: parent.width
+                            visible: hasCodeFont(editPage.type)
+                            text: Encoder.stringToBarcode(editPage.type, editPage.text)
+                            font.family: loadedFont.name
                             textFormat: Text.PlainText
                             fontSizeMode: Text.HorizontalFit
                             minimumPointSize: units.gu(2)
@@ -778,12 +834,13 @@ MainView {
                     /* This should be visible only if code-type generation is not available */
                     Item {
                         width: parent.width
-                        height: cardCodeImage.height
+                        height: (!(hasCodeFont(editPage.type))) ? cardCodeImage.height : 0
+                        visible: !(hasCodeFont(editPage.type))
                          
                         Image {
                             Layout.fillWidth: true
                             id: cardCodeImage
-                            visible: ((editPage.type === "CODE-128") || (editPage.type === "EAN-13")) ? false : true
+                            visible: !(hasCodeFont(editPage.type))
                             source: editPage.imageSource
                         }
                     }
@@ -796,6 +853,7 @@ MainView {
                         Label {
                             Layout.fillWidth: true
                             id: cardCodeContent
+                            width: parent.width
                             text: editPage.text
                             color: editPage.isUrl ? "blue" : "black"
                             textFormat: Text.PlainText
@@ -803,7 +861,7 @@ MainView {
                             minimumPointSize: units.gu(2)
                             font.pointSize: units.gu(5)
                             horizontalAlignment: Text.AlignHCenter
-                            anchors.margins: units.gu(1)
+                            anchors.centerIn: parent
                         }
                     }
                     
