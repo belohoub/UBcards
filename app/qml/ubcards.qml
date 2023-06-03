@@ -323,7 +323,7 @@ MainView {
                                         horizontalCenter: parent.horizontalCenter
                                     }
                                     wrapMode: Text.Wrap
-                                    text: i18n.tr("Set card type and card ID manually to edit-boxes below OR scan code using icons above.")
+                                    text: i18n.tr("Set card type and card ID manually below OR scan code using icons above.")
                                     font.pointSize: units.gu(2.5)
                                 }
                             }
@@ -690,6 +690,7 @@ MainView {
                         iconName: "save"
                         onTriggered: {
                             qrCodeReader.history.remove(editPage.historyIndex)
+                            pageStack.pop()
                             qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, cathegoryModel.get(editCardCathegory.selectedIndex).name);
                         }
                     }
