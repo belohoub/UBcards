@@ -1031,7 +1031,7 @@ MainView {
                             topMargin: units.gu(20)
                         }
                         source: Image {
-                           source: "../graphics/tagger.png"
+                           source: "../graphics/ubcards.png"
                         }
                 
                     }
