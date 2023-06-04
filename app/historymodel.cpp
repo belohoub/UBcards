@@ -9,8 +9,8 @@
 HistoryModel::HistoryModel(QObject *parent):
     QAbstractListModel(parent),
     QQuickImageProvider(QQuickImageProvider::Image),
-    m_cacheLocation(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first() + "/.cache/ubcards.belohoub/"),
-    m_settings(m_cacheLocation + "wallet.ini", QSettings::IniFormat)
+    m_storageLocation(QStandardPaths::standardLocations(QStandardPaths::HomeLocation).first() + "/.local/share/ubcards/"),
+    m_settings(m_storageLocation + "wallet.ini", QSettings::IniFormat)
 {
     qDebug() << "History saved in" << m_settings.fileName();
 }
@@ -66,7 +66,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
 void HistoryModel::add(const QString &text, const QString &type, const QString &name, const QString &cathegory, const QImage &image)
 {
     QString id = QUuid::createUuid().toString().remove(QRegExp("[{}]"));
-    image.save(m_cacheLocation + id + ".jpg");
+    image.save(m_storageLocation + id + ".jpg");
 
     beginInsertRows(QModelIndex(), 0, 0);
 
@@ -92,14 +92,14 @@ void HistoryModel::remove(int index)
     all.removeAt(index);
     m_settings.setValue("all", all);
     m_settings.remove(id);
-    QFile f(m_cacheLocation + id + ".jpg");
+    QFile f(m_storageLocation + id + ".jpg");
     f.remove();
     endRemoveRows();
 }
 
 QImage HistoryModel::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
-    QImage image(m_cacheLocation + id + ".jpg");
+    QImage image(m_storageLocation + id + ".jpg");
     if (requestedSize.isValid()) {
         image = image.scaled(requestedSize);
         size->setWidth(requestedSize.width());

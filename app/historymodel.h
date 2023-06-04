@@ -30,7 +30,7 @@ public:
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
 
 private:
-    QString m_cacheLocation;
+    QString m_storageLocation;
     mutable QSettings m_settings;
 };
 
