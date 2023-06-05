@@ -46,8 +46,13 @@ MainView {
 
     ListModel {
         id: cathegoryModel
-        ListElement { name: "generic"  ; image: "../icons/credit-card.svg" }
-        ListElement { name: "shopping" ; image: "../icons/cart-shopping.svg" }
+        ListElement { name: "generic"    ; image: "../icons/card.svg" }
+        ListElement { name: "shopping"   ; image: "../icons/shopping.svg" }
+        ListElement { name: "car"        ; image: "../icons/car.svg" }
+        ListElement { name: "health"     ; image: "../icons/health.svg" }
+        ListElement { name: "sport"      ; image: "../icons/sport.svg" }
+        ListElement { name: "travel"     ; image: "../icons/travel.svg" }
+        ListElement { name: "restaurant" ; image: "../icons/restaurant.svg" }
     }
     
     Component {
@@ -71,7 +76,17 @@ MainView {
     { 
         switch (name) {
             case 'shopping':
-                return i18n.tr("Shopping Card");
+                return i18n.tr("Shopping");
+            case 'car':
+                return i18n.tr("Car");
+            case 'health':
+                return i18n.tr("Health");
+            case 'sport':
+                return i18n.tr("Sport");
+            case 'travel':
+                return i18n.tr("Travel");
+            case 'restaurant':
+                return i18n.tr("Restaurant");
             case 'generic':
             case undefined:
                 return i18n.tr("Loyality Card");
