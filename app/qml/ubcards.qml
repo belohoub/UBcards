@@ -841,11 +841,10 @@ MainView {
                          
                         Image {
                             id: qrCodeImage
-                            Layout.preferredWidth: Math.min(parent.width, parent.height)
-                            Layout.preferredHeight: width
-                            fillMode: Image.PreserveAspectFit
+                            width: (parent.width < units.gu(30)) ? parent.width : units.gu(30)
+                            height: (parent.width < units.gu(30)) ? parent.width : units.gu(30)
                             source: editPage.text.length > 0 ? "image://qrcode/" + editPage.text : ""
-                            onStatusChanged: print("status changed", status)
+                            anchors.centerIn: parent
                         }
                     }
                     
