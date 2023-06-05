@@ -34,7 +34,7 @@ import "encoder.js" as Encoder
 MainView {
     id: mainView
 
-    applicationName: "ubcards.belohoub"
+    applicationName: "ubcards"
 
     Component.onCompleted: i18n.domain = "ubcards"
     
@@ -100,6 +100,9 @@ MainView {
     { 
         for (var i = 0; i < codeTypeModel.count; i++) {
             if (codeTypeModel.get(i).name === name) {
+                if (codeTypeModel.get(i).font === "") {
+                    return false
+                }
                 return true
             }
         }
@@ -827,6 +830,22 @@ MainView {
                             horizontalAlignment: Text.AlignHCenter
                             // anchors.margins: units.gu(1)
                             anchors.centerIn: parent
+                        }
+                    }
+                    
+                    /* This should be visible only if code-type is QR-Code */
+                    Item {
+                        width: parent.width
+                        height: (editPage.type === "QR-Code") ? qrCodeImage.height : 0
+                        visible: (editPage.type === "QR-Code")
+                         
+                        Image {
+                            id: qrCodeImage
+                            Layout.preferredWidth: Math.min(parent.width, parent.height)
+                            Layout.preferredHeight: width
+                            fillMode: Image.PreserveAspectFit
+                            source: editPage.text.length > 0 ? "image://qrcode/" + editPage.text : ""
+                            onStatusChanged: print("status changed", status)
                         }
                     }
                     
