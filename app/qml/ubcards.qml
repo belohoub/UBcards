@@ -93,11 +93,22 @@ MainView {
         }
     }
     
+    function getCathegoryIndex(cathegory) 
+    {
+        for (var i = 0; i < cathegoryModel.count; i++) {
+            if (cathegoryModel.get(i).name === cathegory) {
+                return i
+            }
+        }
+        return 0
+    }
+    
     /* TODO: Implement QR code handling */
     /* Symbol names reference: https://sourceforge.net/p/zbar/code/ci/default/tree/zbar/symbol.c*/
     ListModel {
         id: codeTypeModel
         ListElement { name: "CODE-128"  ; font: "../fonts/Code128_new.ttf" }
+        ListElement { name: "CODE-39"   ; font: "../fonts/Free3of9.ttf"    }
         ListElement { name: "DataBar"   ; font: "../fonts/Free3of9.ttf"    }
         ListElement { name: "EAN-13"    ; font: "../fonts/ean13_new.ttf"   }
         ListElement { name: "EAN-8"     ; font: "../fonts/ean13_new.ttf"   }
@@ -775,6 +786,8 @@ MainView {
                             inputMethodHints: Qt.ImhNoPredictiveText
                             width: parent.width
                             readOnly: !(editPage.editable)
+                            horizontalAlignment: (editPage.editable) ? Text.AlignHLeft : Text.AlignHCenter
+                            anchors.centerIn: parent
                         }
                     }
                     
@@ -787,7 +800,7 @@ MainView {
                             id: editCardCathegory
                             text: i18n.tr("Card cathegory:")
                             expanded: false
-                            selectedIndex: 0
+                            selectedIndex: getCathegoryIndex(editPage.cathegory)
                             multiSelection: false
                             delegate: cathegoryDelegate
                             model: cathegoryModel
