@@ -12,7 +12,7 @@ UBcards is a simple card wallet application for [Ubuntu Touch](https://ubports.c
 
 UBcards allows you to import your cards from the Card Wallet application if you come from Xenial to Focal using a simple shell script.
 
-The migration is allowed by the shell script, not by the UI. This is because the application isolation complicates the user-friendly implementation and yes, I'm lazy, and I hope this one-time step is OK for most users :-) 
+The migration is allowed by the shell script, not by the UI. This is because the application isolation complicates the implementation and yes, I'm lazy, and I hope this one-time step is OK for most users :-) 
 
 To import cards from the Card Wallet app, execute the following script on your Ubuntu-Touch device:
 ```
