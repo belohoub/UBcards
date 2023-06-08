@@ -2,7 +2,7 @@
 This code was a part of cardwallet ubuntu-touch application
  
 Copyright (c) 2015, Matthew Edwards 
-Copyright (c) 2023, Jan Belohoubek
+Copyright (c) 2023, Jan Belohoubek, it@sfortelem.cz
 
 All rights reserved.
 

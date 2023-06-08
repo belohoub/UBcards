@@ -1,8 +1,8 @@
 /*****************************************************************************
- * Copyright: 2013 Michael Zanetti <michael_zanetti@gmx.net>      
- * Copyright (C) 2023 Jan Belohoubek, it@sforetelem.cz
+ * Copyright: 2013 Michael Zanetti <michael_zanetti@gmx.net>                 *
+ * Copyright (C) 2023 Jan Belohoubek, it@sfortelem.cz                        *
  *                                                                           *
- * This file is part of ubsync, fork of tagger                                               *
+ * This file is part of UBcards, the fork of tagger                          *
  *                                                                           *
  * This prject is free software: you can redistribute it and/or modify       *
  * it under the terms of the GNU General Public License as published by      *
@@ -375,6 +375,7 @@ MainView {
                                     delegate: codeTypeDelegate
                                     model: codeTypeModel
                                     width: parent.width
+                                    containerHeight: itemHeight * 4
                                 }
                             }
                             
@@ -459,6 +460,12 @@ MainView {
                                     iconName: "edit"
                                     onTriggered: {
                                          pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, cathegory: model.cathegory, imageSource: model.imageSource, editable: true, historyIndex: index})
+                                    }
+                                },
+                                Action {
+                                    iconName: "edit-copy"
+                                    onTriggered: {
+                                        Clipboard.push(model.text)
                                     }
                                 }
                             ]
@@ -691,7 +698,15 @@ MainView {
                 ]
                 trailingActionBar.actions: [
                     Action {
-                        text: i18n.tr("Copy to clipboard")
+                        text: i18n.tr("Edit Card")
+                        iconName: "edit"
+                        visible: !(editPage.editable)
+                        onTriggered: {
+                             pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, cathegory: editPage.cathegory, imageSource: editPage.imageSource, editable: true, historyIndex: editPage.historyIndex})
+                        }
+                    },
+                    Action {
+                        text: i18n.tr("Copy to Clipboard")
                         iconName: "edit-copy"
                         onTriggered: {
                             Clipboard.push(editPage.text)
@@ -699,7 +714,7 @@ MainView {
                     },
                     Action {
                         // TRANSLATORS: Name of an action in the toolbar to import show card code as QR code
-                        text: i18n.tr("Show as QR code")
+                        text: i18n.tr("Show as QR Code")
                         iconName: "share"
                         onTriggered: {
                             pageStack.push(showQRCodeComponent, {textData: editPage.text})
@@ -805,6 +820,7 @@ MainView {
                             delegate: cathegoryDelegate
                             model: cathegoryModel
                             width: parent.width
+                            containerHeight: itemHeight * 4
                         }
                     }
                     
@@ -828,6 +844,7 @@ MainView {
                             delegate: codeTypeDelegate
                             model: codeTypeModel
                             width: parent.width
+                            containerHeight: itemHeight * 4
                         }
                     }
                     
@@ -1166,6 +1183,22 @@ MainView {
                             labeltext: i18n.tr("Richard Lee, Card Wallet application:")
                             linktext: "Card Wallet"
                             linkurl: "https://gitlab.com/AppsLee/cardwallet"
+                        }
+                        LabelLinkRow {
+                            id: faiconsAppLabel
+                            //width: parent.width
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            labeltext: i18n.tr("Fonticons, Inc., Font Awesome")
+                            linktext: "Font Awesome"
+                            linkurl: "https://fontawesome.com"
+                        }
+                        LabelLinkRow {
+                            id: suruiconsAppLabel
+                            //width: parent.width
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            labeltext: i18n.tr("Sam Hewitt, Suru Icons")
+                            linktext: "Sam Hewitt, Suru Icons"
+                            linkurl: "https://github.com/snwh/suru-icon-theme"
                         }
                     }
                     Label {
