@@ -2,7 +2,9 @@
 
 ***This application is still in testing, please comment on existing issues or open a new one if something goes wrong, if you found a bug, or if you wish a new feature.***
 
-UBcards is a simple card wallet application for [Ubuntu Touch](https://ubports.com/). It follows the philosophy of the older [Card Wallet](https://gitlab.com/AppsLee/cardwallet) application, preserving its simplicity, while adding a few new features like icons for easier view in the longer card list, or direct barcode scanning. 
+UBcards is a simple card wallet application for [Ubuntu Touch](https://ubports.com/). UBcards allows managing the barcode-based (loyalty) cards. Cards could be scanned by the phone camera or inserted manually.
+
+UBcards follows the philosophy of the older [Card Wallet](https://gitlab.com/AppsLee/cardwallet) application, preserving its simplicity, while adding few new features like icons for easier view in the longer card list, or direct barcode scanning. 
 
 [![OpenStore](https://open-store.io/badges/en_US.png)](https://open-store.io/app/ubcards)
 
