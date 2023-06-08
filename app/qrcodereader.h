@@ -36,7 +36,7 @@ class QRCodeReader : public QObject, public QQuickImageProvider
     Q_PROPERTY(QString type READ type NOTIFY validChanged)
     Q_PROPERTY(QString text READ text NOTIFY validChanged)
     Q_PROPERTY(QString name READ name NOTIFY validChanged)
-    Q_PROPERTY(QString cathegory READ cathegory NOTIFY validChanged)
+    Q_PROPERTY(QString category READ category NOTIFY validChanged)
     Q_PROPERTY(QImage image READ image NOTIFY validChanged)
     Q_PROPERTY(QString imageSource READ imageSource NOTIFY validChanged)
     Q_PROPERTY(QRect scanRect READ scanRect WRITE setScanRect NOTIFY scanRectChanged)
@@ -50,7 +50,7 @@ public:
     QString type() const;
     QString text() const;
     QString name() const;
-    QString cathegory() const;
+    QString category() const;
     QImage image() const;
     QString imageSource() const;
     QRect scanRect() const;
@@ -61,9 +61,9 @@ public:
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
 public slots:
-    void grab(const QString &name, const QString &cathegory);
-    void processImage(const QUrl &url, const QString &name, const QString &cathegory);
-    void insertData(const QString &text, const QString &type, const QString &name, const QString &cathegory);
+    void grab(const QString &name, const QString &category);
+    void processImage(const QUrl &url, const QString &name, const QString &category);
+    void insertData(const QString &text, const QString &type, const QString &name, const QString &category);
 
 signals:
     void validChanged();
@@ -71,7 +71,7 @@ signals:
     void scanningChanged();
 
 private slots:
-    void handleResults(const QString &type, const QString &text, const QString &name, const QString &cathegory, const QImage &codeImage);
+    void handleResults(const QString &type, const QString &text, const QString &name, const QString &category, const QImage &codeImage);
 
 private:
     QQuickWindow *m_mainWindow;
@@ -79,7 +79,7 @@ private:
     QString m_type;
     QString m_text;
     QString m_name;
-    QString m_cathegory;
+    QString m_category;
     QImage m_image;
     QUuid m_imageUuid;
     QRect m_scanRect;
@@ -93,11 +93,11 @@ class Reader : public QObject
     Q_OBJECT
 
 public slots:
-    void doWork(const QImage &image, const QString &name, const QString &cathegory, bool invert);
-    void insertData(const QString &text, const QString &type, const QString &name, const QString &cathegory);
+    void doWork(const QImage &image, const QString &name, const QString &category, bool invert);
+    void insertData(const QString &text, const QString &type, const QString &name, const QString &category);
 
 signals:
-    void resultReady(const QString &type, const QString &text, const QString &name, const QString &cathegory, const QImage &codeImage);
+    void resultReady(const QString &type, const QString &text, const QString &name, const QString &category, const QImage &codeImage);
     void finished();
 };
 

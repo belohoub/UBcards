@@ -38,14 +38,14 @@ MainView {
 
     Component.onCompleted: i18n.domain = "ubcards"
     
-    property var m_cathegory: "undefined"
+    property var m_category: "undefined"
     property var m_name: "undefined"
 
     width: units.gu(40)
     height: units.gu(68)
 
     ListModel {
-        id: cathegoryModel
+        id: categoryModel
         ListElement { name: "generic"    ; image: "../icons/card.svg" }
         ListElement { name: "shopping"   ; image: "../icons/shopping.svg" }
         ListElement { name: "car"        ; image: "../icons/car.svg" }
@@ -56,22 +56,22 @@ MainView {
     }
     
     Component {
-        id: cathegoryDelegate
+        id: categoryDelegate
         OptionSelectorDelegate { text: getCathegoryDescription(name); }
     }
     
-    /* Return icon for selected cathegory */
+    /* Return icon for selected category */
     function getCathegoryIcon(name)
     { 
-        for (var i = 0; i < cathegoryModel.count; i++) {
-            if (cathegoryModel.get(i).name === name) {
-                return cathegoryModel.get(i).image
+        for (var i = 0; i < categoryModel.count; i++) {
+            if (categoryModel.get(i).name === name) {
+                return categoryModel.get(i).image
             }
         }
-        return cathegoryModel.get(0).image
+        return categoryModel.get(0).image
     }
     
-    /* Return textual description for a given cathegory */
+    /* Return textual description for a given category */
     function getCathegoryDescription(name)
     { 
         switch (name) {
@@ -93,10 +93,10 @@ MainView {
         }
     }
     
-    function getCathegoryIndex(cathegory) 
+    function getCathegoryIndex(category) 
     {
-        for (var i = 0; i < cathegoryModel.count; i++) {
-            if (cathegoryModel.get(i).name === cathegory) {
+        for (var i = 0; i < categoryModel.count; i++) {
+            if (categoryModel.get(i).name === category) {
                 return i
             }
         }
@@ -176,7 +176,7 @@ MainView {
         onValidChanged: {
             if (qrCodeReader.valid) {
                 /*pageStack.pop();*/
-                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, cathegory: qrCodeReader.cathegory, imageSource: qrCodeReader.imageSource, editable: true});
+                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});
             }
         }
     }
@@ -192,13 +192,13 @@ MainView {
         onImportRequested: {
             print("**** import Requested")
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath, m_name, m_cathegory);
+            qrCodeReader.processImage(filePath, m_name, m_category);
         }
 
         onShareRequested: {
             print("***** share requested", transfer)
             var filePath = String(transfer.items[0].url).replace('file://', '')
-            qrCodeReader.processImage(filePath, m_name, m_cathegory);
+            qrCodeReader.processImage(filePath, m_name, m_category);
         }
     }
 
@@ -224,7 +224,7 @@ MainView {
             case ContentTransfer.Charged:
                 print("should process", activeTransfer.items[0].url)
                 mainView.decodingImage = true;
-                qrCodeReader.processImage(activeTransfer.items[0].url, m_name, m_cathegory);
+                qrCodeReader.processImage(activeTransfer.items[0].url, m_name, m_category);
                 mainView.activeTransfer = null;
                 break;
             case ContentTransfer.Aborted:
@@ -300,7 +300,7 @@ MainView {
                                 onTriggered: {
                                     bottomEdge.collapse()
                                     m_name = "Unknown Card"
-                                    m_cathegory = "Undefined Cathegory"
+                                    m_category = "Undefined Cathegory"
                                     mainView.activeTransfer = picSourceSingle.request()
                                     print("transfer request", mainView.activeTransfer)
                                 }
@@ -345,11 +345,10 @@ MainView {
                     
                                 Label {
                                     id: newCardNotice
+                                    width: parent.width
                                     anchors {
-                                        left: parent.left
-                                        right: parent.right
                                         margins: units.gu(2)
-                                        horizontalCenter: parent.horizontalCenter
+                                        centerIn: parent
                                     }
                                     wrapMode: Text.Wrap
                                     text: i18n.tr("Set card type and card ID manually below OR scan code using icons above.")
@@ -459,7 +458,7 @@ MainView {
                                 Action {
                                     iconName: "edit"
                                     onTriggered: {
-                                         pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, cathegory: model.cathegory, imageSource: model.imageSource, editable: true, historyIndex: index})
+                                         pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: true, historyIndex: index})
                                     }
                                 },
                                 Action {
@@ -482,7 +481,7 @@ MainView {
                                     anchors.fill: parent
                                     anchors.margins: units.gu(1)
                                     /*source: model.imageSource*/
-                                    source: getCathegoryIcon(model.cathegory)
+                                    source: getCathegoryIcon(model.category)
                                     sourceSize.width: units.gu(5)
                                     sourceSize.height: units.gu(5)
                                 }
@@ -507,7 +506,7 @@ MainView {
                         }
                 
                         onClicked: {
-                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, cathegory: model.cathegory, imageSource: model.imageSource, editable: false})
+                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: false})
                         }
                     }
                 }
@@ -674,7 +673,7 @@ MainView {
             property string type
             property string text
              /* Card provider like Tesco .. */
-            property string cathegory
+            property string category
             /* My Card name */
             property string name 
             property string imageSource
@@ -702,7 +701,7 @@ MainView {
                         iconName: "edit"
                         visible: !(editPage.editable)
                         onTriggered: {
-                             pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, cathegory: editPage.cathegory, imageSource: editPage.imageSource, editable: true, historyIndex: editPage.historyIndex})
+                             pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, category: editPage.category, imageSource: editPage.imageSource, editable: true, historyIndex: editPage.historyIndex})
                         }
                     },
                     Action {
@@ -735,7 +734,7 @@ MainView {
                         onTriggered: {
                             qrCodeReader.history.remove(editPage.historyIndex)
                             pageStack.pop()
-                            qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, cathegoryModel.get(editCardCathegory.selectedIndex).name);
+                            qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
                         }
                     }
                 ]
@@ -813,12 +812,12 @@ MainView {
                          
                         OptionSelector {
                             id: editCardCathegory
-                            text: i18n.tr("Card cathegory:")
+                            text: i18n.tr("Card category:")
                             expanded: false
-                            selectedIndex: getCathegoryIndex(editPage.cathegory)
+                            selectedIndex: getCathegoryIndex(editPage.category)
                             multiSelection: false
-                            delegate: cathegoryDelegate
-                            model: cathegoryModel
+                            delegate: categoryDelegate
+                            model: categoryModel
                             width: parent.width
                             containerHeight: itemHeight * 4
                         }

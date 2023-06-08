@@ -73,7 +73,7 @@ do
   
   echo "" >> ${UBCARDS_WALLET}
   echo "[$uuid]"  >> ${UBCARDS_WALLET}
-  echo "cathegory=generic" >> ${UBCARDS_WALLET}
+  echo "category=generic" >> ${UBCARDS_WALLET}
   echo "name=$name" >> ${UBCARDS_WALLET}
   echo "text=$value" >> ${UBCARDS_WALLET}
   echo "timestamp=@DateTime(\0\0\0\x10\0\0\0\0\0\0%\x00\x00\x00\x00\00\0)" >> ${UBCARDS_WALLET}

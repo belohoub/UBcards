@@ -10,9 +10,9 @@ UBcards is a simple card wallet application for [Ubuntu Touch](https://ubports.c
 
 ## Migrating from the Card Wallet App
 
-The migration is allowed by the shell script, not by the UI. This is because the application isolation complicates the user-friendly implementation and yes, I'm lazy, and I think this one-time step is OK for most users :-) 
-
 UBcards allows you to import your cards from the Card Wallet application if you come from Xenial to Focal using a simple shell script.
+
+The migration is allowed by the shell script, not by the UI. This is because the application isolation complicates the user-friendly implementation and yes, I'm lazy, and I hope this one-time step is OK for most users :-) 
 
 To import cards from the Card Wallet app, execute the following script on your Ubuntu-Touch device:
 ```
@@ -28,7 +28,7 @@ Done!
 $ cat ~/.local/share/ubcards/wallet.ini
 ```
 
-Then re-open the UBcards app and check if the import was successful. In case of any issues, you can get back o the previous configuration:
+Then re-open the UBcards app and check if the import was successful. In case of any issues, you can get back to the previous configuration:
 
 ```
 $ cp ~/.local/share/ubcards/wallet.ini~ ~/.local/share/ubcards/wallet.ini
@@ -38,7 +38,7 @@ $ cp ~/.local/share/ubcards/wallet.ini~ ~/.local/share/ubcards/wallet.ini
 
 UBcards follows the philosophy of the older [Card Wallet](https://gitlab.com/AppsLee/cardwallet) application, preserving its simplicity, while adding a few new features like icons for easier view in the longer card list, or direct barcode scanning. 
 
-The subset of Card Wallets' code is re.-used in UBcards, while UBcards is the extensively reworked fork of the [Tagger](https://gitlab.com/balcy/tagger) application from which it inherits e.g. the barcode scanning features.
+The subset of Card Wallets' code is re-used in UBcards, while UBcards is the extensively reworked fork of the [Tagger](https://gitlab.com/balcy/tagger) application from which it inherits e.g. the barcode scanning features.
 
 The overall code evolution is briefly documented in the [changelog](CHANGELOG.md).
 
