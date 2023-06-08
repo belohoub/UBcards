@@ -8,7 +8,7 @@ UBcards is a simple card wallet application for [Ubuntu Touch](https://ubports.c
 
 [![UBcards](https://github.com/belohoub/UBcards/blob/master/app/graphics/ubcards256.png?raw=true)](https://github.com/belohoub/UBcards/)
 
-## Migrating from the Aplikace Card Wallet App
+## Migrating from the Card Wallet App
 
 The migration is allowed by the shell script, not by the UI. This is because the application isolation complicates the user-friendly implementation and yes, I'm lazy, and I think this one-time step is OK for most users :-) 
 
