@@ -45,7 +45,7 @@ The overall code evolution is briefly documented in the [changelog](CHANGELOG.md
 ## Credits
 
 I would like to thank several projects/persons:
-1. [Tagger](https://gitlab.com/balcy/tagger) for a great application
+1. [Tagger](https://gitlab.com/balcy/tagger) for a great application. This app is actually a fork of Tagger
 1. [Card Wallet](https://gitlab.com/AppsLee/cardwallet) for a great application, re-used code snippets, and fonts
 1. [Fonticons, Inc.](https://fontawesome.com) for the Font Awesome Icons
 1. [Sam Hewitt, Suru Icons](https://github.com/snwh/suru-icon-theme) for the initial graphics used to create the application logo
