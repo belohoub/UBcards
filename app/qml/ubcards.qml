@@ -44,15 +44,24 @@ MainView {
     width: units.gu(40)
     height: units.gu(68)
 
+    
+    /*
+     * Color is choosen as 50% of the intensity of the main color of the icon.
+     * Black text should be well readable!
+     * Ideally, white should be readable as well, 
+     * as it is not possible to change color inherited from style for OptionSelector
+     */
     ListModel {
         id: categoryModel
-        ListElement { name: "generic"    ; image: "../icons/card.svg" }
-        ListElement { name: "shopping"   ; image: "../icons/shopping.svg" }
-        ListElement { name: "car"        ; image: "../icons/car.svg" }
-        ListElement { name: "health"     ; image: "../icons/health.svg" }
-        ListElement { name: "sport"      ; image: "../icons/sport.svg" }
-        ListElement { name: "travel"     ; image: "../icons/travel.svg" }
-        ListElement { name: "restaurant" ; image: "../icons/restaurant.svg" }
+        ListElement { name: "generic"    ; image: "../icons/card.svg"       ; color: "#7fd6ca"  }
+        ListElement { name: "shopping"   ; image: "../icons/shopping.svg"   ; color: "#ea989d"  }
+        ListElement { name: "car"        ; image: "../icons/car.svg"        ; color: "#f97fbf"  }
+        ListElement { name: "health"     ; image: "../icons/health.svg"     ; color: "#babfe7"  }
+        ListElement { name: "sport"      ; image: "../icons/sport.svg"      ; color: "#f7d47f"  }
+        ListElement { name: "travel"     ; image: "../icons/travel.svg"     ; color: "#8184bf"  }
+        ListElement { name: "restaurant" ; image: "../icons/restaurant.svg" ; color: "#cacabf"  }
+        ListElement { name: "garden"     ; image: "../icons/garden.svg"     ; color: "#80b381"  }
+        ListElement { name: "education"  ; image: "../icons/education.svg"  ; color: "#7f7f7f"  }
     }
     
     Component {
@@ -71,6 +80,16 @@ MainView {
         return categoryModel.get(0).image
     }
     
+    function getCathegoryColor(name)
+    { 
+        for (var i = 0; i < categoryModel.count; i++) {
+            if (categoryModel.get(i).name === name) {
+                return categoryModel.get(i).color
+            }
+        }
+        return categoryModel.get(0).color
+    }
+    
     /* Return textual description for a given category */
     function getCathegoryDescription(name)
     { 
@@ -87,8 +106,12 @@ MainView {
                 return i18n.tr("Travel");
             case 'restaurant':
                 return i18n.tr("Restaurant");
+            case 'garden':
+                return i18n.tr("Garden");
+            case 'education':
+                return i18n.tr("Education");
             case 'generic':
-            case undefined:
+            default:
                 return i18n.tr("Loyality Card");
         }
     }
@@ -288,6 +311,8 @@ MainView {
                 contentComponent: Rectangle {
                     width: cardWalletPage.width
                     height: cardWalletPage.height
+                    // Background color must be set here
+                    color: theme.palette.normal.background
                     
                     PageHeader {
                         title: "Add New Card"
@@ -323,7 +348,7 @@ MainView {
                         flickableDirection: Flickable.AutoFlickIfNeeded
                         anchors.fill: parent
                         anchors.topMargin: addNewCardPageHeader.height
-                         anchors.bottomMargin: units.gu(5)
+                        anchors.bottomMargin: units.gu(5)
                         contentHeight: newCardColumn.height
                 
                         Column {
@@ -401,6 +426,7 @@ MainView {
                                     inputMethodHints: Qt.ImhNoPredictiveText
                                     width: parent.width
                                     readOnly: false
+                                    color: theme.palette.normal.baseText
                                 }
                             }
                     
@@ -747,185 +773,222 @@ MainView {
                 anchors.topMargin: editPageHeader.height
                 anchors.bottomMargin: units.gu(5)
                 contentHeight: editEditColumn.height
-
-                Column {
-                    id: editEditColumn
-                    
-                    spacing: units.gu(1.5)
-                    anchors {
-                        top: parent.top; left: parent.left; right: parent.right; margins: units.gu(2)
-                    }
-                    
-//                     Item {
-//                         id: imageItem
-//                         width: units.gu(10)
-//                         height: portrait ? width : imageShape.height
-//                         property bool portrait: resultsImage.height > resultsImage.width
-//                     
-//                         LomiriShape {
-//                             id: imageShape
-//                             anchors.centerIn: parent
-//                             // ssh : ssw = h : w
-//                             height: imageItem.portrait ? parent.height : resultsImage.height * width / resultsImage.width
-//                             width: imageItem.portrait ? resultsImage.width * height / resultsImage.height : parent.width
-//                             image: Image {
-//                                 id: resultsImage
-//                                 source: editPage.imageSource
-//                             }
-//                         }
-//                     }
-                    
-                    Item {
-                         width: parent.width
-                         height: (editPage.editable) ? editCardNameLabel.height : 0
-                         visible: editPage.editable
-                         
-                        Label {
-                            id: editCardNameLabel
-                            text: i18n.tr("Card name:")
-                            font.pointSize: units.gu(1.5)
-                        }
-                    }
-                    
-                    Item {
-                         width: parent.width
-                         height: editCardName.height
-                    
-                        TextEdit {
-                            id: editCardName
-                            // TRANSLATORS: Default Card Name
-                            text: (editPage.name === "") ? i18n.tr("New Card Name") : editPage.name
-                            font.pointSize: units.gu(4)
-                            wrapMode: TextEdit.WrapAnywhere
-                            inputMethodHints: Qt.ImhNoPredictiveText
-                            width: parent.width
-                            readOnly: !(editPage.editable)
-                            horizontalAlignment: (editPage.editable) ? Text.AlignHLeft : Text.AlignHCenter
-                            anchors.centerIn: parent
-                        }
-                    }
-                    
-                    Item {
-                        width: parent.width
-                        height: (editPage.editable) ? editCardCathegory.height : 0
-                        visible: editPage.editable
-                         
-                        OptionSelector {
-                            id: editCardCathegory
-                            text: i18n.tr("Card category:")
-                            expanded: false
-                            selectedIndex: getCathegoryIndex(editPage.category)
-                            multiSelection: false
-                            delegate: categoryDelegate
-                            model: categoryModel
-                            width: parent.width
-                            containerHeight: itemHeight * 4
-                        }
-                    }
-                    
-                    Item {
-                         width: parent.width
-                         height: units.gu(2)
-                    }
-                    
-                    Item {
-                        width: parent.width
-                        height: (editPage.editable) ? editCardType.height : 0
-                        visible: editPage.editable
-                         
-                        OptionSelector {
-                            id: editCardType
-                            visible: editPage.editable
-                            text: i18n.tr("Card type:")
-                            expanded: false
-                            multiSelection: false
-                            selectedIndex: getCodeIndex(editPage.type)
-                            delegate: codeTypeDelegate
-                            model: codeTypeModel
-                            width: parent.width
-                            containerHeight: itemHeight * 4
-                        }
-                    }
-                    
-                    
-                    /* Display barcodes for scanning */
                 
-                    FontLoader {
-                        id: loadedFont
-                        source: getCodeFont(editPage.type)
-                    }
+                Rectangle {
+                    id: colorBox
+                    width: parent.width
+                    height: parent.height
+                    // Background color must be set here
+                    color: getCathegoryColor(editPage.category)
+                
+                    Column {
+                        id: editEditColumn
+                        
+                        spacing: units.gu(1.5)
+                        anchors {
+                            top: parent.top; left: parent.left; right: parent.right; margins: units.gu(2)
+                        }
                     
-                    Item {
-                        width: parent.width
-                        height: (hasCodeFont(editPage.type)) ? encodedCodeField.height : 0
-                        visible: hasCodeFont(editPage.type)
-                         
-                        Text {
-                            id: encodedCodeField
-                            Layout.fillWidth: true
+                    
+                        Item {
+                             width: parent.width
+                             height: (editPage.editable) ? editCardNameLabel.height : 0
+                             visible: editPage.editable
+                             
+                            Label {
+                                id: editCardNameLabel
+                                text: i18n.tr("Card name:")
+                                font.pointSize: units.gu(1.5)
+                                color: "black"
+                            }
+                        }
+                        
+                        Item {
+                             width: parent.width
+                             height: editCardName.height
+                        
+                            TextEdit {
+                                id: editCardName
+                                // TRANSLATORS: Default Card Name
+                                text: (editPage.name === "") ? i18n.tr("New Card Name") : editPage.name
+                                font.pointSize: units.gu(4)
+                                wrapMode: TextEdit.WrapAnywhere
+                                inputMethodHints: Qt.ImhNoPredictiveText
+                                width: parent.width
+                                readOnly: !(editPage.editable)
+                                horizontalAlignment: (editPage.editable) ? Text.AlignHLeft : Text.AlignHCenter
+                                anchors.centerIn: parent
+                                //color: theme.palette.normal.baseText
+                                color: "black"
+                            }
+                        }
+                        
+                        Item {
                             width: parent.width
-                            visible: hasCodeFont(editPage.type)
-                            text: Encoder.stringToBarcode(editPage.type, editPage.text)
-                            font.family: loadedFont.name
-                            textFormat: Text.PlainText
-                            fontSizeMode: Text.HorizontalFit
-                            minimumPointSize: units.gu(2)
-                            font.pointSize: units.gu(20)
-                            horizontalAlignment: Text.AlignHCenter
-                            // anchors.margins: units.gu(1)
-                            anchors.centerIn: parent
+                            height: (editPage.editable) ? editCardCathegory.height : 0
+                            visible: editPage.editable
+                             
+                            OptionSelector {
+                                id: editCardCathegory
+                                text: i18n.tr("Card category:")
+                                expanded: false
+                                selectedIndex: getCathegoryIndex(editPage.category)
+                                multiSelection: false
+                                delegate: categoryDelegate
+                                model: categoryModel
+                                width: parent.width
+                                containerHeight: itemHeight * 4
+                            }
                         }
-                    }
-                    
-                    /* This should be visible only if code-type is QR-Code */
-                    Item {
-                        width: parent.width
-                        height: (editPage.type === "QR-Code") ? qrCodeImage.height : 0
-                        visible: (editPage.type === "QR-Code")
-                         
-                        Image {
-                            id: qrCodeImage
-                            width: (parent.width < units.gu(30)) ? parent.width : units.gu(30)
-                            height: (parent.width < units.gu(30)) ? parent.width : units.gu(30)
-                            source: editPage.text.length > 0 ? "image://qrcode/" + editPage.text : ""
-                            anchors.centerIn: parent
+                        
+                        Item {
+                             width: parent.width
+                             height: units.gu(2)
                         }
-                    }
-                    
-                    /* This should be visible only if code-type generation is not available */
-                    Item {
-                        width: parent.width
-                        height: (!(hasCodeFont(editPage.type))) ? cardCodeImage.height : 0
-                        visible: !(hasCodeFont(editPage.type))
-                         
-                        Image {
-                            Layout.fillWidth: true
-                            id: cardCodeImage
-                            visible: !(hasCodeFont(editPage.type))
-                            source: editPage.imageSource
-                        }
-                    }
-                    
-                    /* Common string representation of the Code */
-                    Item {
-                        width: parent.width
-                        height: cardCodeContent.height
-                         
-                        Label {
-                            Layout.fillWidth: true
-                            id: cardCodeContent
+                        
+                        Item {
                             width: parent.width
-                            text: editPage.text
-                            color: editPage.isUrl ? "blue" : "black"
-                            textFormat: Text.PlainText
-                            fontSizeMode: Text.HorizontalFit
-                            minimumPointSize: units.gu(2)
-                            font.pointSize: units.gu(5)
-                            horizontalAlignment: Text.AlignHCenter
-                            anchors.centerIn: parent
+                            height: (editPage.editable) ? editCardType.height : 0
+                            visible: editPage.editable
+                             
+                            OptionSelector {
+                                id: editCardType
+                                visible: editPage.editable
+                                text: i18n.tr("Card type:")
+                                expanded: false
+                                multiSelection: false
+                                selectedIndex: getCodeIndex(editPage.type)
+                                delegate: codeTypeDelegate
+                                model: codeTypeModel
+                                width: parent.width
+                                containerHeight: itemHeight * 4
+                            }
                         }
+                        
+                        
+                        /* Display barcodes for scanning */
+                        
+                        FontLoader {
+                            id: loadedFont
+                            source: getCodeFont(editPage.type)
+                        }
+                        
+                        Rectangle {
+                                width: parent.width
+                                height: showCodeColumn.height
+                                radius: units.gu(5)
+                                // Background color must be set here
+                                color: "white"
+                                
+                            Column {
+                                id: showCodeColumn
+                                
+                                spacing: units.gu(1.5)
+                                anchors {
+                                    top: parent.top; left: parent.left; right: parent.right; margins: units.gu(2)
+                                }
+                        
+                                Item {
+                                    width: parent.width
+                                    height: (hasCodeFont(editPage.type)) ? encodedCodeField.height : 0
+                                    visible: hasCodeFont(editPage.type)
+                                
+                                    Text {
+                                        id: encodedCodeField
+                                        Layout.fillWidth: true
+                                        width: parent.width - units.gu(5)
+                                        visible: hasCodeFont(editPage.type)
+                                        text: Encoder.stringToBarcode(editPage.type, editPage.text)
+                                        font.family: loadedFont.name
+                                        textFormat: Text.PlainText
+                                        fontSizeMode: Text.HorizontalFit
+                                        minimumPointSize: units.gu(2)
+                                        // This causes, that the actual height is units.gu(20), which is bigger on small display ... it affects spacing between barcode and text ... unable to resolve now 
+                                        font.pointSize: units.gu(20) 
+                                        horizontalAlignment: Text.AlignHCenter
+                                        anchors.margins: units.gu(5)
+                                        anchors.centerIn: parent
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        color: "black"
+                                    }
+                                }
+                                
+                                /* This should be visible only if code-type is QR-Code */
+                                Item {
+                                    width: parent.width
+                                    height: (editPage.type === "QR-Code") ? qrCodeImage.height : 0
+                                    visible: (editPage.type === "QR-Code")
+                                     
+                                    Image {
+                                        id: qrCodeImage
+                                        width: (parent.width < units.gu(30)) ? parent.width : units.gu(30)
+                                        height: (parent.width < units.gu(30)) ? (editPage.type === "QR-Code") ? parent.height : units.gu(30) : 0
+                                        source: editPage.text.length > 0 ? "image://qrcode/" + editPage.text : ""
+                                        anchors.centerIn: parent
+                                    }
+                                }
+                                
+                                /* This should be visible only if code-type generation is not available */
+                                Item {
+                                    width: parent.width
+                                    height: (!(hasCodeFont(editPage.type))) ? cardCodeImage.height : 0
+                                    visible: !(hasCodeFont(editPage.type))
+                                     
+                                    Image {
+                                        Layout.fillWidth: true
+                                        id: cardCodeImage
+                                        visible: !(hasCodeFont(editPage.type))
+                                        source: editPage.imageSource
+                                    }
+                                }
+                                
+                                /* Common string representation of the Code */
+                                Item {
+                                    id: textCodeRepresentation
+                                    width: parent.width
+                                    height: cardCodeContent.height
+                                     
+                                    Label {
+                                        Layout.fillWidth: true
+                                        id: cardCodeContent
+                                        width: parent.width
+                                        text: editPage.text
+                                        color: editPage.isUrl ? "blue" : "black"
+                                        textFormat: Text.PlainText
+                                        fontSizeMode: Text.HorizontalFit
+                                        minimumPointSize: units.gu(2)
+                                        font.pointSize: units.gu(5)
+                                        horizontalAlignment: Text.AlignHCenter
+                                        anchors.centerIn: parent
+                                    }
+                                }
+                                
+                                Item {
+                                    id: endOfCodeSpacingEmptyItem
+                                    width: parent.width
+                                    height: units.gu(5)
+                                }
+                            }
+                        }
+                        
+                        Item {
+                            id: radiusSpacingEmptyItem
+                            width: parent.width
+                            height: units.gu(7)
+                        }
+                                
                     }
                     
+                }
+                
+                Rectangle {
+                    radius: units.gu(5)
+                    // Background color must be set here
+                    color: getCathegoryColor(editPage.category)
+                    
+                    anchors.verticalCenter: colorBox.bottom
+                    width : colorBox.width
+                    height: units.gu(10)
                 }
                     
             }

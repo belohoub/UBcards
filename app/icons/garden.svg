@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 576 512"
+   version="1.1"
+   id="svg10926"
+   sodipodi:docname="garden.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10930" />
+  <sodipodi:namedview
+     id="namedview10928"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.4609375"
+     inkscape:cx="287.45763"
+     inkscape:cy="259.25424"
+     inkscape:window-width="1916"
+     inkscape:window-height="1110"
+     inkscape:window-x="0"
+     inkscape:window-y="20"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10926" />
+  <path
+     d="m 378.70352,5.9842875 c -9.1,11.0000005 -26.7,36.3000005 -26.7,66.0000005 0,40.000002 15.3,55.300002 40,80.000002 24.7,24.7 40,40 80,40 29.7,0 55,-17.6 66,-26.7 4,-3.3 6,-8.2 6,-13.3 0,-5.1 -2,-10 -6,-13.2 -11.4,-9.1 -38.3,-26.8 -74,-26.8 -32,0 -40,8 -40,8 0,0 8,-8 8,-40.000002 0,-35.7 -17.7,-62.6 -26.8,-74.0000005 -3.2,-4 -8.1,-5.99999996 -13.2,-5.99999996 -5.1,0 -10,1.99999996 -13.3,5.99999996 z m -102.1,130.0000025 c -40,0 -77.1,18.1 -101.7,48.2 l 60.5,60.5 c 6.2,6.2 6.2,16.4 0,22.6 -6.2,6.2 -16.4,6.2 -22.6,0 l -55.3,-55.3 v 0.1 l -123.299996,265.8 c -4.2,9.1 -2.3,19.9 4.8,27.1 7.1,7.2 17.9,9 27.1,4.8 l 134.699996,-62.4 -52.1,-52.1 c -6.2,-6.2 -6.2,-16.4 0,-22.6 6.2,-6.2 16.4,-6.2 22.6,0 l 60.4,60.3 100.2,-46.4 c 46.4,-21.5 76.2,-68 76.2,-119.2 -0.1,-72.6 -58.9,-131.4 -131.5,-131.4 z"
+     id="path56038-3"
+     style="fill:#036804;fill-opacity:1" />
+  <!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
+  <path
+     d="m 276.60352,135.98429 c -40,0 -77.1,18.1 -101.7,48.2 l 60.5,60.5 c 6.2,6.2 6.2,16.4 0,22.6 -6.2,6.2 -16.4,6.2 -22.6,0 l -55.3,-55.3 v 0.1 l -123.299996,265.8 c -4.2,9.1 -2.3,19.9 4.8,27.1 7.1,7.2 17.9,9 27.1,4.8 l 134.699996,-62.4 -52.1,-52.1 c -6.2,-6.2 -6.2,-16.4 0,-22.6 6.2,-6.2 16.4,-6.2 22.6,0 l 60.4,60.3 100.2,-46.4 c 46.4,-21.5 76.2,-68 76.2,-119.2 -0.1,-72.6 -58.9,-131.4 -131.5,-131.4 z"
+     id="path56038"
+     style="fill:#ff4204;fill-opacity:1"
+     sodipodi:nodetypes="scssscccsccssccccs" />
+</svg>
