@@ -727,6 +727,7 @@ MainView {
                         iconName: "edit"
                         visible: !(editPage.editable)
                         onTriggered: {
+                             pageStack.pop()
                              pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, category: editPage.category, imageSource: editPage.imageSource, editable: true, historyIndex: editPage.historyIndex})
                         }
                     },
@@ -759,8 +760,9 @@ MainView {
                         iconName: "save"
                         onTriggered: {
                             qrCodeReader.history.remove(editPage.historyIndex)
-                            pageStack.pop()
                             qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
+                            //qrCodeReader.history.add(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name, "image://../icons/card.svg");
+                            pageStack.pop()
                         }
                     }
                 ]
