@@ -21,12 +21,12 @@
 
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import Lomiri.Components 1.3
-import Lomiri.Components.ListItems 1.3
-import Lomiri.Components.Popups 1.3
+import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3
+import Ubuntu.Components.Popups 1.3
 import QtMultimedia 5.0
 import QtQuick.Window 2.0
-import Lomiri.Content 1.3
+import Ubuntu.Content 1.3
 import UBcards 0.1
 
 import "encoder.js" as Encoder
@@ -499,7 +499,7 @@ MainView {
                         RowLayout {
                             anchors.fill: parent
                             anchors.margins: units.gu(1.5)
-                            LomiriShape {
+                            UbuntuShape {
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: height
                                 anchors.margins: units.gu(1)
@@ -1150,7 +1150,7 @@ MainView {
                         top: parent.top; left: parent.left; right: parent.right; topMargin: units.gu(10); rightMargin:units.gu(2.5); leftMargin: units.gu(2.5)
                     }
                 
-                    LomiriShape {
+                    UbuntuShape {
                         width: units.gu(20)
                         height: width
                         anchors {
