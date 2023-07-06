@@ -1,5 +1,5 @@
 {
-  "framework": "ubuntu-sdk-20.04",
+  "framework": "ubuntu-sdk-16.04.7",
   "dependencies_target": [ "libmagick++-dev", "libqrencode-dev", "libzbar-dev" ],
   "builder" : "cmake",
   "always_clean" : true
