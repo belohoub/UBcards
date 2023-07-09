@@ -1,6 +1,8 @@
 {
-  "framework": "ubuntu-sdk-16.04.7",
-  "dependencies_target": [ "libmagick++-dev", "libqrencode-dev", "libzbar-dev" ],
+  "framework": "ubuntu-sdk-16.04.5",
+  "image_setup" : {
+    "run" : [ "if [ \"${ARCH}\" = \"armhf\" ]; then apt-get clean && apt-get update && apt-get install -y libmagick++-dev libqrencode-dev libzbar-dev && apt-get clean; fi" , "apt-get clean && apt-get update && apt-get install -y libqrencode-dev:${ARCH} libzbar-dev:${ARCH} && apt-get clean" ]
+  },
   "builder" : "cmake",
   "always_clean" : true
 }
