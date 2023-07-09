@@ -140,7 +140,7 @@ msgstr "Kaart scannen"
 #: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:379
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:354
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:354
-msgid "Set card type and card ID manually below OR scan code using icons above."
+msgid "Set card type and card number manually below OR scan code using icons above."
 msgstr "Kies een kaartsoort en voer een naam in of scan een code met behulp van bovenstaande pictogrammen."
 
 #: ../app/qml/ubcards.qml:395 ../app/qml/ubcards.qml:859
@@ -157,7 +157,7 @@ msgstr "Kaartsoort:"
 #: ../build/aarch64-linux-gnu/app/app/qml/ubcards.qml:412
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:387
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:387
-msgid "Set card ID:"
+msgid "Set card number:"
 msgstr "Kaartnaam:"
 
 #: ../app/qml/ubcards.qml:439

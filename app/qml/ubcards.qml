@@ -315,7 +315,7 @@ MainView {
                     color: theme.palette.normal.background
                     
                     PageHeader {
-                        title: "Add New Card"
+                        title: i18n.tr("Add New Card")
                         id: addNewCardPageHeader
                         trailingActionBar.actions: [
                             Action {
@@ -376,7 +376,7 @@ MainView {
                                         centerIn: parent
                                     }
                                     wrapMode: Text.Wrap
-                                    text: i18n.tr("Set card type and card ID manually below OR scan code using icons above.")
+                                    text: i18n.tr("Set card type and card number manually below OR scan code using icons above.")
                                     font.pointSize: units.gu(2.5)
                                 }
                             }
@@ -409,7 +409,7 @@ MainView {
                     
                                 Label {
                                     id: newCardIDLabel
-                                    text: i18n.tr("Set card ID:")
+                                    text: i18n.tr("Set card number:")
                                     font.pointSize: units.gu(1.5)
                                 }
                             }
@@ -432,7 +432,7 @@ MainView {
                     
                             Button {
                                 width: parent.width
-                                text: "Insert Card"
+                                text: i18n.tr("Insert Card")
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
@@ -1064,7 +1064,7 @@ MainView {
 
             ContentItem {
                 id: exportItem
-                name: i18n.tr("QR-Code")
+                name: i18n.tr("QR Code")
             }
 
             QRCodeGenerator {
