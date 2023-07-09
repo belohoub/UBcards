@@ -574,7 +574,7 @@ MainView {
 //                flash.mode: Camera.FlashTorch
 
                 focus.focusMode: Camera.FocusContinuous
-                focus.focusPointMode: Camera.FocusPointAuto
+                focus.focusPointMode: Camera.FocusPointCenter
 
                 /* Use only digital zoom for now as it's what phone cameras mostly use.
                        TODO: if optical zoom is available, maximumZoom should be the combined
@@ -586,7 +586,7 @@ MainView {
                 function startAndConfigure() {
                     start();
                     focus.focusMode = Camera.FocusContinuous
-                    focus.focusPointMode = Camera.FocusPointAuto
+                    focus.focusPointMode = Camera.FocusPointCenter
                 }
             }
 
