@@ -919,13 +919,13 @@ MainView {
                                 Item {
                                     width: parent.width
                                     height: (editPage.type === "QR-Code") ? qrCodeImage.height : 0
-                                    visible: (editPage.type === "QR-Code")
+                                    visible: (editPage.type === "QR-Code") ? true : false
                                      
                                     Image {
                                         id: qrCodeImage
                                         width: (parent.width < units.gu(30)) ? parent.width : units.gu(30)
-                                        height: (parent.width < units.gu(30)) ? (editPage.type === "QR-Code") ? parent.height : units.gu(30) : 0
-                                        source: editPage.text.length > 0 ? "image://qrcode/" + editPage.text : ""
+                                        height: (editPage.type === "QR-Code") ? (parent.width < units.gu(30)) ? parent.height : units.gu(30) : 0
+                                        source: (editPage.text.length > 0) ? "image://qrcode/" + editPage.text : ""
                                         anchors.centerIn: parent
                                     }
                                 }
