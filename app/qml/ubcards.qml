@@ -761,7 +761,7 @@ MainView {
                         onTriggered: {
                             qrCodeReader.history.remove(editPage.historyIndex)
                             qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
-                            //qrCodeReader.history.add(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name, "image://../icons/card.svg");
+                            editPage.editable = false
                             pageStack.pop()
                         }
                     }
@@ -940,7 +940,7 @@ MainView {
                                         Layout.fillWidth: true
                                         id: cardCodeImage
                                         visible: !(hasCodeFont(editPage.type))
-                                        source: editPage.imageSource
+                                        source: hasCodeFont(editPage.type) ? "" : editPage.imageSource
                                     }
                                 }
                                 
@@ -960,6 +960,7 @@ MainView {
                                         fontSizeMode: Text.HorizontalFit
                                         minimumPointSize: units.gu(2)
                                         font.pointSize: units.gu(5)
+                                        wrapMode: Text.Wrap
                                         horizontalAlignment: Text.AlignHCenter
                                         anchors.centerIn: parent
                                     }

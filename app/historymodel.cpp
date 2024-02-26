@@ -89,9 +89,15 @@ void HistoryModel::remove(int index)
     beginRemoveRows(QModelIndex(), index, index);
     QString id = m_settings.value("all").toStringList().at(index);
     QStringList all = m_settings.value("all").toStringList();
+    
+    // qDebug() << "Current list: " <<  all;
+    
+    qDebug() << "Removing"  << id << " at(" << index << ")";
     all.removeAt(index);
-    m_settings.setValue("all", all);
+     
     m_settings.remove(id);
+    m_settings.setValue("all", all);
+     
     QFile f(m_storageLocation + id + ".jpg");
     f.remove();
     endRemoveRows();
