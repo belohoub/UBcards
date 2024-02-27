@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.1.2 (02/2024)
+
+1. fixes the editing issue: when editing a card, the last added card (card id in the list: 0) was always erased/replaced, not the intended one (issue #9)
+2. fixes overflow for long codes under barcode
+3. minor UI fixes
+
+
 # 0.1.1 (07/2023)
 1. Minor enhancement of the QR/BAR code display: type-based color frame around the code is displayed; code is always displayed on white background -> UI is now compatible with the suru-dark system theme
 2. Clean-up of translatable strings
