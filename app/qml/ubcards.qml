@@ -198,8 +198,16 @@ MainView {
 
         onValidChanged: {
             if (qrCodeReader.valid) {
-                /*pageStack.pop();*/
-                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});
+                if (pageStack.depth > 1) {
+                  /* When existing card is modified, the editCard view is already opened, the current depth is 2 */
+                  /* First, close the old editCartd view */
+                  pageStack.pop()
+                  /* Now open the viewCard view for a modified card */
+                  pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: false});
+                } else {
+                  /* When new card is created, editCard view will be opened at depth 2, the current depth is 1 */
+                  pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});  
+                }
             }
         }
     }
@@ -761,8 +769,8 @@ MainView {
                         onTriggered: {
                             qrCodeReader.history.remove(editPage.historyIndex)
                             qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
-                            editPage.editable = false
-                            pageStack.pop()
+                            /* now the edit page for a newly added card is invoked */
+                            //pageStack.pop()
                         }
                     }
                 ]
