@@ -15,6 +15,7 @@ public:
         RoleName,
         RoleCathegory,
         RoleImageSource,
+        RoleUUID,
         RoleTimestamp
     };
 
@@ -25,7 +26,7 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     void add(const QString &text, const QString &type, const QString &name, const QString &category, const QImage &image);
-    Q_INVOKABLE void remove(int index);
+    Q_INVOKABLE void remove(QString id);
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
 

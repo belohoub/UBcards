@@ -20,6 +20,8 @@
  ****************************************************************************/
 
 #include "qrcodereader.h"
+#include "cardstoragemodel.h"
+#include "cardstorage.h"
 #include "qrcodegenerator.h"
 #include "qrcodeimageprovider.h"
 #include "filehelper.h"
@@ -36,7 +38,7 @@ int main(int argc, char *argv[])
 
     QQuickView view;
     
-    a.setApplicationVersion("0.1.2");
+    a.setApplicationVersion("0.1.3");
 
     QRCodeReader reader;
     view.engine()->rootContext()->setContextProperty("qrCodeReader", &reader);
@@ -45,6 +47,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<QRCodeGenerator>("UBcards", 0, 1, "QRCodeGenerator");
     qmlRegisterUncreatableType<HistoryModel>("UBcards", 0, 1, "HistoryModel", "use qrCodeReader.history");
 
+    CardStorage storage;
+    view.engine()->rootContext()->setContextProperty("cardStorage", &storage);
+    qmlRegisterUncreatableType<CardStorageModel>("UBcards", 0, 1, "CardStorageModel", "use cardStorage.model");
+    
     view.engine()->addImageProvider(QStringLiteral("qrcode"), new QRCodeImageProvider);
     view.engine()->addImageProvider(QStringLiteral("reader"), &reader);
     view.engine()->addImageProvider(QStringLiteral("history"), reader.history());

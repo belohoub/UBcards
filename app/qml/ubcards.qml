@@ -203,7 +203,7 @@ MainView {
                   /* First, close the old editCartd view */
                   pageStack.pop()
                   /* Now open the viewCard view for a modified card */
-                  pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: false});
+                  pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: false, cardID: qrCodeReader.ID});
                 } else {
                   /* When new card is created, editCard view will be opened at depth 2, the current depth is 1 */
                   pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});  
@@ -444,7 +444,7 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    qrCodeReader.insertData(newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), i18n.tr("generic"));
+                                    cardStorage.insertCard(newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), "generic");
                                 }
                             }
                     /*
@@ -471,7 +471,7 @@ MainView {
                 ListView {
                     anchors.fill: parent
                     anchors.topMargin: cardWalletHeader.height
-                    model: qrCodeReader.history
+                    model: cardStorage.storage
                 
                     delegate: ListItem {
                         height: units.gu(10)
@@ -481,7 +481,7 @@ MainView {
                                 Action {
                                     iconName: "delete"
                                     onTriggered: {
-                                        qrCodeReader.history.remove(index)
+                                        cardStorage.storage.remove(model.uuid)
                                     }
                                 }
                             ]
@@ -492,7 +492,7 @@ MainView {
                                 Action {
                                     iconName: "edit"
                                     onTriggered: {
-                                         pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: true, historyIndex: index})
+                                         pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: true, cardID: model.uuid})
                                     }
                                 },
                                 Action {
@@ -534,13 +534,13 @@ MainView {
                                 Label {
                                     Layout.fillWidth: true
                                     elide: Text.ElideRight
-                                    text:model.timestamp
+                                    text: i18n.tr("Edited: ") + model.timestamp
                                 }
                             }
                         }
                 
                         onClicked: {
-                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: false})
+                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: false, cardID: model.uuid})
                         }
                     }
                 }
@@ -713,7 +713,7 @@ MainView {
             property string imageSource
             /* This is to be viewed or to be edited */
             property bool editable
-            property int historyIndex
+            property string cardID
 
             property bool isUrl: editPage.text.match(/^[a-z0-9]+:[^\s]+$/)
 
@@ -736,7 +736,7 @@ MainView {
                         visible: !(editPage.editable)
                         onTriggered: {
                              pageStack.pop()
-                             pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, category: editPage.category, imageSource: editPage.imageSource, editable: true, historyIndex: editPage.historyIndex})
+                             pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, category: editPage.category, imageSource: editPage.imageSource, editable: true, cardID: editPage.cardID})
                         }
                     },
                     Action {
@@ -767,10 +767,7 @@ MainView {
                         visible: editPage.editable
                         iconName: "save"
                         onTriggered: {
-                            qrCodeReader.history.remove(editPage.historyIndex)
-                            qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
-                            /* now the edit page for a newly added card is invoked */
-                            //pageStack.pop()
+                            cardStorage.setCardById(editPage.cardID, editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
                         }
                     }
                 ]

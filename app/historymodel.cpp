@@ -33,6 +33,9 @@ QVariant HistoryModel::data(const QModelIndex &index, int role) const
     case RoleType:
         ret = m_settings.value("type");
         break;
+    case RoleUUID:
+        ret = id;
+        break;
     case RoleName:
         ret = m_settings.value("name");
         break;
@@ -57,6 +60,7 @@ QHash<int, QByteArray> HistoryModel::roleNames() const
     roles.insert(RoleText, "text");
     roles.insert(RoleType, "type");
     roles.insert(RoleName, "name");
+    roles.insert(RoleUUID, "uuid");
     roles.insert(RoleCathegory, "category");
     roles.insert(RoleImageSource, "imageSource");
     roles.insert(RoleTimestamp, "timestamp");
@@ -84,17 +88,18 @@ void HistoryModel::add(const QString &text, const QString &type, const QString &
     endInsertRows();
 }
 
-void HistoryModel::remove(int index)
+void HistoryModel::remove(QString id)
 {
-    beginRemoveRows(QModelIndex(), index, index);
-    QString id = m_settings.value("all").toStringList().at(index);
+    if (!m_settings.value("all").toStringList().contains(id)) {
+        return;
+    }
+    
     QStringList all = m_settings.value("all").toStringList();
     
-    // qDebug() << "Current list: " <<  all;
+    qDebug() << "Removing"  << id << "";
     
-    qDebug() << "Removing"  << id << " at(" << index << ")";
-    all.removeAt(index);
-     
+    int i = all.indexOf(id);
+    all.removeAt(i);
     m_settings.remove(id);
     m_settings.setValue("all", all);
      

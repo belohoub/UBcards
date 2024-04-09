@@ -11,6 +11,8 @@ set(ubcards_SRCS
   qrcodeimageprovider.cpp
   historymodel.cpp
   filehelper.cpp
+  cardstorage.cpp
+  cardstoragemodel.cpp
 )
 
 add_executable(ubcards ${ubcards_SRCS})
