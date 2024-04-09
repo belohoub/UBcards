@@ -188,6 +188,16 @@ MainView {
     }
 
     Connections {
+        target: cardStorage
+
+        onCardUpdated: {
+            /* Re-load view */
+            // reloaded by signal in the model
+            //cardList.forceLayout()
+        }
+    }
+    
+    Connections {
         target: qrCodeReader
 
         onScanningChanged: {
@@ -444,7 +454,7 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    cardStorage.insertCard(newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), "generic");
+                                    cardStorage.updateCard("", newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), "generic");
                                 }
                             }
                     /*
@@ -469,6 +479,7 @@ MainView {
                 anchors.fill: parent
             
                 ListView {
+                    id: cardList
                     anchors.fill: parent
                     anchors.topMargin: cardWalletHeader.height
                     model: cardStorage.storage
@@ -767,7 +778,10 @@ MainView {
                         visible: editPage.editable
                         iconName: "save"
                         onTriggered: {
-                            cardStorage.setCardById(editPage.cardID, editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
+                            cardStorage.updateCard(editPage.cardID, editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
+                            pageStack.pop();
+                            /* Show the updated card */
+                            pageStack.push(editPageComponent, {type: codeTypeModel.get(editCardType.selectedIndex).name, text: editPage.text, name: editCardName.text, category: categoryModel.get(editCardCathegory.selectedIndex).name, imageSource: editPage.imageSource, editable: false, cardID: editPage.cardID})
                         }
                     }
                 ]

@@ -97,6 +97,8 @@ QString CardStorageModel::add(const QString &text, const QString &type, const QS
 
     qDebug() << "Adding new entry: " << id;
     
+    emit layoutAboutToBeChanged();
+    
     beginInsertRows(QModelIndex(), 0, 0);
 
     QStringList all = m_settings.value("all").toStringList();
@@ -111,6 +113,8 @@ QString CardStorageModel::add(const QString &text, const QString &type, const QS
     m_settings.setValue("timestamp", QDateTime::currentDateTime());
     m_settings.endGroup();
     endInsertRows();
+    
+    emit layoutChanged();
     
     return id;
 }
@@ -127,9 +131,11 @@ void CardStorageModel::remove(QString id)
     QStringList all = m_settings.value("all").toStringList();
     int index = all.indexOf(id);
     
-    beginRemoveRows(QModelIndex(), index, index);
-    
     qDebug() << "Removing"  << id << "";
+    
+    emit layoutAboutToBeChanged();
+    
+    beginRemoveRows(QModelIndex(), index, index);
     
     all.removeAt(index);
     m_settings.remove(id);
@@ -139,17 +145,28 @@ void CardStorageModel::remove(QString id)
     f.remove();
     
     endRemoveRows();
+    
+    emit layoutChanged();
 }
 
 
-void CardStorageModel::setCardById(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category)
+/**
+ * Update card by the given id
+ * 
+ * @retval True in case of success, false in case of invalid ID
+ *  
+ */
+
+bool CardStorageModel::setCardById(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category)
 {
     if (!m_settings.value("all").toStringList().contains(id)) {
         qDebug() << "Requested invalid entry: " << id << ", " << name;
-        return;
+        return false;
     }
     
     qDebug() << "Updating entry: " << id;
+    
+    emit layoutAboutToBeChanged();
     
     m_settings.beginGroup(id);
     
@@ -160,6 +177,10 @@ void CardStorageModel::setCardById(const QString &id, const QString &text, const
     m_settings.setValue("timestamp", QDateTime::currentDateTime());
     
     m_settings.endGroup();
+
+    emit layoutChanged();
+    
+    return true;
 }
 
 QImage CardStorageModel::requestImage(const QString &id, QSize *size, const QSize &requestedSize)

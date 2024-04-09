@@ -50,15 +50,14 @@ CardStorage::CardStorage(QObject *parent) :
     
 }
 
-/* Insert card to the storage */
-void CardStorage::insertCard(const QString &code, const QString &type, const QString &name, const QString &category) {
-    /* Direct insertion with an empty image */
-    QString newId = m_storageModel->add(code, type, name, category, QImage());
-    /* TODO emit signal with added ID */
-}
-
-void CardStorage::setCardById(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category) {
-    m_storageModel->setCardById(id, text, type, name, category);
+void CardStorage::updateCard(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category) {
+    if (!m_storageModel->setCardById(id, text, type, name, category)) {
+        /* In case of invalid ID, insert a new card */
+        QString newId = m_storageModel->add(text, type, name, category, QImage());
+    }
+    
+    /* emit signal with added ID */
+    emit cardUpdated();
 }
 
 CardStorageModel *CardStorage::storage() const

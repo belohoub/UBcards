@@ -46,7 +46,7 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     QString add(const QString &text, const QString &type, const QString &name, const QString &category, const QImage &image);
-    void setCardById(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category);
+    bool setCardById(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category);
     Q_INVOKABLE void remove(QString id);
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize) override;
