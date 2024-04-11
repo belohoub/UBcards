@@ -21,8 +21,6 @@
 #ifndef QRCODEREADER_H
 #define QRCODEREADER_H
 
-#include "historymodel.h"
-
 #include <QObject>
 #include <QQuickWindow>
 #include <QThread>
@@ -38,10 +36,8 @@ class QRCodeReader : public QObject, public QQuickImageProvider
     Q_PROPERTY(QString name READ name NOTIFY validChanged)
     Q_PROPERTY(QString category READ category NOTIFY validChanged)
     Q_PROPERTY(QImage image READ image NOTIFY validChanged)
-    Q_PROPERTY(QString imageSource READ imageSource NOTIFY validChanged)
     Q_PROPERTY(QRect scanRect READ scanRect WRITE setScanRect NOTIFY scanRectChanged)
     Q_PROPERTY(bool scanning READ scanning NOTIFY scanningChanged)
-    Q_PROPERTY(HistoryModel* history READ history CONSTANT)
 
 public:
     explicit QRCodeReader(QObject *parent = 0);
@@ -52,18 +48,15 @@ public:
     QString name() const;
     QString category() const;
     QImage image() const;
-    QString imageSource() const;
     QRect scanRect() const;
     void setScanRect(const QRect &rect);
     bool scanning() const;
-    HistoryModel* history() const;
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
 public slots:
     void grab(const QString &name, const QString &category);
     void processImage(const QUrl &url, const QString &name, const QString &category);
-    void insertData(const QString &text, const QString &type, const QString &name, const QString &category);
 
 signals:
     void validChanged();
@@ -83,7 +76,6 @@ private:
     QImage m_image;
     QUuid m_imageUuid;
     QRect m_scanRect;
-    HistoryModel *m_historyModel;
 
     QThread m_readerThread;
 };
@@ -94,7 +86,6 @@ class Reader : public QObject
 
 public slots:
     void doWork(const QImage &image, const QString &name, const QString &category, bool invert);
-    void insertData(const QString &text, const QString &type, const QString &name, const QString &category);
 
 signals:
     void resultReady(const QString &type, const QString &text, const QString &name, const QString &category, const QImage &codeImage);

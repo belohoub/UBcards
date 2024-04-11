@@ -43,6 +43,7 @@ public:
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
+    QVariant dataById(const QString &id, int role) const;
     QHash<int, QByteArray> roleNames() const override;
 
     QString add(const QString &text, const QString &type, const QString &name, const QString &category, const QImage &image);

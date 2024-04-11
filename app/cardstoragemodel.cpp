@@ -41,10 +41,10 @@ int CardStorageModel::rowCount(const QModelIndex &parent) const
     return m_settings.value("all").toStringList().count();
 }
 
-QVariant CardStorageModel::data(const QModelIndex &index, int role) const
+QVariant CardStorageModel::dataById(const QString &id, int role) const
 {
     QVariant ret;
-    QString id = m_settings.value("all").toStringList().at(index.row());
+    
     m_settings.beginGroup(id);
     switch (role) {
     case RoleText:
@@ -63,7 +63,8 @@ QVariant CardStorageModel::data(const QModelIndex &index, int role) const
         ret = m_settings.value("category");
         break;
     case RoleImageSource:
-        ret = "image://history/" + id;
+        //ret = "image://history/" + id;
+        ret = m_storageLocation + id + ".jpg";
         break;
     case RoleTimestamp:
         ret = m_settings.value("timestamp").toDateTime().toString();
@@ -72,6 +73,13 @@ QVariant CardStorageModel::data(const QModelIndex &index, int role) const
 
     m_settings.endGroup();
     return ret;
+}
+
+QVariant CardStorageModel::data(const QModelIndex &index, int role) const
+{
+    QString id = m_settings.value("all").toStringList().at(index.row());
+    
+    return dataById(id, role);
 }
 
 

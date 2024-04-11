@@ -45,7 +45,6 @@ int main(int argc, char *argv[])
 
     FileHelper fh;
     qmlRegisterType<QRCodeGenerator>("UBcards", 0, 1, "QRCodeGenerator");
-    qmlRegisterUncreatableType<HistoryModel>("UBcards", 0, 1, "HistoryModel", "use qrCodeReader.history");
 
     CardStorage storage;
     view.engine()->rootContext()->setContextProperty("cardStorage", &storage);
@@ -53,7 +52,6 @@ int main(int argc, char *argv[])
     
     view.engine()->addImageProvider(QStringLiteral("qrcode"), new QRCodeImageProvider);
     view.engine()->addImageProvider(QStringLiteral("reader"), &reader);
-    view.engine()->addImageProvider(QStringLiteral("history"), reader.history());
 
     view.engine()->rootContext()->setContextProperty(QStringLiteral("fileHelper"), &fh);
 

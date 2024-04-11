@@ -137,6 +137,7 @@ MainView {
         ListElement { name: "EAN-8"     ; font: "../fonts/ean13_new.ttf"   }
         ListElement { name: "I2/5"      ; font: "../fonts/I2of5_new.ttf"   }  
         ListElement { name: "QR-Code"   ; font: ""                         }  
+        ListElement { name: "PICTURE"   ; font: ""                         }  
     }
     
     Component {
@@ -208,16 +209,15 @@ MainView {
 
         onValidChanged: {
             if (qrCodeReader.valid) {
+                // A New card has been scanned
                 if (pageStack.depth > 1) {
-                  /* When existing card is modified, the editCard view is already opened, the current depth is 2 */
-                  /* First, close the old editCartd view */
+                  /* First, close the old views */
                   pageStack.pop()
-                  /* Now open the viewCard view for a modified card */
-                  pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: false, cardID: qrCodeReader.ID});
-                } else {
-                  /* When new card is created, editCard view will be opened at depth 2, the current depth is 1 */
-                  pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});  
                 }
+                
+                /* Open the editCard view for a new card */
+                cardStorage.updateImage("", qrCodeReader.image);
+                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});
             }
         }
     }
@@ -949,17 +949,20 @@ MainView {
                                     }
                                 }
                                 
-                                /* This should be visible only if code-type generation is not available */
+                                /* This should be visible only if code-type generation is not available OR PICTURE code type is selected */
                                 Item {
                                     width: parent.width
-                                    height: (!(hasCodeFont(editPage.type))) ? cardCodeImage.height : 0
-                                    visible: !(hasCodeFont(editPage.type))
+                                    height: (editPage.type === "PICTURE") ? cardCodeImage.height : 0
+                                    visible: (editPage.type === "PICTURE")
                                      
                                     Image {
                                         Layout.fillWidth: true
                                         id: cardCodeImage
-                                        visible: !(hasCodeFont(editPage.type))
-                                        source: hasCodeFont(editPage.type) ? "" : editPage.imageSource
+                                        width: parent.width - units.gu(5)
+                                        anchors.margins: units.gu(5)
+                                        anchors.centerIn: parent
+                                        visible: (editPage.type === "PICTURE")
+                                        source: (editPage.type === "PICTURE") ? editPage.imageSource : ""
                                     }
                                 }
                                 

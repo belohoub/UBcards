@@ -9,7 +9,6 @@ set(ubcards_SRCS
   qrcodereader.cpp
   qrcodegenerator.cpp
   qrcodeimageprovider.cpp
-  historymodel.cpp
   filehelper.cpp
   cardstorage.cpp
   cardstoragemodel.cpp

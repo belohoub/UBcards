@@ -46,15 +46,35 @@ CardStorage::CardStorage(QObject *parent) :
 
     m_storageModel = new CardStorageModel(this);
 
+    /* No image */
+    m_image = QImage();
+    m_imageID = "";
+    
     /* TODO add signals/slots */
     
+}
+
+/**
+ * Prepare an image to save image
+ * 
+ * When ID is empty string, image for the ID is NOT updated
+ * 
+ */
+void CardStorage::updateImage(const QString &id, const QImage &image) {
+    m_image = image;
+    m_imageID = id;
 }
 
 void CardStorage::updateCard(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category) {
     if (!m_storageModel->setCardById(id, text, type, name, category)) {
         /* In case of invalid ID, insert a new card */
-        QString newId = m_storageModel->add(text, type, name, category, QImage());
+        QString newId = m_storageModel->add(text, type, name, category, m_image);
     }
+    
+    /* No image - the Image has been already used */
+    m_image = QImage();
+    m_imageID = "";
+        
     
     /* emit signal with added ID */
     emit cardUpdated();

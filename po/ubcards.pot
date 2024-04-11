@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-09 20:44+0000\n"
+"POT-Creation-Date: 2024-04-11 22:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,7 +116,7 @@ msgstr ""
 msgid "UBcards"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:316 ../app/qml/ubcards.qml:1146
+#: ../app/qml/ubcards.qml:316 ../app/qml/ubcards.qml:1149
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:306
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1135
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:306
@@ -289,7 +289,7 @@ msgstr ""
 msgid "Card category:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1020
+#: ../app/qml/ubcards.qml:1023
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1009
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1009
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1000
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1056
+#: ../app/qml/ubcards.qml:1059
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1045
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1045
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1036
@@ -305,14 +305,14 @@ msgstr ""
 msgid "QR code"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1087
+#: ../app/qml/ubcards.qml:1090
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1076
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1076
 msgid "QR Code"
 msgstr ""
 
 #. TRANSLATORS: Version number
-#: ../app/qml/ubcards.qml:1202
+#: ../app/qml/ubcards.qml:1205
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1191
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1191
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1182
@@ -321,7 +321,7 @@ msgstr ""
 msgid "App Version %1"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1213
+#: ../app/qml/ubcards.qml:1216
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1202
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1202
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1193
@@ -329,7 +329,7 @@ msgstr ""
 msgid "Maintained by"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1214
+#: ../app/qml/ubcards.qml:1217
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1203
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1203
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1194
@@ -337,7 +337,7 @@ msgstr ""
 msgid "Jan Belohoubek"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1226
+#: ../app/qml/ubcards.qml:1229
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1215
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1215
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1206
@@ -345,7 +345,7 @@ msgstr ""
 msgid "Please report bugs to the"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1227
+#: ../app/qml/ubcards.qml:1230
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1216
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1216
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1207
@@ -353,7 +353,7 @@ msgstr ""
 msgid "issue tracker"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1235
+#: ../app/qml/ubcards.qml:1238
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1224
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1224
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1215
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Please support"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1236
+#: ../app/qml/ubcards.qml:1239
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1225
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1225
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1216
@@ -369,7 +369,7 @@ msgstr ""
 msgid "the app development"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1252
+#: ../app/qml/ubcards.qml:1255
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1241
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1241
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1232
@@ -377,7 +377,7 @@ msgstr ""
 msgid "Thanks to"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1259
+#: ../app/qml/ubcards.qml:1262
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1248
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1248
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1239
@@ -385,7 +385,7 @@ msgstr ""
 msgid "Chris Clime, Tagger application:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1267
+#: ../app/qml/ubcards.qml:1270
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1256
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1256
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1247
@@ -393,7 +393,7 @@ msgstr ""
 msgid "Richard Lee, Card Wallet application:"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1275
+#: ../app/qml/ubcards.qml:1278
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1264
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1264
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1255
@@ -401,7 +401,7 @@ msgstr ""
 msgid "Fonticons, Inc., Font Awesome"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1283
+#: ../app/qml/ubcards.qml:1286
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1272
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1272
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1263
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Sam Hewitt, Suru Icons"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1293
+#: ../app/qml/ubcards.qml:1296
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1282
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1282
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1273
@@ -417,7 +417,7 @@ msgstr ""
 msgid "Released under the terms of the GNU GPLv3"
 msgstr ""
 
-#: ../app/qml/ubcards.qml:1299
+#: ../app/qml/ubcards.qml:1302
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1288
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1288
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1279
