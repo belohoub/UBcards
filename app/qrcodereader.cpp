@@ -222,6 +222,12 @@ void Reader::doWork(const QImage &image, const QString &name, const QString &cat
         // Workaround for zBar sometimes only giving us the first bar in a barcode.
         if (width < 10) width = img.get_width() - x0;
         if (height < 10) height = img.get_height() - y0;
+        
+        /* Extend the selected area, as zBar returns smaller area ... */
+        width = width + 20;
+        height = height + 20;
+        if(x0 > 10) x0 = x0 - 10;
+        if(y0 > 10) y0 = y0 - 10;
 
         qDebug() << "extracting code image (" << x0 << y0 << ") ("<< x1 << y1 << ")";
         QImage codeImage = image.copy(x0, y0, width, height);

@@ -29,7 +29,9 @@ import QtQuick.Window 2.0
 import Lomiri.Content 1.3
 import UBcards 0.1
 
+// Encoders
 import "encoder.js" as Encoder
+import "../libs/code128Encoder/encoder.mjs" as Code128
 
 MainView {
     id: mainView
@@ -130,14 +132,16 @@ MainView {
     /* Symbol names reference: https://sourceforge.net/p/zbar/code/ci/default/tree/zbar/symbol.c*/
     ListModel {
         id: codeTypeModel
-        ListElement { name: "CODE-128"  ; font: "../fonts/Code128_new.ttf" }
-        ListElement { name: "CODE-39"   ; font: "../fonts/Free3of9.ttf"    }
-        ListElement { name: "DataBar"   ; font: "../fonts/Free3of9.ttf"    }
-        ListElement { name: "EAN-13"    ; font: "../fonts/ean13_new.ttf"   }
-        ListElement { name: "EAN-8"     ; font: "../fonts/ean13_new.ttf"   }
-        ListElement { name: "I2/5"      ; font: "../fonts/I2of5_new.ttf"   }  
-        ListElement { name: "QR-Code"   ; font: ""                         }  
-        ListElement { name: "PICTURE"   ; font: ""                         }  
+        
+        ListElement { name: "CODE-128"         ; font: "../fonts/cardwallet/Code128_new.ttf" }
+        ListElement { name: "CODE-128-mini"    ; font: "../fonts/librebarcode/LibreBarcode128-Regular.ttf" }
+        ListElement { name: "CODE-39"          ; font: "../fonts/cardwallet/Free3of9.ttf"    }
+        ListElement { name: "DataBar"          ; font: "../fonts/cardwallet/Free3of9.ttf"    }
+        ListElement { name: "EAN-13"           ; font: "../fonts/cardwallet/ean13_new.ttf"   }
+        ListElement { name: "EAN-8"            ; font: "../fonts/cardwallet/ean13_new.ttf"   }
+        ListElement { name: "I2/5"             ; font: "../fonts/cardwallet/I2of5_new.ttf"   }  
+        ListElement { name: "QR-Code"          ; font: ""                                    }  
+        ListElement { name: "PICTURE"          ; font: ""                                    }  
     }
     
     Component {
@@ -919,7 +923,7 @@ MainView {
                                         Layout.fillWidth: true
                                         width: parent.width - units.gu(5)
                                         visible: hasCodeFont(editPage.type)
-                                        text: Encoder.stringToBarcode(editPage.type, editPage.text)
+                                        text: (editPage.type === "CODE-128-mini") ? Code128.encode(editPage.text) : Encoder.stringToBarcode(editPage.type, editPage.text)
                                         font.family: loadedFont.name
                                         textFormat: Text.PlainText
                                         fontSizeMode: Text.HorizontalFit
