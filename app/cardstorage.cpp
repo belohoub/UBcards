@@ -65,10 +65,12 @@ void CardStorage::updateImage(const QString &id, const QImage &image) {
     m_imageID = id;
 }
 
-void CardStorage::updateCard(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category) {
+QString CardStorage::updateCard(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category) {
+    QString newId = id;
+    
     if (!m_storageModel->setCardById(id, text, type, name, category)) {
         /* In case of invalid ID, insert a new card */
-        QString newId = m_storageModel->add(text, type, name, category, m_image);
+        newId = m_storageModel->add(text, type, name, category, m_image);
     }
     
     /* No image - the Image has been already used */
@@ -78,6 +80,8 @@ void CardStorage::updateCard(const QString &id, const QString &text, const QStri
     
     /* emit signal with added ID */
     emit cardUpdated();
+    
+    return newId;
 }
 
 CardStorageModel *CardStorage::storage() const

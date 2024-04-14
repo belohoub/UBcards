@@ -39,7 +39,7 @@ public:
     
     CardStorageModel* storage() const;
 
-    Q_INVOKABLE void updateCard(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category);
+    Q_INVOKABLE QString updateCard(const QString &id, const QString &text, const QString &type, const QString &name, const QString &category);
     Q_INVOKABLE void updateImage(const QString &id, const QImage &image);
     
 public slots:

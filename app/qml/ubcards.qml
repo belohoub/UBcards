@@ -197,7 +197,7 @@ MainView {
 
         onCardUpdated: {
             /* Re-load view */
-            // reloaded by signal in the model
+            // reloaded by signal in the model itself
             //cardList.forceLayout()
         }
     }
@@ -221,7 +221,7 @@ MainView {
                 
                 /* Open the editCard view for a new card */
                 cardStorage.updateImage("", qrCodeReader.image);
-                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});
+                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true, cardID: ""});
             }
         }
     }
@@ -458,7 +458,8 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    cardStorage.updateCard("", newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), "generic");
+                                    //cardStorage.updateCard("", newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), "generic");
+                                    pageStack.push(editPageComponent, {type: codeTypeModel.get(newCardType.selectedIndex).name, text: newCardID.text, name: i18n.tr("Card-Name"), category: "generic", imageSource: "", editable: true, cardID: ""})
                                 }
                             }
                     /*
@@ -782,7 +783,7 @@ MainView {
                         visible: editPage.editable
                         iconName: "save"
                         onTriggered: {
-                            cardStorage.updateCard(editPage.cardID, editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
+                            editPage.cardID = cardStorage.updateCard(editPage.cardID, editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
                             pageStack.pop();
                             /* Show the updated card */
                             pageStack.push(editPageComponent, {type: codeTypeModel.get(editCardType.selectedIndex).name, text: editPage.text, name: editCardName.text, category: categoryModel.get(editCardCathegory.selectedIndex).name, imageSource: editPage.imageSource, editable: false, cardID: editPage.cardID})
