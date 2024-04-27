@@ -7,449 +7,459 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-09 11:28+0000\n"
-"PO-Revision-Date: 2023-07-10 14:24+0200\n"
+"POT-Creation-Date: 2024-04-14 18:54+0000\n"
+"PO-Revision-Date: 2024-04-27 15:58+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
-
-#: ../app/qml/ubcards.qml:98
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:98
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:98
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:98
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:98
-msgid "Shopping"
-msgstr "Winkelen"
+"X-Generator: Poedit 3.4.2\n"
 
 #: ../app/qml/ubcards.qml:100
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:100
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:100
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:100
 #: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:100
-msgid "Car"
-msgstr "Auto"
+msgid "Shopping"
+msgstr "Winkelen"
 
 #: ../app/qml/ubcards.qml:102
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:102
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:102
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:102
 #: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:102
-msgid "Health"
-msgstr "Gezondheid"
+msgid "Car"
+msgstr "Auto"
 
 #: ../app/qml/ubcards.qml:104
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:104
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:104
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:104
 #: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:104
-msgid "Sport"
-msgstr "Sport"
+msgid "Health"
+msgstr "Gezondheid"
 
 #: ../app/qml/ubcards.qml:106
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:106
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:106
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:106
 #: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:106
-msgid "Travel"
-msgstr "Reizen"
+msgid "Sport"
+msgstr "Sport"
 
 #: ../app/qml/ubcards.qml:108
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:108
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:108
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:108
 #: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:108
-msgid "Restaurant"
-msgstr "Restaurant"
+msgid "Travel"
+msgstr "Reizen"
 
 #: ../app/qml/ubcards.qml:110
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:110
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:110
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:110
 #: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:110
-msgid "Garden"
-msgstr "Tuin"
+msgid "Restaurant"
+msgstr "Restaurant"
 
 #: ../app/qml/ubcards.qml:112
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:112
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:112
 #: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:112
 #: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:112
+msgid "Garden"
+msgstr "Tuin"
+
+#: ../app/qml/ubcards.qml:114
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:114
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:114
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:114
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:114
 msgid "Education"
 msgstr "Onderwijs"
 
-#: ../app/qml/ubcards.qml:115
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:115
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:115
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:115
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:115
+#: ../app/qml/ubcards.qml:117
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:117
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:117
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:117
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:117
 msgid "Loyality Card"
 msgstr "Klantenkaart"
 
-#: ../app/qml/ubcards.qml:269
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:269
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:269
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:269
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:269
+#: ../app/qml/ubcards.qml:291
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:291
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:291
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:291
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:291
 msgid "Error"
 msgstr "Foutmelding"
 
 #. TRANSLATORS: Displayed after a picture has been scanned and no code was found in it
-#: ../app/qml/ubcards.qml:280
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:280
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:280
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:280
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:280
+#: ../app/qml/ubcards.qml:302
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:302
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:302
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:302
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:302
 msgid "No code found in image"
 msgstr "Er is geen code aangetroffen"
 
-#: ../app/qml/ubcards.qml:294
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:294
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:294
+#: ../app/qml/ubcards.qml:316
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:316
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:316
 #: ../build/arm-linux-gnueabihf/app/po/ubcards.desktop.h:1
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:294
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:294
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:316
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:316
 #: ../build/x86_64-linux-gnu/app/po/ubcards.desktop.h:1 ubcards.desktop.h:1
 msgid "UBcards"
 msgstr "UBcards"
 
-#: ../app/qml/ubcards.qml:298 ../app/qml/ubcards.qml:1126
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:298
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1126
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:298
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1126
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:298
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1126
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:298
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1126
+#: ../app/qml/ubcards.qml:320 ../app/qml/ubcards.qml:1154
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:320
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1153
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:320
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1153
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:320
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1154
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:320
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1154
 msgid "About"
 msgstr "Over"
 
-#: ../app/qml/ubcards.qml:310 ../app/qml/ubcards.qml:318
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:310
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:310
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:310
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:310
+#: ../app/qml/ubcards.qml:332 ../app/qml/ubcards.qml:340
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:332
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:340
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:332
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:340
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:332
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:340
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:332
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:340
 msgid "Add New Card"
 msgstr "Kaart toevoegen"
 
 #. TRANSLATORS: Name of an action in the toolbar to import pictures from other applications and scan them for codes
-#: ../app/qml/ubcards.qml:323
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:323
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:323
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:323
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:323
+#: ../app/qml/ubcards.qml:345
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:345
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:345
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:345
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:345
 msgid "Import image"
 msgstr "Afbeelding importeren"
 
 #. TRANSLATORS: Name of an action in the toolbar to scan barcode
-#: ../app/qml/ubcards.qml:335 ../app/qml/ubcards.qml:552
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:335
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:552
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:335
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:552
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:335
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:552
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:335
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:552
+#: ../app/qml/ubcards.qml:357 ../app/qml/ubcards.qml:576
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:357
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:575
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:357
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:575
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:357
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:576
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:357
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:576
 msgid "Scan Card"
 msgstr "Kaart scannen"
 
-#: ../app/qml/ubcards.qml:379
+#: ../app/qml/ubcards.qml:401
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:401
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:401
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:401
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:401
 msgid ""
 "Set card type and card number manually below OR scan code using icons above."
 msgstr ""
 "Kies een kaartsoort en voer een naam in of scan een code met behulp van "
 "bovenstaande pictogrammen."
 
-#: ../app/qml/ubcards.qml:395 ../app/qml/ubcards.qml:859
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:395
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:859
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:395
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:859
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:395
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:859
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:395
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:859
+#: ../app/qml/ubcards.qml:417 ../app/qml/ubcards.qml:883
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:417
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:882
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:417
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:882
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:417
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:883
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:417
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:883
 msgid "Card type:"
 msgstr "Kaartsoort:"
 
-#: ../app/qml/ubcards.qml:412
+#: ../app/qml/ubcards.qml:434
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:434
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:434
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:434
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:434
 msgid "Set card number:"
 msgstr "Kaartnaam:"
 
-#: ../app/qml/ubcards.qml:435
+#: ../app/qml/ubcards.qml:457
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:457
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:457
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:457
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:457
 msgid "Insert Card"
 msgstr "Kaart toevoegen"
 
-#: ../app/qml/ubcards.qml:439
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:439
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:439
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:439
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:439
+#: ../app/qml/ubcards.qml:462
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:461
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:461
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:462
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:462
 msgid "Card-Name"
 msgstr "Kaartnaam"
 
-#: ../app/qml/ubcards.qml:439
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:439
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:439
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:439
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:439
-msgid "generic"
-msgstr "algemeen"
+#: ../app/qml/ubcards.qml:553
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:552
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:552
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:553
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:553
+msgid "Edited: "
+msgstr "Bewerkt op "
 
-#: ../app/qml/ubcards.qml:689
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:689
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:689
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:689
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:689
+#: ../app/qml/ubcards.qml:713
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:712
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:712
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:713
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:713
 msgid "Decoding image"
 msgstr "Bezig met uitlezen…"
 
-#: ../app/qml/ubcards.qml:715 ../app/qml/ubcards.qml:726
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:715
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:726
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:715
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:726
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:715
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:726
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:715
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:726
+#: ../app/qml/ubcards.qml:739 ../app/qml/ubcards.qml:750
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:738
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:749
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:738
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:749
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:739
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:750
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:739
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:750
 msgid "Edit Card"
 msgstr "Kaart bewerken"
 
-#: ../app/qml/ubcards.qml:715
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:715
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:715
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:715
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:715
+#: ../app/qml/ubcards.qml:739
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:738
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:738
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:739
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:739
 msgid "View Card"
 msgstr "Kaart bekijken"
 
-#: ../app/qml/ubcards.qml:735
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:735
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:735
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:735
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:735
+#: ../app/qml/ubcards.qml:759
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:758
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:758
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:759
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:759
 msgid "Copy to Clipboard"
 msgstr "Kopiëren naar klembord"
 
 #. TRANSLATORS: Name of an action in the toolbar to import show card code as QR code
-#: ../app/qml/ubcards.qml:743
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:743
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:743
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:743
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:743
+#: ../app/qml/ubcards.qml:767
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:766
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:766
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:767
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:767
 msgid "Show as QR Code"
 msgstr "QR-code tonen"
 
-#: ../app/qml/ubcards.qml:750
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:750
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:750
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:750
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:750
+#: ../app/qml/ubcards.qml:774
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:773
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:773
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:774
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:774
 msgid "Open URL"
 msgstr "Url openen"
 
-#: ../app/qml/ubcards.qml:758
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:758
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:758
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:758
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:758
+#: ../app/qml/ubcards.qml:782
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:781
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:781
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:782
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:782
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../app/qml/ubcards.qml:802
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:802
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:802
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:802
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:802
+#: ../app/qml/ubcards.qml:826
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:825
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:825
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:826
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:826
 msgid "Card name:"
 msgstr "Kaartnaam:"
 
 #. TRANSLATORS: Default Card Name
-#: ../app/qml/ubcards.qml:815
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:815
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:815
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:815
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:815
+#: ../app/qml/ubcards.qml:839
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:838
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:838
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:839
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:839
 msgid "New Card Name"
 msgstr "Nieuwe kaartnaam"
 
-#: ../app/qml/ubcards.qml:835
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:835
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:835
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:835
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:835
+#: ../app/qml/ubcards.qml:859
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:858
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:858
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:859
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:859
 msgid "Card category:"
 msgstr "Categorie:"
 
-#: ../app/qml/ubcards.qml:1000
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1000
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1000
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1000
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1000
+#: ../app/qml/ubcards.qml:1028
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1027
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1027
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1028
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1028
 msgid "Contact"
 msgstr "Contact"
 
-#: ../app/qml/ubcards.qml:1036
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1036
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1036
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1036
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1036
+#: ../app/qml/ubcards.qml:1064
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1063
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1063
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1064
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1064
 msgid "QR code"
 msgstr "QR-code"
 
-#: ../app/qml/ubcards.qml:1067
+#: ../app/qml/ubcards.qml:1095
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1094
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1094
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1095
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1095
 msgid "QR Code"
 msgstr "QR-code"
 
 #. TRANSLATORS: Version number
-#: ../app/qml/ubcards.qml:1182
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1182
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1182
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1182
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1182
+#: ../app/qml/ubcards.qml:1210
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1209
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1209
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1210
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1210
 #, qt-format
 msgid "App Version %1"
 msgstr "Appversie: %1"
 
-#: ../app/qml/ubcards.qml:1193
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1193
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1193
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1193
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1193
+#: ../app/qml/ubcards.qml:1221
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1220
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1220
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1221
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1221
 msgid "Maintained by"
 msgstr "Beheerd door"
 
-#: ../app/qml/ubcards.qml:1194
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1194
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1194
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1194
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1194
+#: ../app/qml/ubcards.qml:1222
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1221
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1221
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1222
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1222
 msgid "Jan Belohoubek"
 msgstr "Jan Belohoubek"
 
-#: ../app/qml/ubcards.qml:1206
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1206
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1206
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1206
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1206
+#: ../app/qml/ubcards.qml:1234
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1233
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1233
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1234
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1234
 msgid "Please report bugs to the"
 msgstr "Meld bugs of deel ideeën op de"
 
-#: ../app/qml/ubcards.qml:1207
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1207
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1207
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1207
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1207
+#: ../app/qml/ubcards.qml:1235
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1234
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1234
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1235
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1235
 msgid "issue tracker"
 msgstr "bugtracker"
 
-#: ../app/qml/ubcards.qml:1215
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1215
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1215
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1215
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1215
+#: ../app/qml/ubcards.qml:1243
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1242
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1242
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1243
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1243
 msgid "Please support"
 msgstr "Steun"
 
-#: ../app/qml/ubcards.qml:1216
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1216
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1216
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1216
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1216
+#: ../app/qml/ubcards.qml:1244
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1243
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1243
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1244
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1244
 msgid "the app development"
 msgstr "de ontwikkeling van de app"
 
-#: ../app/qml/ubcards.qml:1232
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1232
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1232
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1232
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1232
+#: ../app/qml/ubcards.qml:1260
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1259
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1259
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1260
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1260
 msgid "Thanks to"
 msgstr "Met dank aan"
 
-#: ../app/qml/ubcards.qml:1239
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1239
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1239
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1239
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1239
+#: ../app/qml/ubcards.qml:1267
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1266
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1266
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1267
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1267
 msgid "Chris Clime, Tagger application:"
 msgstr "Chris Clime - Tagger-app:"
 
-#: ../app/qml/ubcards.qml:1247
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1247
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1247
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1247
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1247
+#: ../app/qml/ubcards.qml:1275
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1274
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1274
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1275
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1275
 msgid "Richard Lee, Card Wallet application:"
 msgstr "Richard Lee - Card Wallet-app:"
 
-#: ../app/qml/ubcards.qml:1255
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1255
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1255
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1255
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1255
+#: ../app/qml/ubcards.qml:1283
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1282
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1282
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1283
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1283
 msgid "Fonticons, Inc., Font Awesome"
 msgstr "Fonticons, Inc. - Font Awesome"
 
-#: ../app/qml/ubcards.qml:1263
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1263
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1263
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1263
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1263
+#: ../app/qml/ubcards.qml:1291
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1290
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1290
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1291
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1291
 msgid "Sam Hewitt, Suru Icons"
 msgstr "Sam Hewitt - Suru-pictogrammen"
 
-#: ../app/qml/ubcards.qml:1273
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1273
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1273
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1273
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1273
+#: ../app/qml/ubcards.qml:1301
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1300
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1300
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1301
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1301
 msgid "Released under the terms of the GNU GPLv3"
 msgstr "Uitgebracht onder de GNU GPLv3-licentie"
 
-#: ../app/qml/ubcards.qml:1279
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1279
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1279
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1279
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1279
+#: ../app/qml/ubcards.qml:1307
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1306
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1306
+#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1307
+#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1307
 msgid "Source code available on:"
 msgstr "Broncode:"
 
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:379
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:379
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:379
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:379
-msgid ""
-"Set card type and card ID manually below OR scan code using icons above."
-msgstr ""
-"Kies een kaartsoort en voer een naam in of scan een code met behulp van "
-"bovenstaande pictogrammen."
-
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:412
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:412
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:412
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:412
-msgid "Set card ID:"
-msgstr "Kaartnaam:"
-
-#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:1067
-#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:1067
-#: ../build/x86_64-linux-gnu/app/app/qml/ubcards.qml:1067
-#: ../build/x86_64-linux-gnu/app/install/qml/ubcards.qml:1067
-msgid "QR-Code"
-msgstr "QR-code"
-
 #: ../build/arm-linux-gnueabihf/app/po/ubcards.desktop.h:2
-#: ../build/x86_64-linux-gnu/app/po/ubcards.desktop.h:2
-msgid "Store cards based on QR/barcodes"
-msgstr "Bewaar kaarten met QR- en barcodes"
-
-#: ubcards.desktop.h:2
+#: ../build/x86_64-linux-gnu/app/po/ubcards.desktop.h:2 ubcards.desktop.h:2
 msgid "Loyality cards based on QR/barcodes"
 msgstr "Bewaar kaarten met QR- en barcodes"
+
+#~ msgid "generic"
+#~ msgstr "algemeen"
+
+#~ msgid ""
+#~ "Set card type and card ID manually below OR scan code using icons above."
+#~ msgstr ""
+#~ "Kies een kaartsoort en voer een naam in of scan een code met behulp van "
+#~ "bovenstaande pictogrammen."
+
+#~ msgid "Set card ID:"
+#~ msgstr "Kaartnaam:"
+
+#~ msgid "QR-Code"
+#~ msgstr "QR-code"
+
+#~ msgid "Store cards based on QR/barcodes"
+#~ msgstr "Bewaar kaarten met QR- en barcodes"
