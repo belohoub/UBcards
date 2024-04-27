@@ -1,6 +1,6 @@
 [Desktop Entry]
 _Name=UBcards
-_Comment=Store cards based on QR/barcodes
+_Comment=Loyality cards based on QR/barcodes
 Exec=ubcards
 Icon=graphics/ubcards.svg
 Terminal=false

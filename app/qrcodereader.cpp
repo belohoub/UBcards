@@ -47,8 +47,6 @@ QRCodeReader::QRCodeReader(QObject *parent) :
         }
     }
 
-    m_historyModel = new HistoryModel(this);
-
     connect(&m_readerThread, &QThread::started, this, &QRCodeReader::scanningChanged);
     connect(&m_readerThread, &QThread::finished, this, &QRCodeReader::scanningChanged);
 }
@@ -81,11 +79,6 @@ QString QRCodeReader::category() const
 QImage QRCodeReader::image() const
 {
     return m_image;
-}
-
-QString QRCodeReader::imageSource() const
-{
-    return QStringLiteral("image://reader/") + m_imageUuid.toString().remove(QRegExp("[{}]"));
 }
 
 QRect QRCodeReader::scanRect() const
@@ -146,6 +139,10 @@ void QRCodeReader::processImage(const QUrl &url, const QString &name, const QStr
         qWarning() << "can't open" << url.path();
         return;
     }
+    
+    m_type.clear();
+    m_text.clear();
+    emit validChanged();
 
     Reader *reader = new Reader;
     reader->moveToThread(&m_readerThread);
@@ -158,18 +155,6 @@ void QRCodeReader::processImage(const QUrl &url, const QString &name, const QStr
 }
 
 
-void QRCodeReader::insertData(const QString &text, const QString &type, const QString &name, const QString &category)
-{
-    Reader *reader = new Reader;
-    reader->moveToThread(&m_readerThread);
-    connect(reader, SIGNAL(finished()), reader, SLOT(deleteLater()));
-    connect(reader, SIGNAL(finished()), &m_readerThread, SLOT(quit()));
-    connect(reader, SIGNAL(resultReady(QString, QString, QString, QString, QImage)), this, SLOT(handleResults(QString, QString, QString, QString, QImage)));
-    m_readerThread.start();
-    
-    QMetaObject::invokeMethod(reader, "insertData", Q_ARG(QString, text), Q_ARG(QString, type), Q_ARG(QString, name),  Q_ARG(QString, category));
-}
-
 void QRCodeReader::handleResults(const QString &type, const QString &text, const QString &name, const QString &category, const QImage &codeImage)
 {
     m_type = type;
@@ -179,7 +164,6 @@ void QRCodeReader::handleResults(const QString &type, const QString &text, const
     m_image = codeImage;
     m_imageUuid = QUuid::createUuid();
     emit validChanged();
-    m_historyModel->add(text, type, name, category, codeImage);
 }
 
 void Reader::doWork(const QImage &image, const QString &name, const QString &category, bool invert)
@@ -238,6 +222,12 @@ void Reader::doWork(const QImage &image, const QString &name, const QString &cat
         // Workaround for zBar sometimes only giving us the first bar in a barcode.
         if (width < 10) width = img.get_width() - x0;
         if (height < 10) height = img.get_height() - y0;
+        
+        /* Extend the selected area, as zBar returns smaller area ... */
+        width = width + 20;
+        height = height + 20;
+        if(x0 > 10) x0 = x0 - 10;
+        if(y0 > 10) y0 = y0 - 10;
 
         qDebug() << "extracting code image (" << x0 << y0 << ") ("<< x1 << y1 << ")";
         QImage codeImage = image.copy(x0, y0, width, height);
@@ -253,14 +243,3 @@ void Reader::doWork(const QImage &image, const QString &name, const QString &cat
     emit finished();
 }
 
-void Reader::insertData(const QString &text, const QString &type, const QString &name, const QString &category)
-{
-    emit resultReady(type, text, name, category, QImage());
-    emit finished();   
-}
-
-HistoryModel *QRCodeReader::history() const
-{
-    qDebug() << "history model requested..." << m_historyModel->rowCount(QModelIndex());
-    return m_historyModel;
-}

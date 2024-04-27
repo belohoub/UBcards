@@ -29,7 +29,9 @@ import QtQuick.Window 2.0
 import Lomiri.Content 1.3
 import UBcards 0.1
 
+// Encoders
 import "encoder.js" as Encoder
+import "../libs/code128Encoder/encoder.mjs" as Code128
 
 MainView {
     id: mainView
@@ -130,13 +132,16 @@ MainView {
     /* Symbol names reference: https://sourceforge.net/p/zbar/code/ci/default/tree/zbar/symbol.c*/
     ListModel {
         id: codeTypeModel
-        ListElement { name: "CODE-128"  ; font: "../fonts/Code128_new.ttf" }
-        ListElement { name: "CODE-39"   ; font: "../fonts/Free3of9.ttf"    }
-        ListElement { name: "DataBar"   ; font: "../fonts/Free3of9.ttf"    }
-        ListElement { name: "EAN-13"    ; font: "../fonts/ean13_new.ttf"   }
-        ListElement { name: "EAN-8"     ; font: "../fonts/ean13_new.ttf"   }
-        ListElement { name: "I2/5"      ; font: "../fonts/I2of5_new.ttf"   }  
-        ListElement { name: "QR-Code"   ; font: ""                         }  
+        
+        ListElement { name: "CODE-128"         ; font: "../fonts/cardwallet/Code128_new.ttf" }
+        ListElement { name: "CODE-128-mini"    ; font: "../fonts/librebarcode/LibreBarcode128-Regular.ttf" }
+        ListElement { name: "CODE-39"          ; font: "../fonts/cardwallet/Free3of9.ttf"    }
+        ListElement { name: "DataBar"          ; font: "../fonts/cardwallet/Free3of9.ttf"    }
+        ListElement { name: "EAN-13"           ; font: "../fonts/cardwallet/ean13_new.ttf"   }
+        ListElement { name: "EAN-8"            ; font: "../fonts/cardwallet/ean13_new.ttf"   }
+        ListElement { name: "I2/5"             ; font: "../fonts/cardwallet/I2of5_new.ttf"   }  
+        ListElement { name: "QR-Code"          ; font: ""                                    }  
+        ListElement { name: "PICTURE"          ; font: ""                                    }  
     }
     
     Component {
@@ -188,6 +193,16 @@ MainView {
     }
 
     Connections {
+        target: cardStorage
+
+        onCardUpdated: {
+            /* Re-load view */
+            // reloaded by signal in the model itself
+            //cardList.forceLayout()
+        }
+    }
+    
+    Connections {
         target: qrCodeReader
 
         onScanningChanged: {
@@ -198,8 +213,15 @@ MainView {
 
         onValidChanged: {
             if (qrCodeReader.valid) {
-                /*pageStack.pop();*/
-                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true});
+                // A New card has been scanned
+                if (pageStack.depth > 1) {
+                  /* First, close the old views */
+                  pageStack.pop()
+                }
+                
+                /* Open the editCard view for a new card */
+                cardStorage.updateImage("", qrCodeReader.image);
+                pageStack.push(editPageComponent, {type: qrCodeReader.type, text: qrCodeReader.text, name: qrCodeReader.name, category: qrCodeReader.category, imageSource: qrCodeReader.imageSource, editable: true, cardID: ""});
             }
         }
     }
@@ -436,7 +458,8 @@ MainView {
                                 color: LomiriColors.green
                                 onClicked: {
                                     bottomEdge.collapse()
-                                    qrCodeReader.insertData(newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), i18n.tr("generic"));
+                                    //cardStorage.updateCard("", newCardID.text, codeTypeModel.get(newCardType.selectedIndex).name, i18n.tr("Card-Name"), "generic");
+                                    pageStack.push(editPageComponent, {type: codeTypeModel.get(newCardType.selectedIndex).name, text: newCardID.text, name: i18n.tr("Card-Name"), category: "generic", imageSource: "", editable: true, cardID: ""})
                                 }
                             }
                     /*
@@ -461,9 +484,10 @@ MainView {
                 anchors.fill: parent
             
                 ListView {
+                    id: cardList
                     anchors.fill: parent
                     anchors.topMargin: cardWalletHeader.height
-                    model: qrCodeReader.history
+                    model: cardStorage.storage
                 
                     delegate: ListItem {
                         height: units.gu(10)
@@ -473,7 +497,7 @@ MainView {
                                 Action {
                                     iconName: "delete"
                                     onTriggered: {
-                                        qrCodeReader.history.remove(index)
+                                        cardStorage.storage.remove(model.uuid)
                                     }
                                 }
                             ]
@@ -484,7 +508,7 @@ MainView {
                                 Action {
                                     iconName: "edit"
                                     onTriggered: {
-                                         pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: true, historyIndex: index})
+                                         pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: true, cardID: model.uuid})
                                     }
                                 },
                                 Action {
@@ -526,13 +550,13 @@ MainView {
                                 Label {
                                     Layout.fillWidth: true
                                     elide: Text.ElideRight
-                                    text:model.timestamp
+                                    text: i18n.tr("Edited: ") + model.timestamp
                                 }
                             }
                         }
                 
                         onClicked: {
-                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: false})
+                            pageStack.push(editPageComponent, {type: model.type, text: model.text, name: model.name, category: model.category, imageSource: model.imageSource, editable: false, cardID: model.uuid})
                         }
                     }
                 }
@@ -705,7 +729,7 @@ MainView {
             property string imageSource
             /* This is to be viewed or to be edited */
             property bool editable
-            property int historyIndex
+            property string cardID
 
             property bool isUrl: editPage.text.match(/^[a-z0-9]+:[^\s]+$/)
 
@@ -728,7 +752,7 @@ MainView {
                         visible: !(editPage.editable)
                         onTriggered: {
                              pageStack.pop()
-                             pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, category: editPage.category, imageSource: editPage.imageSource, editable: true, historyIndex: editPage.historyIndex})
+                             pageStack.push(editPageComponent, {type: editPage.type, text: editPage.text, name: editPage.name, category: editPage.category, imageSource: editPage.imageSource, editable: true, cardID: editPage.cardID})
                         }
                     },
                     Action {
@@ -759,10 +783,10 @@ MainView {
                         visible: editPage.editable
                         iconName: "save"
                         onTriggered: {
-                            qrCodeReader.history.remove(editPage.historyIndex)
-                            qrCodeReader.insertData(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
-                            //qrCodeReader.history.add(editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name, "image://../icons/card.svg");
-                            pageStack.pop()
+                            editPage.cardID = cardStorage.updateCard(editPage.cardID, editPage.text, codeTypeModel.get(editCardType.selectedIndex).name, editCardName.text, categoryModel.get(editCardCathegory.selectedIndex).name);
+                            pageStack.pop();
+                            /* Show the updated card */
+                            pageStack.push(editPageComponent, {type: codeTypeModel.get(editCardType.selectedIndex).name, text: editPage.text, name: editCardName.text, category: categoryModel.get(editCardCathegory.selectedIndex).name, imageSource: editPage.imageSource, editable: false, cardID: editPage.cardID})
                         }
                     }
                 ]
@@ -900,7 +924,7 @@ MainView {
                                         Layout.fillWidth: true
                                         width: parent.width - units.gu(5)
                                         visible: hasCodeFont(editPage.type)
-                                        text: Encoder.stringToBarcode(editPage.type, editPage.text)
+                                        text: (editPage.type === "CODE-128-mini") ? Code128.encode(editPage.text) : Encoder.stringToBarcode(editPage.type, editPage.text)
                                         font.family: loadedFont.name
                                         textFormat: Text.PlainText
                                         fontSizeMode: Text.HorizontalFit
@@ -919,28 +943,31 @@ MainView {
                                 Item {
                                     width: parent.width
                                     height: (editPage.type === "QR-Code") ? qrCodeImage.height : 0
-                                    visible: (editPage.type === "QR-Code")
+                                    visible: (editPage.type === "QR-Code") ? true : false
                                      
                                     Image {
                                         id: qrCodeImage
                                         width: (parent.width < units.gu(30)) ? parent.width : units.gu(30)
-                                        height: (parent.width < units.gu(30)) ? (editPage.type === "QR-Code") ? parent.height : units.gu(30) : 0
-                                        source: editPage.text.length > 0 ? "image://qrcode/" + editPage.text : ""
+                                        height: (editPage.type === "QR-Code") ? (parent.width < units.gu(30)) ? parent.height : units.gu(30) : 0
+                                        source: (editPage.text.length > 0) ? "image://qrcode/" + editPage.text : ""
                                         anchors.centerIn: parent
                                     }
                                 }
                                 
-                                /* This should be visible only if code-type generation is not available */
+                                /* This should be visible only if code-type generation is not available OR PICTURE code type is selected */
                                 Item {
                                     width: parent.width
-                                    height: (!(hasCodeFont(editPage.type))) ? cardCodeImage.height : 0
-                                    visible: !(hasCodeFont(editPage.type))
+                                    height: (editPage.type === "PICTURE") ? cardCodeImage.height : 0
+                                    visible: (editPage.type === "PICTURE")
                                      
                                     Image {
                                         Layout.fillWidth: true
                                         id: cardCodeImage
-                                        visible: !(hasCodeFont(editPage.type))
-                                        source: editPage.imageSource
+                                        width: parent.width - units.gu(5)
+                                        anchors.margins: units.gu(5)
+                                        anchors.centerIn: parent
+                                        visible: (editPage.type === "PICTURE")
+                                        source: (editPage.type === "PICTURE") ? editPage.imageSource : ""
                                     }
                                 }
                                 
@@ -960,6 +987,7 @@ MainView {
                                         fontSizeMode: Text.HorizontalFit
                                         minimumPointSize: units.gu(2)
                                         font.pointSize: units.gu(5)
+                                        wrapMode: Text.Wrap
                                         horizontalAlignment: Text.AlignHCenter
                                         anchors.centerIn: parent
                                     }

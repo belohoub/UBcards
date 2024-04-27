@@ -201,6 +201,12 @@ msgstr "Vložit kartu"
 msgid "Card-Name"
 msgstr "Jméno karty"
 
+#: ../app/qml/ubcards.qml:552
+#: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:552
+#: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:552
+msgid "Edited: "
+msgstr "Upraveno: "
+
 #: ../app/qml/ubcards.qml:439
 #: ../build/arm-linux-gnueabihf/app/app/qml/ubcards.qml:439
 #: ../build/arm-linux-gnueabihf/app/install/qml/ubcards.qml:439

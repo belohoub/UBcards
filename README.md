@@ -69,8 +69,6 @@ Please see the following issues to discuss the proposed features:
 
 ### Translations
 
-***Please do not waste your time by translating the app now - I'll accept the pull requests, however, this application is still in testing, and code and messages could still change rapidly.***
-
 For translation instructions please read this page from the [docs](https://docs.ubports.com/en/latest/contribute/translations.html).
 
 In short, this app currently does not use a translation service. So you will need to either create or edit the *.po* file for your language and commit this new/changed *.po* file as a pull request.

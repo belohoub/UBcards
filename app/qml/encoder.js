@@ -37,13 +37,13 @@ function stringToBarcode (type, str)
 {
     switch (type)
     {
-    case undefined:
+    case undefined:case undefined:
     case 'CODE-128':
         if (/^-?\d+$/.test(str)) {
             /* Numeric-only codes are type C*/
-            return "Ò" + getCodeC(str) + "Ó";
+            return "Ò" + getCodeC(str) + "Î";
         } else {
-            return "Ñ" + getCodeB(str) + "Ó";
+            return "Ì" + getCodeB(str) + "Î";
         }
     
     case 'DataBar':
@@ -62,6 +62,9 @@ function stringToBarcode (type, str)
         
     case 'CODE-39':
         return "*" + str.toUpperCase().replace (/[^A-Z\s\d-$%./+]/g, "") + "*";
+        
+    case 'PICTURE':
+        return "";
     }
 }
 
