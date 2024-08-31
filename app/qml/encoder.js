@@ -61,6 +61,7 @@ function stringToBarcode (type, str)
         return "(" + getI2of5(str) + ")";
         
     case 'CODE-39':
+    case 'libre-CODE-39':
         return "*" + str.toUpperCase().replace (/[^A-Z\s\d-$%./+]/g, "") + "*";
         
     case 'PICTURE':

@@ -136,6 +136,7 @@ MainView {
         ListElement { name: "CODE-128"         ; font: "../fonts/cardwallet/Code128_new.ttf" }
         ListElement { name: "CODE-128-mini"    ; font: "../fonts/librebarcode/LibreBarcode128-Regular.ttf" }
         ListElement { name: "CODE-39"          ; font: "../fonts/cardwallet/Free3of9.ttf"    }
+        ListElement { name: "libre-CODE-39"    ; font: "../fonts/librebarcode/LibreBarcode39-Regular.ttf" }
         ListElement { name: "DataBar"          ; font: "../fonts/cardwallet/Free3of9.ttf"    }
         ListElement { name: "EAN-13"           ; font: "../fonts/cardwallet/ean13_new.ttf"   }
         ListElement { name: "EAN-8"            ; font: "../fonts/cardwallet/ean13_new.ttf"   }
@@ -183,6 +184,14 @@ MainView {
             }
         }
         return codeTypeModel.get(0).font
+    }
+
+    function getFontYScale(name) {
+        const result = {
+            "CODE-128-mini": 2,
+            "libre-CODE-39": 3,
+        }[name];
+        return result ? result : 1;
     }
     
     PageStack {
@@ -923,19 +932,21 @@ MainView {
                                         id: encodedCodeField
                                         Layout.fillWidth: true
                                         width: parent.width - units.gu(5)
+                                        height: units.gu(15)
                                         visible: hasCodeFont(editPage.type)
                                         text: (editPage.type === "CODE-128-mini") ? Code128.encode(editPage.text) : Encoder.stringToBarcode(editPage.type, editPage.text)
                                         font.family: loadedFont.name
                                         textFormat: Text.PlainText
                                         fontSizeMode: Text.HorizontalFit
                                         minimumPointSize: units.gu(2)
-                                        // This causes, that the actual height is units.gu(20), which is bigger on small display ... it affects spacing between barcode and text ... unable to resolve now 
-                                        font.pointSize: units.gu(20) 
+                                        // This causes, that the actual height is units.gu(20), which is bigger on small display ... it affects spacing between barcode and text ... unable to resolve now
+                                        font.pointSize: units.gu(20)
                                         horizontalAlignment: Text.AlignHCenter
                                         anchors.margins: units.gu(5)
                                         anchors.centerIn: parent
                                         anchors.verticalCenter: parent.verticalCenter
                                         color: "black"
+                                        transform: Scale { yScale: getFontYScale(editPage.type)}
                                     }
                                 }
                                 
