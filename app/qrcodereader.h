@@ -85,7 +85,7 @@ class Reader : public QObject
     Q_OBJECT
 
 public slots:
-    void doWork(const QImage &image, const QString &name, const QString &category, bool invert);
+    void doWork(const QImage &image, const QString &name, const QString &category, bool invert, bool pictureSource);
 
 signals:
     void resultReady(const QString &type, const QString &text, const QString &name, const QString &category, const QImage &codeImage);
