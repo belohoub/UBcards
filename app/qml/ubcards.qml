@@ -977,6 +977,7 @@ MainView {
                                         width: parent.width - units.gu(5)
                                         anchors.margins: units.gu(5)
                                         anchors.centerIn: parent
+                                        fillMode: Image.PreserveAspectFit
                                         visible: (editPage.type === "PICTURE")
                                         source: (editPage.type === "PICTURE") ? editPage.imageSource : ""
                                     }
