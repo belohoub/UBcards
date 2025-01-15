@@ -10,7 +10,12 @@ UBcards follows the philosophy of the older [Card Wallet](https://gitlab.com/App
 
 [![UBcards](https://github.com/belohoub/UBcards/blob/master/app/graphics/ubcards256.png?raw=true)](https://github.com/belohoub/UBcards/)
 
-## Migrating from the Card Wallet App
+## Import/Export
+
+UBcards allows to import/export cards from/to another apps by employing simple scripts.
+Currently, UBcards allows migration from the older Ubuntu-Touch Card Wallet application and the well-known Android [Catima](https://catima.app/).
+
+### Migrating from the Card Wallet App
 
 UBcards allows you to import your cards from the Card Wallet application if you come from Xenial to Focal using a simple shell script.
 
@@ -30,11 +35,66 @@ Done!
 $ cat ~/.local/share/ubcards/wallet.ini
 ```
 
-Then re-open the UBcards app and check if the import was successful. In case of any issues, you can get back to the previous configuration:
+Then re-open the UBcards app and check if the import was successful. 
+In case of any issues, you can return to the previous configuration:
 
 ```
 $ cp ~/.local/share/ubcards/wallet.ini~ ~/.local/share/ubcards/wallet.ini
 ```
+
+### Importing Data from Catima
+
+First, you need to export data from the Catima app. The *catima.zip* fle is created.
+Unzip this file and transfer file *catima.csv* to your Ubuntu-Touch device.
+
+To import cards from the Card Wallet app, execute the following script in the directory, where *catima.csv* is located, on your Ubuntu-Touch device:
+```
+$ cat ~/.local/share/ubcards/wallet.ini
+$ bash /opt/click.ubuntu.com/ubcards/current/import/import_catima.sh 
+Create backup of the wallet: 
+Importing data from the catima.csv: 
+  - processing: 1, Clothing Store, qw, , CODE-128
+  - processing: 2, Department Store, A, , CODE-128
+  - processing: 3, Grocery Store, dhd, , CODE-128
+  - processing: 4, Pharmacy, dhshsvshs, , CODE-128
+  - processing: 5, Restaurant, 98765432, CODE_128, CODE-128
+  - processing: 6, Shoe Store, zhxbx, CODE_39, CODE-39
+  - processing categories: 8, shopping
+  - processing categories: 3, restaurant
+  - processing categories: 4, health
+  - processing categories: 5, restaurant
+  - processing categories: 6, shopping
+Done!
+$ cat ~/.local/share/ubcards/wallet.ini
+```
+
+Then re-open the UBcards app and check if the import was successful. 
+In case of any issues, you can return to the previous configuration:
+
+```
+$ cp ~/.local/share/ubcards/wallet.ini~ ~/.local/share/ubcards/wallet.ini
+```
+
+### Exporting Data for Catima
+To export *catima.zip*, which could be imported by Catima, execute the following script on your Ubuntu-Touch device:
+
+```
+$ cat ~/.local/share/ubcards/wallet.ini
+$ bash /opt/click.ubuntu.com/ubcards/current/import/export_catima.sh 
+Importing data from the wallet.ini: 
+Procesing Card ID: 1
+Procesing Card ID: 2
+Procesing Card ID: 3
+Procesing Card IDs' category: 1
+Procesing Card IDs' category: 2
+Procesing Card IDs' category: 3
+Creating catima.zip file:
+Done!
+$ cat ~/.local/share/ubcards/wallet.ini
+```
+
+Now transfer the *catima.zip** file to a device with Catima and import it in the Catima app.
+
 
 ## Project History
 

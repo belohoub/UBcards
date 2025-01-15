@@ -1,11 +1,16 @@
 # Changelog
 
+# 0.1.4 (01/2025)
+
+1. Import/Export Cards from/to Catima
+2. Code-39 and PICTURE fixes by stevenleadbeater 
+
 # 0.1.3 (04/2024)
 
-1. the card storage process was completely rewritten and siomplified to resolve reported issues (history model legacy from the Tagger app has been removed)
+1. the card storage process was completely rewritten and simplified to resolve reported issues (history model legacy from the Tagger app has been removed)
 2. minor fixes related to the CODE-128
 3. CODE-128-mini barcode has been added - this is thge barcode where code types can be mixed to minimize barcode size
-4. PICTURE could be selected to show barcode cut from the scanned picture as a last-resort solution, when barcode synthgesys does not work correctly
+4. PICTURE could be selected to show barcode cut from the scanned picture as a last-resort solution, when barcode synthesis does not work correctly
 5. minor UI fixes
 
 # 0.1.2 (02/2024)

@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     QQuickView view;
     
-    a.setApplicationVersion("0.1.3");
+    a.setApplicationVersion("0.1.4");
 
     QRCodeReader reader;
     view.engine()->rootContext()->setContextProperty("qrCodeReader", &reader);
