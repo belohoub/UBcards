@@ -2,7 +2,7 @@
 
 # 0.1.4 (01/2025)
 
-1. Import/Export Cards from/to Catima
+1. Import/Export Cards from/to Catima by means of shell scripts; pictures are currently ignored
 2. Code-39 and PICTURE fixes by stevenleadbeater 
 
 # 0.1.3 (04/2024)
